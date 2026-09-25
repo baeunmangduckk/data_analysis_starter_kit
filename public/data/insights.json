@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-09-25T20:53:27.809988+09:00",
+  "insights": [
+    {
+      "id": "insight_0",
+      "severity": "positive",
+      "text": "카테고리 A 지표가 전주 대비 증가했습니다 (+96.9).",
+      "relatedMetricId": "카테고리_A"
+    },
+    {
+      "id": "insight_1",
+      "severity": "positive",
+      "text": "카테고리 B 지표가 전주 대비 증가했습니다 (+64.0).",
+      "relatedMetricId": "카테고리_B"
+    },
+    {
+      "id": "insight_2",
+      "severity": "positive",
+      "text": "카테고리 C 지표가 전주 대비 증가했습니다 (+146.5).",
+      "relatedMetricId": "카테고리_C"
+    }
+  ]
+}

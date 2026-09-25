@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-09-25T20:53:27.808323+09:00",
+  "metrics": [
+    {
+      "id": "카테고리_A",
+      "label": "카테고리 A",
+      "value": 1056.0,
+      "unit": null,
+      "delta": 96.90000000000009,
+      "trend": "up"
+    },
+    {
+      "id": "카테고리_B",
+      "label": "카테고리 B",
+      "value": 1412.4,
+      "unit": null,
+      "delta": 64.0,
+      "trend": "up"
+    },
+    {
+      "id": "카테고리_C",
+      "label": "카테고리 C",
+      "value": 1285.9,
+      "unit": null,
+      "delta": 146.5,
+      "trend": "up"
+    }
+  ]
+}

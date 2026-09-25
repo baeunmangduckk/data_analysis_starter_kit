@@ -1,0 +1,125 @@
+{
+  "generatedAt": "2026-09-25T20:53:27.809988+09:00",
+  "words": [
+    {
+      "text": "서비스가",
+      "weight": 18.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "친절하고",
+      "weight": 18.0,
+      "sentiment": "positive"
+    },
+    {
+      "text": "빨라서",
+      "weight": 18.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "만족합니다",
+      "weight": 18.0,
+      "sentiment": "positive"
+    },
+    {
+      "text": "다시",
+      "weight": 17.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "이용하고",
+      "weight": 17.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "싶은",
+      "weight": 17.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "좋은",
+      "weight": 17.0,
+      "sentiment": "positive"
+    },
+    {
+      "text": "경험이었습니다",
+      "weight": 17.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "직원이",
+      "weight": 16.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "불친절해서",
+      "weight": 16.0,
+      "sentiment": "negative"
+    },
+    {
+      "text": "실망했습니다",
+      "weight": 16.0,
+      "sentiment": "negative"
+    },
+    {
+      "text": "대기",
+      "weight": 16.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "시간이",
+      "weight": 16.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "너무",
+      "weight": 16.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "길어서",
+      "weight": 16.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "불편했어요",
+      "weight": 16.0,
+      "sentiment": "negative"
+    },
+    {
+      "text": "품질이",
+      "weight": 14.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "기대보다",
+      "weight": 14.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "아쉬웠습니다",
+      "weight": 14.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "가격",
+      "weight": 9.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "대비",
+      "weight": 9.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "괜찮은",
+      "weight": 9.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "편입니다",
+      "weight": 9.0,
+      "sentiment": "neutral"
+    }
+  ]
+}
