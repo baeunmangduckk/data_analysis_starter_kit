@@ -44,3 +44,6 @@ next-env.d.ts
 .venv/
 __pycache__/
 *.pyc
+
+# playwright mcp (브라우저 검증용 스냅샷/콘솔 로그, 소스 아님)
+.playwright-mcp/
