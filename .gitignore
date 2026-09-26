@@ -47,3 +47,6 @@ __pycache__/
 
 # playwright mcp (브라우저 검증용 스냅샷/콘솔 로그, 소스 아님)
 .playwright-mcp/
+
+# claude code (로컬 개인 설정, 팀 공유 대상 아님)
+.claude/settings.local.json
