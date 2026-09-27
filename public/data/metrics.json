@@ -1,29 +1,37 @@
 {
-  "generatedAt": "2026-09-25T20:59:34.378771+09:00",
+  "generatedAt": "2026-09-27T21:48:20.706606+09:00",
   "metrics": [
     {
-      "id": "카테고리_A",
-      "label": "카테고리 A",
-      "value": 1056.0,
-      "unit": null,
-      "delta": 96.90000000000009,
+      "id": "global_music_revenue",
+      "label": "글로벌 음반산업 매출",
+      "value": 31.7,
+      "unit": "억 달러",
+      "delta": 1.9100000000000001,
       "trend": "up"
     },
     {
-      "id": "카테고리_B",
-      "label": "카테고리 B",
-      "value": 1412.4,
-      "unit": null,
-      "delta": 64.0,
+      "id": "latam_weverse_retail_growth",
+      "label": "중남미 Weverse 디지털 리테일 판매 성장률",
+      "value": 715.0,
+      "unit": "% (YoY)",
+      "delta": 715.0,
       "trend": "up"
     },
     {
-      "id": "카테고리_C",
-      "label": "카테고리 C",
-      "value": 1285.9,
+      "id": "virtual_idol_market",
+      "label": "버추얼 아이돌 시장 규모",
+      "value": 22.7,
+      "unit": "억 달러",
+      "delta": null,
+      "trend": null
+    },
+    {
+      "id": "sales_concentration_gini",
+      "label": "판매량 집중도 (Gini)",
+      "value": 0.4007,
       "unit": null,
-      "delta": 146.5,
-      "trend": "up"
+      "delta": -0.007299999999999973,
+      "trend": "down"
     }
   ]
 }

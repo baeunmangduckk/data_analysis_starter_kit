@@ -1,0 +1,11 @@
+# 워드클라우드/감성분석(wordcloud.json)에 쓸 YouTube 영상 목록.
+# YouTube Data API의 search.list(호출당 쿼터 100)를 피하기 위해,
+# 분석가가 video_id를 직접 등록해 videos.list/commentThreads.list
+# (호출당 쿼터 ~1)만 사용하도록 설계했다.
+#
+# 아래는 스캐폴딩용 예시일 뿐이다 — 실제 분석 대상(공식 컴백 MV,
+# 공식 차트/무대 채널 등)은 분석가가 확정해서 교체해야 한다.
+
+videos:
+  - video_id: "dQw4w9WgXcQ" # TODO: 실제 K-pop 컴백/공식 무대 영상 ID로 교체
+    label: "예시 영상 (교체 필요)"

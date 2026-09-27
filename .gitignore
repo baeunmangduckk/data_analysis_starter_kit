@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -44,6 +45,10 @@ next-env.d.ts
 .venv/
 __pycache__/
 *.pyc
+
+# 수집기(pipeline/collectors/*)가 저장하는 원본 스냅샷 — 수집기를 재실행하면
+# 그대로 재현되는 캐시이며, YouTube 데이터 정책상 장기 보관 대상도 아니다.
+pipeline/raw/
 
 # playwright mcp (브라우저 검증용 스냅샷/콘솔 로그, 소스 아님)
 .playwright-mcp/

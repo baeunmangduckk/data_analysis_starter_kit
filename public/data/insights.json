@@ -1,23 +1,53 @@
 {
-  "generatedAt": "2026-09-25T20:59:34.380437+09:00",
+  "generatedAt": "2026-09-27T21:48:20.718478+09:00",
   "insights": [
     {
-      "id": "insight_0",
+      "id": "insight_global_music_revenue",
       "severity": "positive",
-      "text": "카테고리 A 지표가 전주 대비 증가했습니다 (+96.9).",
-      "relatedMetricId": "카테고리_A"
+      "text": "글로벌 음반산업 매출 지표가 직전 시점 대비 증가했습니다 (+1.91).",
+      "relatedMetricId": "global_music_revenue"
     },
     {
-      "id": "insight_1",
+      "id": "insight_latam_weverse_retail_growth",
       "severity": "positive",
-      "text": "카테고리 B 지표가 전주 대비 증가했습니다 (+64.0).",
-      "relatedMetricId": "카테고리_B"
+      "text": "중남미 Weverse 디지털 리테일 판매 성장률 지표가 직전 시점 대비 증가했습니다 (+715.00).",
+      "relatedMetricId": "latam_weverse_retail_growth"
     },
     {
-      "id": "insight_2",
+      "id": "insight_sales_concentration_gini",
       "severity": "positive",
-      "text": "카테고리 C 지표가 전주 대비 증가했습니다 (+146.5).",
-      "relatedMetricId": "카테고리_C"
+      "text": "판매량 집중도 (Gini) 지표가 직전 시점 대비 감소했습니다 (-0.01).",
+      "relatedMetricId": "sales_concentration_gini"
+    },
+    {
+      "id": "manual_hybe_margin_squeeze",
+      "severity": "warning",
+      "text": "하이브는 2025년 역대 최고 매출(2조 6,499억원, YoY +17.5%)을 기록했지만 영업이익은 499억원으로 YoY -72.9% 급감해, 매출 최고치 속 수익성 악화 신호가 나타나고 있습니다.",
+      "relatedMetricId": null
+    },
+    {
+      "id": "manual_capex_infra_gap",
+      "severity": "warning",
+      "text": "대기업의 연평균 음악 제작비(431.1억원)는 중소기업(14.9억원)의 약 29배이며, 해외 투어 횟수도 대기업이 연 83.4회로 중소기업(4.0회)의 20배 이상입니다.",
+      "relatedMetricId": null
+    },
+    {
+      "id": "manual_artist_survival_rate",
+      "severity": "info",
+      "text": "1996~2025년 데뷔한 그룹 1,182팀 중 데뷔 5년 생존율은 36.6%, 10년 생존율은 17.9%에 불과하며, 손익분기점(30만 장)을 넘는 그룹은 전체의 3.55%뿐입니다.",
+      "relatedMetricId": null
+    },
+    {
+      "id": "manual_physical_market_decline",
+      "severity": "warning",
+      "text": "2025년 실물 음반 판매량은 9,890만 장으로 전년 대비 17.7% 감소해, 9년 만에 처음으로 '1억 장 시대'가 종료되었습니다.",
+      "relatedMetricId": null
+    },
+    {
+      "id": "manual_export_axis_shift",
+      "severity": "info",
+      "text": "방송콘텐츠 수출 프록시 기준 중화권 비중이 2014년 대비 76.1% 급감한 반면, 동남아·중동·중남미 등 신흥시장의 한류심리지수가 최상위권으로 부상해 수출 축이 지정학적으로 재편되고 있습니다.",
+      "relatedMetricId": null
     }
   ]
 }

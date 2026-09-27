@@ -1,8 +1,15 @@
-"""분석가가 직접 수정하는 대시보드 집계 파이프라인.
+"""분석가가 직접 수정하는 대시보드 집계 파이프라인 — Stage B(변환).
 
 실행: .venv/Scripts/python.exe pipeline/etl.py (또는 npm run etl)
 public/data/*.json 5개를 생성한다. 분석가는 build_* 함수들의 집계
 로직만 수정하면 된다 — 나머지(검증/저장)는 건드리지 않아도 된다.
+
+이 파일은 pipeline/raw/**(pipeline/collectors/*가 저장한 원본 스냅샷)와
+pipeline/curated/**(분석가가 출처와 함께 직접 입력한 통계)만 읽으며,
+네트워크나 API 키를 절대 건드리지 않는다 — 그래야 `npm run etl`이 언제나
+빠르고 오프라인이며 결정적으로 동작한다. 원본 스냅샷/큐레이션 데이터가
+아직 없는 항목은 generate_sample_events()로 폴백해, 최초 clone 직후
+수집기를 한 번도 안 돌렸어도 `npm run etl`이 죽지 않게 한다.
 """
 
 from __future__ import annotations
@@ -14,11 +21,15 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 
 import polars as pl
+import yaml
 
+from pipeline.config import CURATED_DIR, RAW_DIR
+from pipeline.derived.concentration import compute_shares, parse_album_records
 from pipeline.models import (
   DistributionCategory,
   DistributionData,
   Insight,
+  InsightSeverity,
   InsightsData,
   KpiMetric,
   MetricsData,
@@ -36,6 +47,12 @@ OUTPUT_DIR = Path(__file__).resolve().parent.parent / "public" / "data"
 
 def _now() -> datetime:
   return datetime.now().astimezone()
+
+
+def _load_yaml(path: Path) -> dict:
+  if not path.exists():
+    return {}
+  return yaml.safe_load(path.read_text(encoding="utf-8")) or {}
 
 
 def generate_sample_events() -> pl.DataFrame:
@@ -69,6 +86,122 @@ def generate_sample_events() -> pl.DataFrame:
         "comment": rng.choice(comments),
       })
   return pl.DataFrame(rows)
+
+
+# ---------------------------------------------------------------------------
+# 실데이터 로더 — pipeline/raw(수집기 스냅샷)/pipeline/curated(큐레이션 통계)만
+# 읽는다. 데이터가 아직 없으면 None/빈 값을 돌려줘 main()이 폴백하게 한다.
+# ---------------------------------------------------------------------------
+def load_curated_metrics() -> tuple[MetricsData, dict[str, TrendDirection]]:
+  """pipeline/curated/kpi_snapshots.yaml에서 홈 화면 KPI를 읽는다.
+
+  두 번째 반환값(favorable_trend)은 지표 id별로 "증가가 좋은지 감소가
+  좋은지"를 build_insights()에 알려주는 힌트다. 지니계수처럼 감소가
+  긍정적인 지표는 YAML에 `higher_is_better: false`로 표시한다.
+  """
+  data = _load_yaml(CURATED_DIR / "kpi_snapshots.yaml")
+  metrics: list[KpiMetric] = []
+  favorable_trend: dict[str, TrendDirection] = {}
+
+  for row in data.get("metrics", []):
+    value = float(row["value"])
+    prev_value = row.get("prev_value")
+    delta: float | None = None
+    trend: TrendDirection | None = None
+    if prev_value is not None:
+      delta = value - float(prev_value)
+      trend = "up" if delta > 0 else "down" if delta < 0 else "flat"
+
+    metrics.append(
+      KpiMetric(
+        id=row["id"],
+        label=row["label"],
+        value=value,
+        unit=row.get("unit") or None,
+        delta=delta,
+        trend=trend,
+      )
+    )
+    favorable_trend[row["id"]] = "down" if row.get("higher_is_better") is False else "up"
+
+  return MetricsData(generated_at=_now(), metrics=metrics), favorable_trend
+
+
+def load_gini_timeseries() -> pl.DataFrame:
+  """pipeline/curated/gini_series.yaml을 build_timeseries()가 바로 pivot할 수
+  있는 date/category/value long-format으로 변환한다."""
+  data = _load_yaml(CURATED_DIR / "gini_series.yaml")
+  rows = []
+  for point in data.get("points", []):
+    year = int(point["year"])
+    rows.append({"date": date(year, 12, 31), "category": "Gini계수", "value": float(point["gini"])})
+    rows.append(
+      {
+        "date": date(year, 12, 31),
+        "category": "Top10_점유율",
+        "value": float(point["top10_share_pct"]),
+      }
+    )
+  return pl.DataFrame(rows) if rows else pl.DataFrame({"date": [], "category": [], "value": []})
+
+
+def load_manual_insights() -> list[Insight]:
+  """docx 등 기획 문서에서 옮긴, 숫자만으로는 자동 생성되지 않는 서사적 인사이트."""
+  data = _load_yaml(CURATED_DIR / "manual_insights.yaml")
+  return [
+    Insight(id=row["id"], severity=row["severity"], text=row["text"])
+    for row in data.get("insights", [])
+  ]
+
+
+def load_circlechart_distribution() -> DistributionData | None:
+  """가장 최근 circlechart 원본 스냅샷에서 판매 집중도 분포를 계산한다.
+  수집기(npm run collect:circlechart)를 아직 실행하지 않았다면 None을
+  돌려줘 main()이 generate_sample_events()로 폴백하게 한다."""
+  circlechart_dir = RAW_DIR / "circlechart"
+  snapshots = sorted(circlechart_dir.glob("album_*.json")) if circlechart_dir.exists() else []
+  if not snapshots:
+    return None
+
+  latest = snapshots[-1]
+  payload = json.loads(latest.read_text(encoding="utf-8"))
+  albums = parse_album_records(payload["List"])
+  shares = compute_shares(albums)
+  categories = [
+    DistributionCategory(category=row["category"], label=row["label"], value=row["value"])
+    for row in shares.to_dicts()
+  ]
+  year = latest.stem.replace("album_", "")
+  return DistributionData(
+    generated_at=_now(),
+    title=f"{year}년 앨범 판매 집중도 (Circle Chart Top100)",
+    categories=categories,
+  )
+
+
+def load_youtube_comments() -> pl.DataFrame:
+  """가장 최근 YouTube 원본 스냅샷에서 댓글 텍스트만 뽑아, build_wordcloud()가
+  기대하는 "comment 컬럼이 있는 표" 계약과 동일한 단일 컬럼 DataFrame으로
+  평탄화한다. 수집기(npm run collect:youtube)를 아직 실행하지 않았다면
+  빈 DataFrame을 돌려줘 main()이 generate_sample_events()로 폴백하게 한다."""
+  youtube_dir = RAW_DIR / "youtube"
+  snapshot_dirs = (
+    sorted(p for p in youtube_dir.iterdir() if p.is_dir()) if youtube_dir.exists() else []
+  )
+  if not snapshot_dirs:
+    return pl.DataFrame({"comment": []})
+
+  comments_path = snapshot_dirs[-1] / "comments.json"
+  if not comments_path.exists():
+    return pl.DataFrame({"comment": []})
+
+  payload = json.loads(comments_path.read_text(encoding="utf-8"))
+  texts: list[str] = []
+  for threads in payload.values():
+    for thread in threads:
+      snippet = thread["snippet"]["topLevelComment"]["snippet"]
+      texts.append(snippet["textDisplay"])
+  return pl.DataFrame({"comment": texts})
 
 
 def build_metrics(events: pl.DataFrame) -> MetricsData:
@@ -139,31 +272,34 @@ def build_distribution(events: pl.DataFrame) -> DistributionData:
   return DistributionData(generated_at=_now(), title="카테고리별 비중", categories=categories)
 
 
-def build_insights(metrics: MetricsData) -> InsightsData:
+def build_insights(
+  metrics: MetricsData,
+  favorable_trend: dict[str, TrendDirection] | None = None,
+) -> InsightsData:
   """지표 증감 추세를 규칙 기반으로 문장화한다.
 
+  favorable_trend: 지표 id별로 "up"(증가가 긍정적, 기본값) 또는 "down"(감소가
+  긍정적)을 지정한다. 예: 판매량 집중도(Gini)는 감소가 긍정적이므로
+  {"sales_concentration_gini": "down"}처럼 넘기면 severity가 뒤집힌다
+  (load_curated_metrics()가 kpi_snapshots.yaml의 higher_is_better로 이 값을 만든다).
   이 함수가 "커스터마이징 지점" — 조건/문구를 분석가가 원하는 규칙으로 바꾸면 된다.
   """
+  favorable_trend = favorable_trend or {}
   insights: list[Insight] = []
-  for index, metric in enumerate(metrics.metrics):
-    if metric.trend == "down":
-      insights.append(
-        Insight(
-          id=f"insight_{index}",
-          severity="warning",
-          text=f"{metric.label} 지표가 전주 대비 감소했습니다 ({metric.delta:+.1f}).",
-          related_metric_id=metric.id,
-        )
+  for metric in metrics.metrics:
+    if metric.trend in (None, "flat") or metric.delta is None:
+      continue
+    good_direction = favorable_trend.get(metric.id, "up")
+    severity: InsightSeverity = "positive" if metric.trend == good_direction else "warning"
+    verb = "증가" if metric.trend == "up" else "감소"
+    insights.append(
+      Insight(
+        id=f"insight_{metric.id}",
+        severity=severity,
+        text=f"{metric.label} 지표가 직전 시점 대비 {verb}했습니다 ({metric.delta:+.2f}).",
+        related_metric_id=metric.id,
       )
-    elif metric.trend == "up":
-      insights.append(
-        Insight(
-          id=f"insight_{index}",
-          severity="positive",
-          text=f"{metric.label} 지표가 전주 대비 증가했습니다 ({metric.delta:+.1f}).",
-          related_metric_id=metric.id,
-        )
-      )
+    )
 
   if not insights:
     insights.append(
@@ -197,15 +333,44 @@ def build_wordcloud(events: pl.DataFrame) -> WordCloudData:
 
 def main() -> None:
   OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-  events = generate_sample_events()
 
-  metrics = build_metrics(events)
+  _sample_cache: pl.DataFrame | None = None
+
+  def sample() -> pl.DataFrame:
+    nonlocal _sample_cache
+    if _sample_cache is None:
+      print("실데이터가 아직 없어 generate_sample_events() 예시 데이터로 대체합니다.")
+      _sample_cache = generate_sample_events()
+    return _sample_cache
+
+  curated_metrics, favorable_trend = load_curated_metrics()
+  metrics = curated_metrics if curated_metrics.metrics else build_metrics(sample())
+
+  gini_events = load_gini_timeseries()
+  timeseries = build_timeseries(gini_events if gini_events.height > 0 else sample())
+
+  distribution = load_circlechart_distribution()
+  if distribution is None:
+    print("circlechart 원본 스냅샷이 없습니다 (npm run collect:circlechart 먼저 실행).")
+    distribution = build_distribution(sample())
+
+  base_insights = build_insights(metrics, favorable_trend)
+  manual_insights = load_manual_insights()
+  insights = InsightsData(generated_at=_now(), insights=[*base_insights.insights, *manual_insights])
+
+  comments = load_youtube_comments()
+  if comments.height > 0:
+    wordcloud = build_wordcloud(comments)
+  else:
+    print("YouTube 원본 스냅샷이 없습니다 (npm run collect:youtube 먼저 실행).")
+    wordcloud = build_wordcloud(sample())
+
   outputs: dict[str, MetricsData | TimeseriesData | DistributionData | InsightsData | WordCloudData] = {
     "metrics.json": metrics,
-    "timeseries.json": build_timeseries(events),
-    "distribution.json": build_distribution(events),
-    "insights.json": build_insights(metrics),
-    "wordcloud.json": build_wordcloud(events),
+    "timeseries.json": timeseries,
+    "distribution.json": distribution,
+    "insights.json": insights,
+    "wordcloud.json": wordcloud,
   }
 
   for filename, model in outputs.items():

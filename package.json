@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "etl": ".\\.venv\\Scripts\\python.exe -m pipeline.etl"
+    "etl": ".\\.venv\\Scripts\\python.exe -m pipeline.etl",
+    "collect:circlechart": ".\\.venv\\Scripts\\python.exe -m pipeline.collectors.circlechart",
+    "collect:dart": ".\\.venv\\Scripts\\python.exe -m pipeline.collectors.dart",
+    "collect:youtube": ".\\.venv\\Scripts\\python.exe -m pipeline.collectors.youtube"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

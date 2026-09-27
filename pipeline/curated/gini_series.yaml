@@ -1,0 +1,28 @@
+# Circle Chart Top100 전수 집계 판매 집중도 시계열
+# docs/K-POP_대시보드_핵심_인사이트_보고서.docx "5-1. 판매량 집중도 완화 추세" 표.
+# 연도가 연속적이지 않다(원본 보고서 자체가 2011/2017~2019/2023~2025만 제시).
+# pipeline/etl.py의 load_gini_timeseries()가 이를 date/category/value
+# long-format으로 변환해 build_timeseries()에 그대로 넘긴다.
+
+points:
+  - year: 2011
+    top10_share_pct: 38.4
+    gini: 0.453
+  - year: 2017
+    top10_share_pct: 45.6
+    gini: 0.542
+  - year: 2018
+    top10_share_pct: 47.2
+    gini: 0.557
+  - year: 2019
+    top10_share_pct: 41.9
+    gini: 0.511
+  - year: 2023
+    top10_share_pct: 36.6
+    gini: 0.495
+  - year: 2024
+    top10_share_pct: 31.4
+    gini: 0.408
+  - year: 2025
+    top10_share_pct: 29.8
+    gini: 0.401

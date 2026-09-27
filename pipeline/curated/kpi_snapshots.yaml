@@ -1,0 +1,47 @@
+# 홈 화면 KPI 카드 4개 — docs/K-POP_대시보드_핵심_인사이트_보고서.docx
+# "1. 홈 화면 KPI 4개가 요약하는 핵심 지표" 표를 그대로 옮긴 것이다.
+#
+# value/prev_value로 pipeline/etl.py의 load_curated_metrics()가 delta/trend를
+# 계산한다. prev_value가 없으면 증감 없이 값만 표시한다.
+#
+# higher_is_better: false인 지표는 "감소"가 긍정적인 변화라는 뜻이다
+# (예: 판매량 집중도는 낮을수록 여러 그룹에 고르게 분산됐다는 의미).
+# build_insights()가 이 정보로 severity(긍정/경고)를 뒤집어 판단한다.
+
+metrics:
+  - id: global_music_revenue
+    label: "글로벌 음반산업 매출"
+    value: 31.7
+    prev_value: 29.79 # 31.7 / 1.064 (YoY +6.4%) 역산 — 정확한 2024년 원본 수치로 교체 권장
+    unit: "억 달러"
+    as_of: "2025"
+    source_name: "IFPI Global Music Report"
+    source_note: "YoY +6.4%, 11년 연속 성장세. 한국은 세계 7위 규모"
+
+  - id: latam_weverse_retail_growth
+    label: "중남미 Weverse 디지털 리테일 판매 성장률"
+    value: 715.0
+    prev_value: 0.0
+    unit: "% (YoY)"
+    as_of: "2025"
+    source_name: "HYBE 발표 자료"
+    source_note: "전 지역 최고 성장률 — 신흥시장 팬덤의 실질 구매력 이동 신호"
+
+  - id: virtual_idol_market
+    label: "버추얼 아이돌 시장 규모"
+    value: 22.7
+    prev_value: null
+    unit: "억 달러"
+    as_of: "2025"
+    source_name: "K-POP 대시보드 인사이트 보고서 4절 인용"
+    source_note: "2035년 107.5억 달러 전망 (CAGR 16.82%). 2026년 기준 K-pop 전체 매출 중 AI 그룹 비중은 1.1%"
+
+  - id: sales_concentration_gini
+    label: "판매량 집중도 (Gini)"
+    value: 0.4007
+    prev_value: 0.408
+    unit: ""
+    as_of: "2025"
+    source_name: "Circle Chart Top100 전수 집계"
+    source_note: "2011년 이후 최저 수준 — 특정 그룹 쏠림 완화"
+    higher_is_better: false
