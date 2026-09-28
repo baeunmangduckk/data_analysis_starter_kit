@@ -1,23 +1,35 @@
 {
-  "generatedAt": "2026-09-27T21:48:20.718478+09:00",
+  "generatedAt": "2026-09-28T22:45:54.480438+09:00",
   "insights": [
     {
       "id": "insight_global_music_revenue",
       "severity": "positive",
-      "text": "글로벌 음반산업 매출 지표가 직전 시점 대비 증가했습니다 (+1.91).",
+      "text": "글로벌 음반산업 매출 지표가 직전 시점 대비 증가했습니다 (+1.9 억 달러).",
       "relatedMetricId": "global_music_revenue"
     },
     {
       "id": "insight_latam_weverse_retail_growth",
       "severity": "positive",
-      "text": "중남미 Weverse 디지털 리테일 판매 성장률 지표가 직전 시점 대비 증가했습니다 (+715.00).",
+      "text": "중남미 Weverse 디지털 리테일 판매 성장률 지표가 직전 시점 대비 증가했습니다 (+715.0 % (YoY)).",
       "relatedMetricId": "latam_weverse_retail_growth"
     },
     {
       "id": "insight_sales_concentration_gini",
       "severity": "positive",
-      "text": "판매량 집중도 (Gini) 지표가 직전 시점 대비 감소했습니다 (-0.01).",
+      "text": "판매량 집중도 (Gini) 지표가 직전 시점 대비 감소했습니다 (-0.0073).",
       "relatedMetricId": "sales_concentration_gini"
+    },
+    {
+      "id": "insight_dart_revenue",
+      "severity": "positive",
+      "text": "상장 4사 합산 매출액 (2025) 지표가 직전 시점 대비 증가했습니다 (+9,799.5 억 원).",
+      "relatedMetricId": "dart_revenue"
+    },
+    {
+      "id": "insight_dart_operating_profit",
+      "severity": "positive",
+      "text": "상장 4사 합산 영업이익 (2025) 지표가 직전 시점 대비 증가했습니다 (+798.9 억 원).",
+      "relatedMetricId": "dart_operating_profit"
     },
     {
       "id": "manual_hybe_margin_squeeze",

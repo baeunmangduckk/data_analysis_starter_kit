@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T21:48:20.706606+09:00",
+  "generatedAt": "2026-09-28T22:45:54.465894+09:00",
   "metrics": [
     {
       "id": "global_music_revenue",
@@ -32,6 +32,22 @@
       "unit": null,
       "delta": -0.007299999999999973,
       "trend": "down"
+    },
+    {
+      "id": "dart_revenue",
+      "label": "상장 4사 합산 매출액 (2025)",
+      "value": 51920.6,
+      "unit": "억 원",
+      "delta": 9799.5,
+      "trend": "up"
+    },
+    {
+      "id": "dart_operating_profit",
+      "label": "상장 4사 합산 영업이익 (2025)",
+      "value": 4589.4,
+      "unit": "억 원",
+      "delta": 798.9,
+      "trend": "up"
     }
   ]
 }

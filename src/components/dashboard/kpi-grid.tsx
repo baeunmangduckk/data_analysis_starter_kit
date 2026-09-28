@@ -10,7 +10,7 @@ const numberFormatter = new Intl.NumberFormat("ko-KR");
 
 export function KpiGrid({ metrics }: KpiGridProps) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {metrics.map((metric) => (
         <Card key={metric.id}>
           <CardHeader>

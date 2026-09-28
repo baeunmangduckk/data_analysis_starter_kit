@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import json
 import random
+import re
 from collections import Counter
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -40,7 +41,13 @@ from pipeline.models import (
   WordCloudData,
   WordCloudItem,
 )
-from pipeline.sentiment_words import NEGATIVE_WORDS, POSITIVE_WORDS
+from pipeline.sentiment_words import (
+  NEGATIVE_WORDS,
+  NEGATIVE_WORDS_EN,
+  POSITIVE_WORDS,
+  POSITIVE_WORDS_EN,
+  STOPWORDS,
+)
 
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "public" / "data"
 
@@ -127,6 +134,77 @@ def load_curated_metrics() -> tuple[MetricsData, dict[str, TrendDirection]]:
   return MetricsData(generated_at=_now(), metrics=metrics), favorable_trend
 
 
+DART_AGENCIES = ["hybe", "sm", "yg", "jyp"]
+
+# DART 손익계산서 계정명 → (KPI id, 라벨). 계정명 표기는 실제 응답으로 확인했다.
+DART_ACCOUNTS: dict[str, tuple[str, str]] = {
+  "매출액": ("dart_revenue", "상장 4사 합산 매출액"),
+  "영업이익": ("dart_operating_profit", "상장 4사 합산 영업이익"),
+}
+
+
+def _parse_dart_amount(raw: str | None) -> int | None:
+  """DART 금액은 "2,363,993,529,000"처럼 쉼표가 붙은 문자열이고, 값이 없으면 "-"가 온다."""
+  try:
+    return int(str(raw).replace(",", ""))
+  except ValueError:
+    return None
+
+
+def load_dart_metrics() -> list[KpiMetric]:
+  """pipeline/raw/dart의 사업보고서 스냅샷에서 상장 4사(하이브·SM·YG·JYP)의
+  연결 매출액·영업이익을 합산해 전년 대비 증감이 붙은 KPI 카드로 만든다.
+
+  4사 중 하나라도 스냅샷이나 계정 값이 없으면 합산이 왜곡되므로 빈 리스트를
+  돌려줘 KPI를 추가하지 않는다. 단위는 억 원이다."""
+  dart_dir = RAW_DIR / "dart"
+  # 계정명 → [당기 합계, 전기 합계]
+  sums: dict[str, list[int]] = {name: [0, 0] for name in DART_ACCOUNTS}
+  year = ""
+
+  for agency in DART_AGENCIES:
+    snapshots = sorted(dart_dir.glob(f"{agency}_*_11011.json")) if dart_dir.exists() else []
+    if not snapshots:
+      return []
+    payload = json.loads(snapshots[-1].read_text(encoding="utf-8"))
+
+    found: set[str] = set()
+    for row in payload.get("list", []):
+      account = row.get("account_nm")
+      # 연결(CFS) 손익계산서(IS)만 쓴다. 별도(OFS)는 자회사 실적이 빠져 있다.
+      if row.get("fs_div") != "CFS" or row.get("sj_div") != "IS":
+        continue
+      if account not in DART_ACCOUNTS or account in found:
+        continue
+      current = _parse_dart_amount(row.get("thstrm_amount"))
+      previous = _parse_dart_amount(row.get("frmtrm_amount"))
+      if current is None or previous is None:
+        return []
+      sums[account][0] += current
+      sums[account][1] += previous
+      found.add(account)
+      year = row.get("bsns_year", year)
+
+    if found != set(DART_ACCOUNTS):
+      return []
+
+  metrics: list[KpiMetric] = []
+  for account, (metric_id, label) in DART_ACCOUNTS.items():
+    current, previous = sums[account]
+    delta = (current - previous) / 1e8
+    metrics.append(
+      KpiMetric(
+        id=metric_id,
+        label=f"{label} ({year})",
+        value=round(current / 1e8, 1),
+        unit="억 원",
+        delta=round(delta, 1),
+        trend="up" if delta > 0 else "down" if delta < 0 else "flat",
+      )
+    )
+  return metrics
+
+
 def load_gini_timeseries() -> pl.DataFrame:
   """pipeline/curated/gini_series.yaml을 build_timeseries()가 바로 pivot할 수
   있는 date/category/value long-format으로 변환한다."""
@@ -134,7 +212,11 @@ def load_gini_timeseries() -> pl.DataFrame:
   rows = []
   for point in data.get("points", []):
     year = int(point["year"])
-    rows.append({"date": date(year, 12, 31), "category": "Gini계수", "value": float(point["gini"])})
+    # Gini(0~1)는 Top10 점유율(%)과 한 축에 그리면 바닥에 붙어 안 보이므로 ×100으로
+    # 환산해 같은 스케일에 놓는다 (축을 둘로 나누는 이중축은 쓰지 않는다).
+    rows.append(
+      {"date": date(year, 12, 31), "category": "Gini계수(×100)", "value": round(float(point["gini"]) * 100, 2)}
+    )
     rows.append(
       {
         "date": date(year, 12, 31),
@@ -272,6 +354,13 @@ def build_distribution(events: pl.DataFrame) -> DistributionData:
   return DistributionData(generated_at=_now(), title="카테고리별 비중", categories=categories)
 
 
+def _format_delta(delta: float) -> str:
+  """증감폭을 천 단위 쉼표와 부호로 표기한다. 1 미만의 작은 값(예: Gini -0.0073)이
+  "-0.0"으로 뭉개지지 않도록 소수 4자리까지 보여준다."""
+  digits = 1 if abs(delta) >= 1 else 4
+  return f"{delta:+,.{digits}f}"
+
+
 def build_insights(
   metrics: MetricsData,
   favorable_trend: dict[str, TrendDirection] | None = None,
@@ -292,11 +381,12 @@ def build_insights(
     good_direction = favorable_trend.get(metric.id, "up")
     severity: InsightSeverity = "positive" if metric.trend == good_direction else "warning"
     verb = "증가" if metric.trend == "up" else "감소"
+    unit = f" {metric.unit}" if metric.unit else ""
     insights.append(
       Insight(
         id=f"insight_{metric.id}",
         severity=severity,
-        text=f"{metric.label} 지표가 직전 시점 대비 {verb}했습니다 ({metric.delta:+.2f}).",
+        text=f"{metric.label} 지표가 직전 시점 대비 {verb}했습니다 ({_format_delta(metric.delta)}{unit}).",
         related_metric_id=metric.id,
       )
     )
@@ -313,16 +403,20 @@ def build_wordcloud(events: pl.DataFrame) -> WordCloudData:
   """comment 텍스트의 단어 빈도를 세고, 긍정/부정 단어 사전으로 감성을 분류한다."""
   tokens: list[str] = []
   for comment in events["comment"].to_list():
-    tokens.extend(comment.split())
+    # 영단어/한글 덩어리만 추출해 구두점·이모지를 제거하고, 1글자와 불용어는 뺀다.
+    for token in re.findall(r"[a-z']+|[가-힣]+", comment.lower()):
+      if len(token) > 1 and token not in STOPWORDS:
+        tokens.append(token)
 
   counts = Counter(tokens)
   words: list[WordCloudItem] = []
   for text, weight in counts.most_common(30):
     # 부정 단어를 먼저 검사한다 — "불친절"처럼 부정 표현이 긍정 단어("친절")를
     # 부분 문자열로 포함하는 경우가 있어, 순서를 바꾸면 오분류가 발생한다.
-    if any(word in text for word in NEGATIVE_WORDS):
+    # 영어는 부분 문자열 오분류를 피하려고 완전 일치로만 판정한다.
+    if text in NEGATIVE_WORDS_EN or any(word in text for word in NEGATIVE_WORDS):
       sentiment: SentimentLabel = "negative"
-    elif any(word in text for word in POSITIVE_WORDS):
+    elif text in POSITIVE_WORDS_EN or any(word in text for word in POSITIVE_WORDS):
       sentiment = "positive"
     else:
       sentiment = "neutral"
@@ -345,6 +439,12 @@ def main() -> None:
 
   curated_metrics, favorable_trend = load_curated_metrics()
   metrics = curated_metrics if curated_metrics.metrics else build_metrics(sample())
+
+  # DART 실적 KPI는 매출·영업이익 모두 "증가가 긍정"이라 favorable_trend를 up으로 등록한다.
+  dart_metrics = load_dart_metrics()
+  if dart_metrics:
+    metrics = MetricsData(generated_at=metrics.generated_at, metrics=[*metrics.metrics, *dart_metrics])
+    favorable_trend.update({metric.id: "up" for metric in dart_metrics})
 
   gini_events = load_gini_timeseries()
   timeseries = build_timeseries(gini_events if gini_events.height > 0 else sample())

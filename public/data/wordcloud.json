@@ -1,124 +1,154 @@
 {
-  "generatedAt": "2026-09-27T21:48:20.729146+09:00",
+  "generatedAt": "2026-09-28T22:45:54.499776+09:00",
   "words": [
     {
-      "text": "서비스가",
-      "weight": 18.0,
+      "text": "kpop",
+      "weight": 159.0,
       "sentiment": "neutral"
     },
     {
-      "text": "친절하고",
-      "weight": 18.0,
+      "text": "music",
+      "weight": 147.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "pop",
+      "weight": 115.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "industry",
+      "weight": 97.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "fans",
+      "weight": 81.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "idols",
+      "weight": 77.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "idol",
+      "weight": 57.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "love",
+      "weight": 46.0,
       "sentiment": "positive"
     },
     {
-      "text": "빨라서",
-      "weight": 18.0,
+      "text": "money",
+      "weight": 45.0,
       "sentiment": "neutral"
     },
     {
-      "text": "만족합니다",
-      "weight": 18.0,
+      "text": "korean",
+      "weight": 42.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "good",
+      "weight": 38.0,
       "sentiment": "positive"
     },
     {
-      "text": "다시",
-      "weight": 17.0,
+      "text": "life",
+      "weight": 36.0,
       "sentiment": "neutral"
     },
     {
-      "text": "이용하고",
-      "weight": 17.0,
+      "text": "korea",
+      "weight": 35.0,
       "sentiment": "neutral"
     },
     {
-      "text": "싶은",
-      "weight": 17.0,
+      "text": "fan",
+      "weight": 33.0,
       "sentiment": "neutral"
     },
     {
-      "text": "좋은",
-      "weight": 17.0,
-      "sentiment": "positive"
-    },
-    {
-      "text": "경험이었습니다",
-      "weight": 17.0,
+      "text": "video",
+      "weight": 28.0,
       "sentiment": "neutral"
     },
     {
-      "text": "직원이",
-      "weight": 16.0,
+      "text": "young",
+      "weight": 27.0,
       "sentiment": "neutral"
     },
     {
-      "text": "불친절해서",
-      "weight": 16.0,
-      "sentiment": "negative"
-    },
-    {
-      "text": "실망했습니다",
-      "weight": 16.0,
-      "sentiment": "negative"
-    },
-    {
-      "text": "대기",
-      "weight": 16.0,
+      "text": "time",
+      "weight": 26.0,
       "sentiment": "neutral"
     },
     {
-      "text": "시간이",
-      "weight": 16.0,
+      "text": "look",
+      "weight": 24.0,
       "sentiment": "neutral"
     },
     {
-      "text": "너무",
-      "weight": 16.0,
+      "text": "group",
+      "weight": 24.0,
       "sentiment": "neutral"
     },
     {
-      "text": "길어서",
-      "weight": 16.0,
+      "text": "work",
+      "weight": 23.0,
       "sentiment": "neutral"
     },
     {
-      "text": "불편했어요",
-      "weight": 16.0,
-      "sentiment": "negative"
-    },
-    {
-      "text": "품질이",
-      "weight": 14.0,
+      "text": "listen",
+      "weight": 22.0,
       "sentiment": "neutral"
     },
     {
-      "text": "기대보다",
-      "weight": 14.0,
+      "text": "buy",
+      "weight": 22.0,
       "sentiment": "neutral"
     },
     {
-      "text": "아쉬웠습니다",
-      "weight": 14.0,
+      "text": "don",
+      "weight": 22.0,
       "sentiment": "neutral"
     },
     {
-      "text": "가격",
-      "weight": 9.0,
+      "text": "kids",
+      "weight": 22.0,
       "sentiment": "neutral"
     },
     {
-      "text": "대비",
-      "weight": 9.0,
+      "text": "that's",
+      "weight": 21.0,
       "sentiment": "neutral"
     },
     {
-      "text": "괜찮은",
-      "weight": 9.0,
+      "text": "artists",
+      "weight": 21.0,
       "sentiment": "neutral"
     },
     {
-      "text": "편입니다",
-      "weight": 9.0,
+      "text": "feel",
+      "weight": 21.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "etc",
+      "weight": 21.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "selling",
+      "weight": 21.0,
+      "sentiment": "neutral"
+    },
+    {
+      "text": "world",
+      "weight": 21.0,
       "sentiment": "neutral"
     }
   ]

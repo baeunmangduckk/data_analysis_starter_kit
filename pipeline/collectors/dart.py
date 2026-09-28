@@ -22,7 +22,10 @@ Circle Chart의 "판매량"이나 YouTube의 "댓글 반응"과 달리 실제 �
 from __future__ import annotations
 
 import argparse
+import io
 import json
+import xml.etree.ElementTree as ET
+import zipfile
 from datetime import date
 
 import httpx
@@ -31,6 +34,8 @@ import yaml
 from pipeline.config import CURATED_DIR, DART_API_KEY, RAW_DIR
 
 API_URL = "https://opendart.fss.or.kr/api/fnlttSinglAcnt.json"
+CORP_CODE_URL = "https://opendart.fss.or.kr/api/corpCode.xml"
+CORP_CODE_CACHE = RAW_DIR / "dart" / "corp_codes.json"
 
 # 1분기(11013) / 반기(11012) / 3분기(11014) / 사업보고서(11011)
 DEFAULT_REPRT_CODE = "11011"
@@ -40,6 +45,36 @@ def load_targets() -> list[dict]:
   path = CURATED_DIR / "dart_targets.yaml"
   data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
   return data.get("companies", [])
+
+
+def load_corp_code_map() -> dict[str, str]:
+  """종목코드 → corp_code 매핑. 전체 고유번호 zip(수 MB)을 매번 받지 않도록
+  최초 1회 내려받아 raw/dart/corp_codes.json에 상장사(stock_code 있는 것)만 캐시한다."""
+  if CORP_CODE_CACHE.exists():
+    return json.loads(CORP_CODE_CACHE.read_text(encoding="utf-8"))
+
+  if not DART_API_KEY:
+    raise RuntimeError("DART_API_KEY가 설정되지 않았습니다 (.env 확인)")
+  response = httpx.get(CORP_CODE_URL, params={"crtfc_key": DART_API_KEY}, timeout=60.0)
+  response.raise_for_status()
+
+  with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
+    root = ET.fromstring(archive.read(archive.namelist()[0]))
+
+  mapping: dict[str, str] = {}
+  for item in root.iter("list"):
+    stock_code = (item.findtext("stock_code") or "").strip()
+    if stock_code:
+      mapping[stock_code] = (item.findtext("corp_code") or "").strip()
+
+  CORP_CODE_CACHE.parent.mkdir(parents=True, exist_ok=True)
+  CORP_CODE_CACHE.write_text(json.dumps(mapping, ensure_ascii=False), encoding="utf-8")
+  return mapping
+
+
+def resolve_corp_code(company: dict, corp_code_map: dict[str, str]) -> str:
+  """YAML의 corp_code를 우선 쓰고, 비어 있으면 stock_code로 조회한다."""
+  return company.get("corp_code") or corp_code_map.get(company.get("stock_code", ""), "")
 
 
 def fetch_financials(corp_code: str, year: int, reprt_code: str) -> dict:
@@ -75,11 +110,12 @@ def main() -> None:
     print("pipeline/curated/dart_targets.yaml에 등록된 회사가 없습니다.")
     return
 
+  corp_code_map = load_corp_code_map()
   for company in targets:
     agency = company["name"]
-    corp_code = company.get("corp_code", "")
+    corp_code = resolve_corp_code(company, corp_code_map)
     if not corp_code:
-      print(f"{company['label']}: corp_code가 비어 있어 건너뜁니다.")
+      print(f"{company['label']}: corp_code를 찾지 못해 건너뜁니다 (stock_code 확인).")
       continue
     print(f"{company['label']} ({args.year}년, reprt_code={args.reprt_code}) 수집 중...")
     data = fetch_financials(corp_code, args.year, args.reprt_code)
