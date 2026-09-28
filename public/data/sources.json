@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T23:13:24.607174+09:00",
+  "generatedAt": "2026-09-28T23:16:31.673808+09:00",
   "sources": [
     {
       "id": "opendart-fnltt",
@@ -8,7 +8,9 @@
       "url": "https://opendart.fss.or.kr",
       "year": 2026,
       "note": "연결재무제표(CFS) 기준 매출액·영업이익. pipeline/collectors/dart.py가 수집",
-      "usedBy": []
+      "usedBy": [
+        "finance"
+      ]
     },
     {
       "id": "youtube-data-api",

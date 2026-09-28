@@ -1,0 +1,318 @@
+{
+  "generatedAt": "2026-09-28T23:16:31.658395+09:00",
+  "title": "기획사 재무",
+  "summary": "2025년 사업보고서 기준 상장 4사 연결 실적 (하이브·SM·YG·JYP)",
+  "sections": [
+    {
+      "type": "stats",
+      "title": "2025년 상장 4사 합산 (연결)",
+      "stats": [
+        {
+          "id": "finance_revenue",
+          "label": "합산 매출액",
+          "value": 51920.6,
+          "unit": "억 원",
+          "delta": 9799.5,
+          "trend": "up",
+          "note": "전년 대비 증감",
+          "sourceId": "opendart-fnltt",
+          "asOf": "2025",
+          "goodDirection": "up",
+          "confidence": "verified"
+        },
+        {
+          "id": "finance_operating_profit",
+          "label": "합산 영업이익",
+          "value": 4589.4,
+          "unit": "억 원",
+          "delta": 798.9,
+          "trend": "up",
+          "note": "전년 대비 증감",
+          "sourceId": "opendart-fnltt",
+          "asOf": "2025",
+          "goodDirection": "up",
+          "confidence": "verified"
+        },
+        {
+          "id": "finance_operating_margin",
+          "label": "합산 영업이익률",
+          "value": 8.8,
+          "unit": "%",
+          "delta": -0.2,
+          "trend": "down",
+          "note": "합산 영업이익 ÷ 합산 매출액, 증감은 %p",
+          "sourceId": "opendart-fnltt",
+          "asOf": "2025",
+          "goodDirection": "up",
+          "confidence": "verified"
+        }
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "회사별 매출액",
+      "caption": "연결 기준, 단위 억 원",
+      "kind": "column",
+      "xKey": "year",
+      "series": [
+        {
+          "key": "hybe",
+          "label": "하이브"
+        },
+        {
+          "key": "sm",
+          "label": "SM엔터테인먼트"
+        },
+        {
+          "key": "yg",
+          "label": "YG엔터테인먼트"
+        },
+        {
+          "key": "jyp",
+          "label": "JYP엔터테인먼트"
+        }
+      ],
+      "points": [
+        {
+          "year": "2023",
+          "hybe": 21780.88,
+          "sm": 9610.7,
+          "yg": 5691.95,
+          "jyp": 5665.01
+        },
+        {
+          "year": "2024",
+          "hybe": 22556.49,
+          "sm": 9897.25,
+          "yg": 3649.49,
+          "jyp": 6017.88
+        },
+        {
+          "year": "2025",
+          "hybe": 26498.7,
+          "sm": 11749.35,
+          "yg": 5454.04,
+          "jyp": 8218.55
+        }
+      ],
+      "unit": "억 원",
+      "sourceIds": [
+        "opendart-fnltt"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "회사별 영업이익",
+      "caption": "연결 기준, 단위 억 원 (적자는 음수)",
+      "kind": "column",
+      "xKey": "year",
+      "series": [
+        {
+          "key": "hybe",
+          "label": "하이브"
+        },
+        {
+          "key": "sm",
+          "label": "SM엔터테인먼트"
+        },
+        {
+          "key": "yg",
+          "label": "YG엔터테인먼트"
+        },
+        {
+          "key": "jyp",
+          "label": "JYP엔터테인먼트"
+        }
+      ],
+      "points": [
+        {
+          "year": "2023",
+          "hybe": 2956.43,
+          "sm": 1134.63,
+          "yg": 869.32,
+          "jyp": 1694.44
+        },
+        {
+          "year": "2024",
+          "hybe": 1840.45,
+          "sm": 872.97,
+          "yg": -205.58,
+          "jyp": 1282.62
+        },
+        {
+          "year": "2025",
+          "hybe": 493.18,
+          "sm": 1830.34,
+          "yg": 713.42,
+          "jyp": 1552.46
+        }
+      ],
+      "unit": "억 원",
+      "sourceIds": [
+        "opendart-fnltt"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "회사별 영업이익률",
+      "caption": "영업이익 ÷ 매출액, 단위 %",
+      "kind": "line",
+      "xKey": "year",
+      "series": [
+        {
+          "key": "hybe",
+          "label": "하이브"
+        },
+        {
+          "key": "sm",
+          "label": "SM엔터테인먼트"
+        },
+        {
+          "key": "yg",
+          "label": "YG엔터테인먼트"
+        },
+        {
+          "key": "jyp",
+          "label": "JYP엔터테인먼트"
+        }
+      ],
+      "points": [
+        {
+          "year": "2023",
+          "hybe": 13.57,
+          "sm": 11.81,
+          "yg": 15.27,
+          "jyp": 29.91
+        },
+        {
+          "year": "2024",
+          "hybe": 8.16,
+          "sm": 8.82,
+          "yg": -5.63,
+          "jyp": 21.31
+        },
+        {
+          "year": "2025",
+          "hybe": 1.86,
+          "sm": 15.58,
+          "yg": 13.08,
+          "jyp": 18.89
+        }
+      ],
+      "unit": "%",
+      "sourceIds": [
+        "opendart-fnltt"
+      ]
+    },
+    {
+      "type": "table",
+      "title": "2025년 실적 요약",
+      "caption": "금액은 억 원, 증감률·영업이익률은 %. 전년 영업이익이 적자이면 증감률은 표시하지 않습니다.",
+      "columns": [
+        {
+          "key": "agency",
+          "label": "회사",
+          "align": "left"
+        },
+        {
+          "key": "revenue",
+          "label": "매출액(억 원)",
+          "align": "right"
+        },
+        {
+          "key": "operating_profit",
+          "label": "영업이익(억 원)",
+          "align": "right"
+        },
+        {
+          "key": "margin",
+          "label": "영업이익률(%)",
+          "align": "right"
+        },
+        {
+          "key": "revenue_yoy",
+          "label": "매출 증감(%)",
+          "align": "right"
+        },
+        {
+          "key": "operating_profit_yoy",
+          "label": "영업이익 증감(%)",
+          "align": "right"
+        }
+      ],
+      "rows": [
+        {
+          "agency": "하이브",
+          "revenue": 26498.7,
+          "operating_profit": 493.2,
+          "margin": 1.9,
+          "revenue_yoy": 17.5,
+          "operating_profit_yoy": -73.2
+        },
+        {
+          "agency": "SM엔터테인먼트",
+          "revenue": 11749.3,
+          "operating_profit": 1830.3,
+          "margin": 15.6,
+          "revenue_yoy": 18.7,
+          "operating_profit_yoy": 109.7
+        },
+        {
+          "agency": "YG엔터테인먼트",
+          "revenue": 5454.0,
+          "operating_profit": 713.4,
+          "margin": 13.1,
+          "revenue_yoy": 49.4,
+          "operating_profit_yoy": null
+        },
+        {
+          "agency": "JYP엔터테인먼트",
+          "revenue": 8218.5,
+          "operating_profit": 1552.5,
+          "margin": 18.9,
+          "revenue_yoy": 36.6,
+          "operating_profit_yoy": 21.0
+        }
+      ],
+      "sourceIds": [
+        "opendart-fnltt"
+      ]
+    },
+    {
+      "type": "insights",
+      "title": "핵심 포인트",
+      "insights": [
+        {
+          "id": "finance_hybe_margin_down",
+          "severity": "warning",
+          "text": "하이브는 매출이 17.5% 늘었지만 영업이익률은 8.2%에서 1.9%로 낮아졌습니다 (수익성 악화).",
+          "relatedMetricId": null
+        },
+        {
+          "id": "finance_sm_margin_up",
+          "severity": "positive",
+          "text": "SM엔터테인먼트는 매출 +18.7% 성장과 함께 영업이익률이 8.8%에서 15.6%로 개선됐습니다.",
+          "relatedMetricId": null
+        },
+        {
+          "id": "finance_yg_margin_up",
+          "severity": "positive",
+          "text": "YG엔터테인먼트는 매출 +49.4% 성장과 함께 영업이익률이 -5.6%에서 13.1%로 개선됐습니다.",
+          "relatedMetricId": null
+        },
+        {
+          "id": "finance_jyp_margin_down",
+          "severity": "warning",
+          "text": "JYP엔터테인먼트는 매출이 36.6% 늘었지만 영업이익률은 21.3%에서 18.9%로 낮아졌습니다 (수익성 악화).",
+          "relatedMetricId": null
+        },
+        {
+          "id": "finance_best_margin",
+          "severity": "info",
+          "text": "2025년 영업이익률 1위는 JYP엔터테인먼트(18.9%)입니다.",
+          "relatedMetricId": null
+        }
+      ]
+    }
+  ]
+}

@@ -25,6 +25,14 @@ import polars as pl
 
 from pipeline.common import CURATED_DIR, RAW_DIR, load_yaml, now
 from pipeline.derived.concentration import compute_shares, parse_album_records
+from pipeline.derived.finance import (
+  OPERATING_PROFIT,
+  REVENUE,
+  latest_year,
+  load_agency_targets,
+  load_dart_financials,
+  summarize_totals,
+)
 from pipeline.models import (
   CamelModel,
   DistributionCategory,
@@ -43,6 +51,7 @@ from pipeline.models import (
   WordCloudData,
   WordCloudItem,
 )
+from pipeline.pages import finance as finance_page
 from pipeline.pages.sources import build_sources, load_sources, validate_refs
 from pipeline.sentiment_words import (
   NEGATIVE_WORDS,
@@ -129,69 +138,35 @@ def load_curated_metrics() -> tuple[MetricsData, dict[str, TrendDirection]]:
   return MetricsData(generated_at=now(), metrics=metrics), favorable_trend
 
 
-DART_AGENCIES = ["hybe", "sm", "yg", "jyp"]
-
-# DART 손익계산서 계정명 → (KPI id, 라벨). 계정명 표기는 실제 응답으로 확인했다.
-DART_ACCOUNTS: dict[str, tuple[str, str]] = {
-  "매출액": ("dart_revenue", "상장 4사 합산 매출액"),
-  "영업이익": ("dart_operating_profit", "상장 4사 합산 영업이익"),
+# DART 손익계산서 계정명 → (KPI id, 라벨)
+DART_KPI_LABELS: dict[str, tuple[str, str]] = {
+  REVENUE: ("dart_revenue", "상장 4사 합산 매출액"),
+  OPERATING_PROFIT: ("dart_operating_profit", "상장 4사 합산 영업이익"),
 }
-
-
-def _parse_dart_amount(raw: str | None) -> int | None:
-  """DART 금액은 "2,363,993,529,000"처럼 쉼표가 붙은 문자열이고, 값이 없으면 "-"가 온다."""
-  try:
-    return int(str(raw).replace(",", ""))
-  except ValueError:
-    return None
 
 
 def load_dart_metrics() -> list[KpiMetric]:
   """pipeline/raw/dart의 사업보고서 스냅샷에서 상장 4사(하이브·SM·YG·JYP)의
   연결 매출액·영업이익을 합산해 전년 대비 증감이 붙은 KPI 카드로 만든다.
 
-  4사 중 하나라도 스냅샷이나 계정 값이 없으면 합산이 왜곡되므로 빈 리스트를
-  돌려줘 KPI를 추가하지 않는다. 단위는 억 원이다."""
-  dart_dir = RAW_DIR / "dart"
-  # 계정명 → [당기 합계, 전기 합계]
-  sums: dict[str, list[int]] = {name: [0, 0] for name in DART_ACCOUNTS}
-  year = ""
-
-  for agency in DART_AGENCIES:
-    snapshots = sorted(dart_dir.glob(f"{agency}_*_11011.json")) if dart_dir.exists() else []
-    if not snapshots:
-      return []
-    payload = json.loads(snapshots[-1].read_text(encoding="utf-8"))
-
-    found: set[str] = set()
-    for row in payload.get("list", []):
-      account = row.get("account_nm")
-      # 연결(CFS) 손익계산서(IS)만 쓴다. 별도(OFS)는 자회사 실적이 빠져 있다.
-      if row.get("fs_div") != "CFS" or row.get("sj_div") != "IS":
-        continue
-      if account not in DART_ACCOUNTS or account in found:
-        continue
-      current = _parse_dart_amount(row.get("thstrm_amount"))
-      previous = _parse_dart_amount(row.get("frmtrm_amount"))
-      if current is None or previous is None:
-        return []
-      sums[account][0] += current
-      sums[account][1] += previous
-      found.add(account)
-      year = row.get("bsns_year", year)
-
-    if found != set(DART_ACCOUNTS):
-      return []
+  파싱과 합산 규칙은 pipeline/derived/finance.py에 있다. 대상 회사 중 하나라도
+  스냅샷이나 값이 없으면 합산이 왜곡되므로 빈 리스트를 돌려줘 KPI를 추가하지 않는다.
+  단위는 억 원이다."""
+  financials = load_dart_financials()
+  totals = summarize_totals(financials, expected_agencies=len(load_agency_targets()))
+  year = latest_year(financials)
+  if totals is None or year is None:
+    return []
 
   metrics: list[KpiMetric] = []
-  for account, (metric_id, label) in DART_ACCOUNTS.items():
-    current, previous = sums[account]
-    delta = (current - previous) / 1e8
+  for account, (metric_id, label) in DART_KPI_LABELS.items():
+    current, previous = totals[account]
+    delta = current - previous
     metrics.append(
       KpiMetric(
         id=metric_id,
         label=f"{label} ({year})",
-        value=round(current / 1e8, 1),
+        value=round(current, 1),
         unit="억 원",
         delta=round(delta, 1),
         trend="up" if delta > 0 else "down" if delta < 0 else "flat",
@@ -424,7 +399,7 @@ def build_wordcloud(events: pl.DataFrame) -> WordCloudData:
 def build_pages() -> dict[str, PageData]:
   """slug → PageData. 페이지를 추가하면 pipeline/pages/<slug>.py의 build()를 여기에 등록한다.
   slug는 라우트 폴더명이자 public/data/<slug>.json 파일명이다."""
-  return {}
+  return {"finance": finance_page.build()}
 
 
 def main() -> None:
