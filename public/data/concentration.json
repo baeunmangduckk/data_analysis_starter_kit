@@ -1,0 +1,719 @@
+{
+  "generatedAt": "2026-09-28T23:20:20.276199+09:00",
+  "title": "판매 집중도·양극화",
+  "summary": "판매량은 분산되는데 기획사·그룹 간 격차는 여전히 극심합니다",
+  "sections": [
+    {
+      "type": "notice",
+      "tone": "info",
+      "message": "판매량 지표는 Circle Chart 연간 앨범 판매량 Top100 전수 집계(2011~2025)입니다. 유통사(de_nm) 정보는 실제 소속사가 아니어서 소속사별 분석은 하지 않습니다."
+    },
+    {
+      "type": "stats",
+      "title": "2025년 판매 집중도",
+      "stats": [
+        {
+          "id": "concentration_top10",
+          "label": "Top 10 앨범 판매 점유율",
+          "value": 29.77,
+          "unit": "%",
+          "delta": -1.58,
+          "trend": "down",
+          "note": "낮을수록 판매가 여러 앨범에 분산",
+          "sourceId": "circlechart-top100",
+          "asOf": "2025",
+          "goodDirection": "down",
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "concentration_gini",
+          "label": "판매량 집중도 (Gini)",
+          "value": 0.4007,
+          "unit": null,
+          "delta": -0.0076,
+          "trend": "down",
+          "note": "0=완전 균등, 1=완전 쏠림",
+          "sourceId": "circlechart-top100",
+          "asOf": "2025",
+          "goodDirection": "down",
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "concentration_total",
+          "label": "Top100 총 판매량",
+          "value": 64615322.0,
+          "unit": "장",
+          "delta": -6582805.0,
+          "trend": "down",
+          "note": "Top100 앨범 판매량 합계",
+          "sourceId": "circlechart-top100",
+          "asOf": "2025",
+          "goodDirection": "up",
+          "confidence": "legacy_unverified"
+        }
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "Top 앨범 판매 점유율 추이",
+      "caption": "Top100 총 판매량 대비 비중(%). Top 10·20이 낮아지고 하위 50위 비중이 오르면 분산되는 것",
+      "kind": "line",
+      "xKey": "year",
+      "series": [
+        {
+          "key": "top10_share_pct",
+          "label": "Top 10"
+        },
+        {
+          "key": "top20_share_pct",
+          "label": "Top 20"
+        },
+        {
+          "key": "bottom50_share_pct",
+          "label": "하위 50 (51~100위)"
+        }
+      ],
+      "points": [
+        {
+          "year": "2011",
+          "top10_share_pct": 38.43,
+          "top20_share_pct": 53.58,
+          "bottom50_share_pct": 21.48
+        },
+        {
+          "year": "2012",
+          "top10_share_pct": 36.0,
+          "top20_share_pct": 54.51,
+          "bottom50_share_pct": 18.56
+        },
+        {
+          "year": "2013",
+          "top10_share_pct": 35.41,
+          "top20_share_pct": 55.41,
+          "bottom50_share_pct": 16.16
+        },
+        {
+          "year": "2014",
+          "top10_share_pct": 32.98,
+          "top20_share_pct": 49.05,
+          "bottom50_share_pct": 20.23
+        },
+        {
+          "year": "2015",
+          "top10_share_pct": 35.09,
+          "top20_share_pct": 52.54,
+          "bottom50_share_pct": 17.23
+        },
+        {
+          "year": "2016",
+          "top10_share_pct": 39.24,
+          "top20_share_pct": 55.23,
+          "bottom50_share_pct": 19.34
+        },
+        {
+          "year": "2017",
+          "top10_share_pct": 45.56,
+          "top20_share_pct": 62.65,
+          "bottom50_share_pct": 16.64
+        },
+        {
+          "year": "2018",
+          "top10_share_pct": 47.24,
+          "top20_share_pct": 62.66,
+          "bottom50_share_pct": 15.75
+        },
+        {
+          "year": "2019",
+          "top10_share_pct": 41.9,
+          "top20_share_pct": 57.97,
+          "bottom50_share_pct": 18.1
+        },
+        {
+          "year": "2020",
+          "top10_share_pct": 44.04,
+          "top20_share_pct": 58.99,
+          "bottom50_share_pct": 16.48
+        },
+        {
+          "year": "2021",
+          "top10_share_pct": 38.62,
+          "top20_share_pct": 56.88,
+          "bottom50_share_pct": 16.43
+        },
+        {
+          "year": "2022",
+          "top10_share_pct": 38.02,
+          "top20_share_pct": 58.07,
+          "bottom50_share_pct": 16.19
+        },
+        {
+          "year": "2023",
+          "top10_share_pct": 36.62,
+          "top20_share_pct": 54.56,
+          "bottom50_share_pct": 16.82
+        },
+        {
+          "year": "2024",
+          "top10_share_pct": 31.35,
+          "top20_share_pct": 48.08,
+          "bottom50_share_pct": 22.35
+        },
+        {
+          "year": "2025",
+          "top10_share_pct": 29.77,
+          "top20_share_pct": 46.9,
+          "bottom50_share_pct": 22.57
+        }
+      ],
+      "unit": "%",
+      "sourceIds": [
+        "circlechart-top100"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "판매량 지니계수 추이",
+      "caption": "0에 가까울수록 고르게 분산, 1에 가까울수록 소수 앨범에 쏠림",
+      "kind": "line",
+      "xKey": "year",
+      "series": [
+        {
+          "key": "gini",
+          "label": "Gini 계수"
+        }
+      ],
+      "points": [
+        {
+          "year": "2011",
+          "gini": 0.45
+        },
+        {
+          "year": "2012",
+          "gini": 0.47
+        },
+        {
+          "year": "2013",
+          "gini": 0.5
+        },
+        {
+          "year": "2014",
+          "gini": 0.44
+        },
+        {
+          "year": "2015",
+          "gini": 0.48
+        },
+        {
+          "year": "2016",
+          "gini": 0.48
+        },
+        {
+          "year": "2017",
+          "gini": 0.54
+        },
+        {
+          "year": "2018",
+          "gini": 0.56
+        },
+        {
+          "year": "2019",
+          "gini": 0.51
+        },
+        {
+          "year": "2020",
+          "gini": 0.53
+        },
+        {
+          "year": "2021",
+          "gini": 0.5
+        },
+        {
+          "year": "2022",
+          "gini": 0.51
+        },
+        {
+          "year": "2023",
+          "gini": 0.49
+        },
+        {
+          "year": "2024",
+          "gini": 0.41
+        },
+        {
+          "year": "2025",
+          "gini": 0.4
+        }
+      ],
+      "unit": null,
+      "sourceIds": [
+        "circlechart-top100"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "1위 vs 100위 앨범 판매량",
+      "caption": "단위 장. 1위와 100위의 격차가 곧 양극화의 크기",
+      "kind": "line",
+      "xKey": "year",
+      "series": [
+        {
+          "key": "number1_sales",
+          "label": "1위"
+        },
+        {
+          "key": "rank100_sales",
+          "label": "100위"
+        }
+      ],
+      "points": [
+        {
+          "year": "2011",
+          "number1_sales": 385348.0,
+          "rank100_sales": 15747.0
+        },
+        {
+          "year": "2012",
+          "number1_sales": 356431.0,
+          "rank100_sales": 15047.0
+        },
+        {
+          "year": "2013",
+          "number1_sales": 335823.0,
+          "rank100_sales": 13964.0
+        },
+        {
+          "year": "2014",
+          "number1_sales": 385047.0,
+          "rank100_sales": 14548.0
+        },
+        {
+          "year": "2015",
+          "number1_sales": 478856.0,
+          "rank100_sales": 13220.0
+        },
+        {
+          "year": "2016",
+          "number1_sales": 751301.0,
+          "rank100_sales": 21278.0
+        },
+        {
+          "year": "2017",
+          "number1_sales": 1493443.0,
+          "rank100_sales": 32864.0
+        },
+        {
+          "year": "2018",
+          "number1_sales": 2197808.0,
+          "rank100_sales": 45402.0
+        },
+        {
+          "year": "2019",
+          "number1_sales": 3718230.0,
+          "rank100_sales": 49673.0
+        },
+        {
+          "year": "2020",
+          "number1_sales": 4376975.0,
+          "rank100_sales": 82760.0
+        },
+        {
+          "year": "2021",
+          "number1_sales": 2999407.0,
+          "rank100_sales": 111497.0
+        },
+        {
+          "year": "2022",
+          "number1_sales": 3482598.0,
+          "rank100_sales": 144734.0
+        },
+        {
+          "year": "2023",
+          "number1_sales": 5546930.0,
+          "rank100_sales": 215324.0
+        },
+        {
+          "year": "2024",
+          "number1_sales": 3180338.0,
+          "rank100_sales": 210075.0
+        },
+        {
+          "year": "2025",
+          "number1_sales": 3397810.0,
+          "rank100_sales": 193399.0
+        }
+      ],
+      "unit": "장",
+      "sourceIds": [
+        "circlechart-top100"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "Top100 총 판매량",
+      "caption": "단위 장",
+      "kind": "column",
+      "xKey": "year",
+      "series": [
+        {
+          "key": "total_top100_sales",
+          "label": "Top100 총 판매량"
+        }
+      ],
+      "points": [
+        {
+          "year": "2011",
+          "total_top100_sales": 5082514.0
+        },
+        {
+          "year": "2012",
+          "total_top100_sales": 5522089.0
+        },
+        {
+          "year": "2013",
+          "total_top100_sales": 6679574.0
+        },
+        {
+          "year": "2014",
+          "total_top100_sales": 6050523.0
+        },
+        {
+          "year": "2015",
+          "total_top100_sales": 7194544.0
+        },
+        {
+          "year": "2016",
+          "total_top100_sales": 9465586.0
+        },
+        {
+          "year": "2017",
+          "total_top100_sales": 14483828.0
+        },
+        {
+          "year": "2018",
+          "total_top100_sales": 19328835.0
+        },
+        {
+          "year": "2019",
+          "total_top100_sales": 21051180.0
+        },
+        {
+          "year": "2020",
+          "total_top100_sales": 34913554.0
+        },
+        {
+          "year": "2021",
+          "total_top100_sales": 45468887.0
+        },
+        {
+          "year": "2022",
+          "total_top100_sales": 60476914.0
+        },
+        {
+          "year": "2023",
+          "total_top100_sales": 94167827.0
+        },
+        {
+          "year": "2024",
+          "total_top100_sales": 71198127.0
+        },
+        {
+          "year": "2025",
+          "total_top100_sales": 64615322.0
+        }
+      ],
+      "unit": "장",
+      "sourceIds": [
+        "circlechart-top100"
+      ]
+    },
+    {
+      "type": "insights",
+      "title": "집중도 핵심 포인트",
+      "insights": [
+        {
+          "id": "concentration_top10_change",
+          "severity": "positive",
+          "text": "2025년 Top 10 점유율은 29.8%로 전년(31.4%) 대비 1.6%p 하락했습니다.",
+          "relatedMetricId": null
+        },
+        {
+          "id": "concentration_gini_lowest",
+          "severity": "positive",
+          "text": "Gini 계수 0.401는 2011년 이후 관측 기간 중 가장 낮아, 판매 쏠림이 완화되는 추세입니다.",
+          "relatedMetricId": null
+        },
+        {
+          "id": "concentration_top10_peak",
+          "severity": "info",
+          "text": "Top 10 점유율 최고치는 2018년의 47.2%였고, 현재는 그보다 17.5%p 낮습니다.",
+          "relatedMetricId": null
+        },
+        {
+          "id": "concentration_total_sales",
+          "severity": "warning",
+          "text": "2025년 Top100 총 판매량은 6,462만 장으로 전년 대비 -9.2%였습니다.",
+          "relatedMetricId": null
+        }
+      ]
+    },
+    {
+      "type": "stats",
+      "title": "양극화·지원 지표",
+      "stats": [
+        {
+          "id": "gov_support_program",
+          "label": "중소기획사 글로벌 도약 지원 대상",
+          "value": 10.0,
+          "unit": "개사/년",
+          "delta": null,
+          "trend": null,
+          "note": "문화체육관광부, 기관당 연 최대 3억 원·최장 3년 지원",
+          "sourceId": "newsen-production-cost-gap",
+          "asOf": "2026",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "avg_active_years",
+          "label": "평균 활동 기간",
+          "value": 4.12,
+          "unit": "년",
+          "delta": null,
+          "trend": null,
+          "note": "보이그룹 5.11년 vs 걸그룹 3.13년 — 계약기간(7년)의 58.9% 수준",
+          "sourceId": "respawn-disband-study",
+          "asOf": "2026",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "album_cost_large_case",
+          "label": "대형 기획사 미니앨범 제작비(사례, 최소)",
+          "value": 50.0,
+          "unit": "억 원",
+          "delta": null,
+          "trend": null,
+          "note": "대형은 최소 50억 원 이상; 신인 보이그룹 데뷔+2주 활동에 80억 원 투입 사례",
+          "sourceId": "tf-kpop-polarization",
+          "asOf": "2026",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "album_cost_small_case",
+          "label": "중소 기획사 미니앨범 제작비(사례)",
+          "value": 10.0,
+          "unit": "억 원",
+          "delta": null,
+          "trend": null,
+          "note": "중소는 통상 10억 원 내외 — 대형 기획사 최소치의 1/5 수준",
+          "sourceId": "tf-kpop-polarization",
+          "asOf": "2026",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        }
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "연평균 음악 제작비 (대기업 vs 중소기업)",
+      "caption": "단위 억 원, 2023년 기준",
+      "kind": "barH",
+      "xKey": "group",
+      "series": [
+        {
+          "key": "value",
+          "label": "제작비"
+        }
+      ],
+      "points": [
+        {
+          "group": "대기업",
+          "value": 431.1
+        },
+        {
+          "group": "중소기업",
+          "value": 14.9
+        }
+      ],
+      "unit": "억 원",
+      "sourceIds": [
+        "newsen-production-cost-gap"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "연평균 해외 공연 횟수 (대기업 vs 중소기업)",
+      "caption": "단위 회/년, 2023년 기준",
+      "kind": "barH",
+      "xKey": "group",
+      "series": [
+        {
+          "key": "value",
+          "label": "공연 횟수"
+        }
+      ],
+      "points": [
+        {
+          "group": "대기업",
+          "value": 83.4
+        },
+        {
+          "group": "중소기업",
+          "value": 4.0
+        }
+      ],
+      "unit": "회/년",
+      "sourceIds": [
+        "newsen-production-cost-gap"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "판매 티어별 그룹 비율",
+      "caption": "1996~2025년 데뷔 아이돌 그룹 1,182개 중 해당 판매량 이상 도달 비율(%)",
+      "kind": "barH",
+      "xKey": "group",
+      "series": [
+        {
+          "key": "value",
+          "label": "그룹 비율"
+        }
+      ],
+      "points": [
+        {
+          "group": "30만 장 이상",
+          "value": 3.55
+        },
+        {
+          "group": "100만 장 이상",
+          "value": 1.61
+        },
+        {
+          "group": "1000만 장 이상",
+          "value": 0.68
+        }
+      ],
+      "unit": "%",
+      "sourceIds": [
+        "respawn-disband-study"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "데뷔 후 그룹 생존율",
+      "caption": "1996~2025년 데뷔 그룹 기준, 데뷔 N년 뒤에도 활동 중인 비율(%)",
+      "kind": "column",
+      "xKey": "group",
+      "series": [
+        {
+          "key": "value",
+          "label": "생존율"
+        }
+      ],
+      "points": [
+        {
+          "group": "3년",
+          "value": 55.03
+        },
+        {
+          "group": "5년",
+          "value": 36.6
+        },
+        {
+          "group": "10년",
+          "value": 17.9
+        }
+      ],
+      "unit": "%",
+      "sourceIds": [
+        "respawn-disband-study"
+      ]
+    },
+    {
+      "type": "cases",
+      "title": "지속가능성 리스크·기회 신호",
+      "cards": [
+        {
+          "id": "china_export_decline",
+          "title": "중화권 수출액 (2014년 대비)",
+          "subtitle": "기준 2023",
+          "body": "중화권 수출액이 2014년 대비 대폭 감소(1.10억→0.26억 달러) — 한한령 이후 편중 리스크 지속",
+          "badge": "주의",
+          "metrics": [
+            {
+              "label": "수치",
+              "value": "-76.1 %"
+            }
+          ],
+          "sourceId": "kosis-content-regional-exports"
+        },
+        {
+          "id": "physical_album_units",
+          "title": "실물앨범 판매량",
+          "subtitle": "기준 2025",
+          "body": "실물앨범 판매량이 9년 만에 첫 역성장, '1억 장 시대' 종료",
+          "badge": "위험",
+          "metrics": [
+            {
+              "label": "수치",
+              "value": "98.9 백만 장"
+            }
+          ],
+          "sourceId": "asiae-album-bubble"
+        },
+        {
+          "id": "physical_album_yoy",
+          "title": "실물앨범 시장 증감률",
+          "subtitle": "기준 2025",
+          "body": "멀티버전/포토카드 판촉 의존형 성장의 한계 신호",
+          "badge": "위험",
+          "metrics": [
+            {
+              "label": "수치",
+              "value": "-17.7 %"
+            }
+          ],
+          "sourceId": "asiae-album-bubble"
+        },
+        {
+          "id": "revenue_mix_shift",
+          "title": "수익 구조 다변화",
+          "subtitle": "기준 2025",
+          "body": "음반 판매 중심에서 스트리밍·투어·브랜드 파트너십 중심으로 수익 구조 다변화 진행 중 — 구조적으로는 지속가능성 개선 신호",
+          "badge": "긍정",
+          "metrics": [],
+          "sourceId": "keia-sustainability"
+        },
+        {
+          "id": "north_america_export_growth",
+          "title": "북미向 방송콘텐츠 수출",
+          "subtitle": "기준 2023",
+          "body": "2023년 기준 지역별 최대(1억 7,153만 달러) — 신흥 시장 다변화 진행",
+          "badge": "긍정",
+          "metrics": [
+            {
+              "label": "수치",
+              "value": "171.53 백만 달러"
+            }
+          ],
+          "sourceId": "kosis-content-regional-exports"
+        },
+        {
+          "id": "japan_export_decline_3y",
+          "title": "일본向 K팝 음반·DVD 수출 (최근 3년)",
+          "subtitle": "기준 2026",
+          "body": "특정 국가 편중 리스크 — 일본向 수출 3년간 61% 감소",
+          "badge": "위험",
+          "metrics": [
+            {
+              "label": "수치",
+              "value": "-61 %"
+            }
+          ],
+          "sourceId": "hankyung-japan-exports"
+        }
+      ]
+    }
+  ]
+}

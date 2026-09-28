@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T23:16:31.673808+09:00",
+  "generatedAt": "2026-09-28T23:20:20.296389+09:00",
   "sources": [
     {
       "id": "opendart-fnltt",
@@ -73,7 +73,9 @@
       "url": "https://kosis.kr/statHtml/statHtml.do?orgId=113&tblId=DT_113_STBL_1024780",
       "year": 2025,
       "note": "방송콘텐츠 지역별 수출 통계(음악 직접 통계 부재로 프록시 활용)",
-      "usedBy": []
+      "usedBy": [
+        "concentration"
+      ]
     },
     {
       "id": "allied-kpop-events",
@@ -154,7 +156,9 @@
       "url": "https://v.daum.net/v/20260620062722742",
       "year": 2026,
       "note": "대기업·중소기업 음악 제작비·해외공연 격차, 문체부 중소기획사 지원 정책",
-      "usedBy": []
+      "usedBy": [
+        "concentration"
+      ]
     },
     {
       "id": "tf-kpop-polarization",
@@ -163,7 +167,9 @@
       "url": "https://news.tf.co.kr/read/entertain/2325951.htm",
       "year": 2026,
       "note": "대형·중소 기획사 앨범 제작비·마케팅비·판매량 격차 사례",
-      "usedBy": []
+      "usedBy": [
+        "concentration"
+      ]
     },
     {
       "id": "respawn-disband-study",
@@ -172,7 +178,9 @@
       "url": "https://respawn.outlookindia.com/pop-culture/pop-culture-news/k-pop-groups-disband-within-3-years-study",
       "year": 2026,
       "note": "김정섭(성신여대) 아이돌 그룹 생존율·판매량 연구(1996~2025, 1,182개 그룹)",
-      "usedBy": []
+      "usedBy": [
+        "concentration"
+      ]
     },
     {
       "id": "ibtimes-fanbase-top10",
@@ -208,7 +216,9 @@
       "url": "https://www.asiae.co.kr/en/article/2026010216254445333",
       "year": 2026,
       "note": "실물앨범 시장 첫 역성장(버블 붕괴 신호)",
-      "usedBy": []
+      "usedBy": [
+        "concentration"
+      ]
     },
     {
       "id": "keia-sustainability",
@@ -217,7 +227,9 @@
       "url": "https://keia.org/analysis/limitations-on-k-pops-commitment-to-sustainability/",
       "year": 2025,
       "note": "산업 지속가능성 구조적 한계 분석",
-      "usedBy": []
+      "usedBy": [
+        "concentration"
+      ]
     },
     {
       "id": "hankyung-japan-exports",
@@ -226,7 +238,9 @@
       "url": "https://www.hankyung.com/article/2026061453661",
       "year": 2026,
       "note": "일본向 수출 편중 리스크",
-      "usedBy": []
+      "usedBy": [
+        "concentration"
+      ]
     },
     {
       "id": "circlechart-top100",
@@ -235,7 +249,9 @@
       "url": "https://circlechart.kr",
       "year": 2026,
       "note": "연도별 앨범 판매량 원자료(rank/artist/sales) — 집중도 지표는 이 원자료를 직접 집계해 산출 (유통사 컬럼은 소속사가 아니므로 미사용)",
-      "usedBy": []
+      "usedBy": [
+        "concentration"
+      ]
     },
     {
       "id": "respawn-weverse-latam",

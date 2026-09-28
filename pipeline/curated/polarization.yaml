@@ -1,0 +1,212 @@
+# 산업 양극화·지속가능성 지표 — 레거시 대시보드(real_kpop_future)의
+# polarization_indicators 14건과 sustainability_indicators 6건을 이관했다.
+#
+# 필수: source(sources.yaml의 id), as_of(기준 시점). 키 오타는 검증에서 차단된다.
+# confidence:
+#   verified          이 프로젝트의 기획 문서(docs/…보고서.docx) 인용값·manual_insights.yaml과
+#                     수치가 일치함을 대조한 값
+#   legacy_unverified 레거시 웹 리서치 값을 옮긴 것으로 원문을 다시 확인하지 않음 (화면에 "미검증" 배지)
+# 금액은 화면 단위인 "억 원"으로 환산해 적었다 (레거시는 KRW Billion: 43.11 = 431.1억 원).
+
+indicators:
+  # ── 정부 지원 ──
+  - key: gov_support_program
+    category: gov_support
+    label: "중소기획사 글로벌 도약 지원 대상"
+    short_label: "지원 대상"
+    value: 10
+    unit: "개사/년"
+    as_of: "2026"
+    source: newsen-production-cost-gap
+    note: "문화체육관광부, 기관당 연 최대 3억 원·최장 3년 지원"
+    confidence: legacy_unverified
+
+  # ── 해외 공연 횟수 (대기업 vs 중소기업) ──
+  - key: overseas_concerts_large
+    category: overseas_concerts
+    label: "대기업 평균 해외 공연 횟수"
+    short_label: "대기업"
+    value: 83.4
+    unit: "회/년"
+    as_of: "2023"
+    source: newsen-production-cost-gap
+    note: "중소기업(4회) 대비 20배 이상"
+    confidence: verified
+  - key: overseas_concerts_small
+    category: overseas_concerts
+    label: "중소기업 평균 해외 공연 횟수"
+    short_label: "중소기업"
+    value: 4.0
+    unit: "회/년"
+    as_of: "2023"
+    source: newsen-production-cost-gap
+    confidence: verified
+
+  # ── 연평균 음악 제작비 (대기업 vs 중소기업) ──
+  - key: production_cost_large
+    category: production_cost
+    label: "대기업 연평균 음악 제작비"
+    short_label: "대기업"
+    value: 431.1
+    unit: "억 원"
+    as_of: "2023"
+    source: newsen-production-cost-gap
+    note: "중소기업 평균(14.9억 원) 대비 약 29배"
+    confidence: verified
+  - key: production_cost_small
+    category: production_cost
+    label: "중소기업 연평균 음악 제작비"
+    short_label: "중소기업"
+    value: 14.9
+    unit: "억 원"
+    as_of: "2023"
+    source: newsen-production-cost-gap
+    note: "대기업 평균의 1/29 수준"
+    confidence: verified
+
+  # ── 미니앨범 제작비 사례 ──
+  - key: album_cost_large_case
+    category: album_cost
+    label: "대형 기획사 미니앨범 제작비(사례, 최소)"
+    short_label: "대형 기획사"
+    value: 50
+    unit: "억 원"
+    as_of: "2026"
+    source: tf-kpop-polarization
+    note: "대형은 최소 50억 원 이상; 신인 보이그룹 데뷔+2주 활동에 80억 원 투입 사례"
+    confidence: legacy_unverified
+  - key: album_cost_small_case
+    category: album_cost
+    label: "중소 기획사 미니앨범 제작비(사례)"
+    short_label: "중소 기획사"
+    value: 10
+    unit: "억 원"
+    as_of: "2026"
+    source: tf-kpop-polarization
+    note: "중소는 통상 10억 원 내외 — 대형 기획사 최소치의 1/5 수준"
+    confidence: legacy_unverified
+
+  # ── 판매 티어별 그룹 비율 (1996~2025 데뷔 1,182개 그룹) ──
+  - key: sales_tier_breakeven
+    category: sales_tier
+    label: "손익분기점(30만 장) 이상 판매 그룹 비율"
+    short_label: "30만 장 이상"
+    value: 3.55
+    unit: "%"
+    as_of: "2026"
+    source: respawn-disband-study
+    note: "1,182개 중 42개 그룹만 손익분기점 통과"
+    confidence: verified
+  - key: sales_tier_million
+    category: sales_tier
+    label: "100만 장 이상 판매 그룹 비율"
+    short_label: "100만 장 이상"
+    value: 1.61
+    unit: "%"
+    as_of: "2026"
+    source: respawn-disband-study
+    note: "1,182개 중 19개 그룹"
+    confidence: legacy_unverified
+  - key: sales_tier_10million
+    category: sales_tier
+    label: "1000만 장 이상 판매 그룹 비율"
+    short_label: "1000만 장 이상"
+    value: 0.68
+    unit: "%"
+    as_of: "2026"
+    source: respawn-disband-study
+    note: "1,182개 중 8개 그룹(BTS·세븐틴·스트레이키즈·EXO·TWICE 등)만 도달"
+    confidence: legacy_unverified
+
+  # ── 그룹 생존율 (김정섭 성신여대, 1996~2025년 데뷔 1,182개 그룹 전수조사) ──
+  - key: survival_3y
+    category: survival
+    label: "데뷔 3년 생존율"
+    short_label: "3년"
+    value: 55.03
+    unit: "%"
+    as_of: "2026"
+    source: respawn-disband-study
+    confidence: legacy_unverified
+  - key: survival_5y
+    category: survival
+    label: "데뷔 5년 생존율"
+    short_label: "5년"
+    value: 36.6
+    unit: "%"
+    as_of: "2026"
+    source: respawn-disband-study
+    confidence: verified
+  - key: survival_10y
+    category: survival
+    label: "데뷔 10년 생존율"
+    short_label: "10년"
+    value: 17.9
+    unit: "%"
+    as_of: "2026"
+    source: respawn-disband-study
+    confidence: verified
+  - key: avg_active_years
+    category: survival_summary
+    label: "평균 활동 기간"
+    value: 4.12
+    unit: "년"
+    as_of: "2026"
+    source: respawn-disband-study
+    note: "보이그룹 5.11년 vs 걸그룹 3.13년 — 계약기간(7년)의 58.9% 수준"
+    confidence: legacy_unverified
+
+# 지속가능성 리스크/기회 신호 (risk_level: high | medium | low | positive)
+risks:
+  - key: china_export_decline
+    label: "중화권 수출액 (2014년 대비)"
+    value: -76.1
+    unit: "%"
+    as_of: "2023"
+    risk_level: medium
+    source: kosis-content-regional-exports
+    note: "중화권 수출액이 2014년 대비 대폭 감소(1.10억→0.26억 달러) — 한한령 이후 편중 리스크 지속"
+    confidence: legacy_unverified
+  - key: physical_album_units
+    label: "실물앨범 판매량"
+    value: 98.9
+    unit: "백만 장"
+    as_of: "2025"
+    risk_level: high
+    source: asiae-album-bubble
+    note: "실물앨범 판매량이 9년 만에 첫 역성장, '1억 장 시대' 종료"
+    confidence: verified
+  - key: physical_album_yoy
+    label: "실물앨범 시장 증감률"
+    value: -17.7
+    unit: "%"
+    as_of: "2025"
+    risk_level: high
+    source: asiae-album-bubble
+    note: "멀티버전/포토카드 판촉 의존형 성장의 한계 신호"
+    confidence: verified
+  - key: revenue_mix_shift
+    label: "수익 구조 다변화"
+    as_of: "2025"
+    risk_level: positive
+    source: keia-sustainability
+    note: "음반 판매 중심에서 스트리밍·투어·브랜드 파트너십 중심으로 수익 구조 다변화 진행 중 — 구조적으로는 지속가능성 개선 신호"
+    confidence: legacy_unverified
+  - key: north_america_export_growth
+    label: "북미向 방송콘텐츠 수출"
+    value: 171.53
+    unit: "백만 달러"
+    as_of: "2023"
+    risk_level: positive
+    source: kosis-content-regional-exports
+    note: "2023년 기준 지역별 최대(1억 7,153만 달러) — 신흥 시장 다변화 진행"
+    confidence: legacy_unverified
+  - key: japan_export_decline_3y
+    label: "일본向 K팝 음반·DVD 수출 (최근 3년)"
+    value: -61.0
+    unit: "%"
+    as_of: "2026"
+    risk_level: high
+    source: hankyung-japan-exports
+    note: "특정 국가 편중 리스크 — 일본向 수출 3년간 61% 감소"
+    confidence: legacy_unverified

@@ -1,0 +1,39 @@
+# Circle Chart 연간 앨범 판매량 Top100 전수 집계 — 판매 집중도 15년 시계열 (2011~2025)
+#
+# 레거시 대시보드(real_kpop_future)의 sales_concentration 값을 이관했다. 기존
+# gini_series.yaml(docx "5-1. 판매량 집중도 완화 추세" 표를 옮긴 7개 연도, 반올림)의
+# top10 점유율·Gini와 반올림 기준으로 모두 일치함을 대조했고, 이 파일이 그것을 대체한다.
+#
+# 각 지표의 정의 (연도별 Top100 앨범 기준):
+#   top10_share_pct    상위 10개 앨범이 Top100 총 판매량에서 차지하는 비중(%)
+#   top20_share_pct    상위 20개 앨범 비중(%)
+#   bottom50_share_pct 하위 50개(51~100위) 앨범 비중(%)
+#   gini               판매량 지니계수 (0=균등, 1=완전 쏠림)
+#   number1_sales      1위 앨범 판매량(장), rank100_sales: 100위 앨범 판매량(장)
+#   total_top100_sales Top100 총 판매량(장)
+#
+# 주의: pipeline/collectors/circlechart.py가 API로 받은 2025년 원자료(raw/circlechart/
+# album_2025.json)를 직접 집계하면 총 판매량 약 3,530만 장·Top10 38.9%·Gini 0.518로
+# 이 표와 크게 다르다 (API 요청의 yearTime 파라미터 등 집계 기준 차이로 추정, 미확인).
+# 그래서 이 페이지는 기획 문서 인용값과 일치하는 이 표를 쓴다.
+
+source: circlechart-top100
+as_of: "2011~2025"
+confidence: legacy_unverified
+
+years:
+  - {year: 2011, top10_share_pct: 38.43, top20_share_pct: 53.58, bottom50_share_pct: 21.48, gini: 0.4527, number1_sales: 385348, rank100_sales: 15747, total_top100_sales: 5082514}
+  - {year: 2012, top10_share_pct: 36.0, top20_share_pct: 54.51, bottom50_share_pct: 18.56, gini: 0.4734, number1_sales: 356431, rank100_sales: 15047, total_top100_sales: 5522089}
+  - {year: 2013, top10_share_pct: 35.41, top20_share_pct: 55.41, bottom50_share_pct: 16.16, gini: 0.4985, number1_sales: 335823, rank100_sales: 13964, total_top100_sales: 6679574}
+  - {year: 2014, top10_share_pct: 32.98, top20_share_pct: 49.05, bottom50_share_pct: 20.23, gini: 0.4378, number1_sales: 385047, rank100_sales: 14548, total_top100_sales: 6050523}
+  - {year: 2015, top10_share_pct: 35.09, top20_share_pct: 52.54, bottom50_share_pct: 17.23, gini: 0.4816, number1_sales: 478856, rank100_sales: 13220, total_top100_sales: 7194544}
+  - {year: 2016, top10_share_pct: 39.24, top20_share_pct: 55.23, bottom50_share_pct: 19.34, gini: 0.4803, number1_sales: 751301, rank100_sales: 21278, total_top100_sales: 9465586}
+  - {year: 2017, top10_share_pct: 45.56, top20_share_pct: 62.65, bottom50_share_pct: 16.64, gini: 0.542, number1_sales: 1493443, rank100_sales: 32864, total_top100_sales: 14483828}
+  - {year: 2018, top10_share_pct: 47.24, top20_share_pct: 62.66, bottom50_share_pct: 15.75, gini: 0.5568, number1_sales: 2197808, rank100_sales: 45402, total_top100_sales: 19328835}
+  - {year: 2019, top10_share_pct: 41.9, top20_share_pct: 57.97, bottom50_share_pct: 18.1, gini: 0.5111, number1_sales: 3718230, rank100_sales: 49673, total_top100_sales: 21051180}
+  - {year: 2020, top10_share_pct: 44.04, top20_share_pct: 58.99, bottom50_share_pct: 16.48, gini: 0.5291, number1_sales: 4376975, rank100_sales: 82760, total_top100_sales: 34913554}
+  - {year: 2021, top10_share_pct: 38.62, top20_share_pct: 56.88, bottom50_share_pct: 16.43, gini: 0.5034, number1_sales: 2999407, rank100_sales: 111497, total_top100_sales: 45468887}
+  - {year: 2022, top10_share_pct: 38.02, top20_share_pct: 58.07, bottom50_share_pct: 16.19, gini: 0.5096, number1_sales: 3482598, rank100_sales: 144734, total_top100_sales: 60476914}
+  - {year: 2023, top10_share_pct: 36.62, top20_share_pct: 54.56, bottom50_share_pct: 16.82, gini: 0.4946, number1_sales: 5546930, rank100_sales: 215324, total_top100_sales: 94167827}
+  - {year: 2024, top10_share_pct: 31.35, top20_share_pct: 48.08, bottom50_share_pct: 22.35, gini: 0.4083, number1_sales: 3180338, rank100_sales: 210075, total_top100_sales: 71198127}
+  - {year: 2025, top10_share_pct: 29.77, top20_share_pct: 46.9, bottom50_share_pct: 22.57, gini: 0.4007, number1_sales: 3397810, rank100_sales: 193399, total_top100_sales: 64615322}

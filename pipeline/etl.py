@@ -24,6 +24,7 @@ from pathlib import Path
 import polars as pl
 
 from pipeline.common import CURATED_DIR, RAW_DIR, load_yaml, now
+from pipeline.curated_schema import load_concentration_series
 from pipeline.derived.concentration import compute_shares, parse_album_records
 from pipeline.derived.finance import (
   OPERATING_PROFIT,
@@ -51,6 +52,7 @@ from pipeline.models import (
   WordCloudData,
   WordCloudItem,
 )
+from pipeline.pages import concentration as concentration_page
 from pipeline.pages import finance as finance_page
 from pipeline.pages.sources import build_sources, load_sources, validate_refs
 from pipeline.sentiment_words import (
@@ -177,25 +179,20 @@ def load_dart_metrics() -> list[KpiMetric]:
 
 
 def load_gini_timeseries() -> pl.DataFrame:
-  """pipeline/curated/gini_series.yaml을 build_timeseries()가 바로 pivot할 수
-  있는 date/category/value long-format으로 변환한다."""
-  data = load_yaml(CURATED_DIR / "gini_series.yaml")
+  """pipeline/curated/sales_concentration.yaml을 build_timeseries()가 바로 pivot할 수
+  있는 date/category/value long-format으로 변환한다 (홈 추이 차트용)."""
+  series = load_concentration_series()
+  if series is None:
+    return pl.DataFrame({"date": [], "category": [], "value": []})
+
   rows = []
-  for point in data.get("points", []):
-    year = int(point["year"])
+  for point in series.years:
+    day = date(point.year, 12, 31)
     # Gini(0~1)는 Top10 점유율(%)과 한 축에 그리면 바닥에 붙어 안 보이므로 ×100으로
     # 환산해 같은 스케일에 놓는다 (축을 둘로 나누는 이중축은 쓰지 않는다).
-    rows.append(
-      {"date": date(year, 12, 31), "category": "Gini계수(×100)", "value": round(float(point["gini"]) * 100, 2)}
-    )
-    rows.append(
-      {
-        "date": date(year, 12, 31),
-        "category": "Top10_점유율",
-        "value": float(point["top10_share_pct"]),
-      }
-    )
-  return pl.DataFrame(rows) if rows else pl.DataFrame({"date": [], "category": [], "value": []})
+    rows.append({"date": day, "category": "Gini계수(×100)", "value": round(point.gini * 100, 2)})
+    rows.append({"date": day, "category": "Top10_점유율", "value": point.top10_share_pct})
+  return pl.DataFrame(rows)
 
 
 def load_manual_insights() -> list[Insight]:
@@ -399,7 +396,10 @@ def build_wordcloud(events: pl.DataFrame) -> WordCloudData:
 def build_pages() -> dict[str, PageData]:
   """slug → PageData. 페이지를 추가하면 pipeline/pages/<slug>.py의 build()를 여기에 등록한다.
   slug는 라우트 폴더명이자 public/data/<slug>.json 파일명이다."""
-  return {"finance": finance_page.build()}
+  return {
+    "concentration": concentration_page.build(),
+    "finance": finance_page.build(),
+  }
 
 
 def main() -> None:
