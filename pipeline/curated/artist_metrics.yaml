@@ -1,0 +1,35 @@
+# 팬 반응 페이지의 아티스트 팬덤 지표 — 레거시 real_kpop_future의 artist_metrics 25건을 이관했다.
+# 세 지표 모두 실시간으로 바뀌는 값이라 as_of(집계 시점)를 반드시 확인하고 주기적으로 갱신한다.
+# 단위는 모두 "백만 명". 값은 레거시 웹 리서치 그대로이며 원문을 재확인하지 않았다(legacy_unverified).
+
+indicators:
+  # ── 소셜 팔로워 합산 Top8 (Soundcharts 기준, IBTimes 보도) ──
+  - {key: social_bts, category: social_followers, label: "BTS 소셜 팔로워", short_label: "BTS", value: 352, unit: "백만 명", as_of: "2026", source: ibtimes-fanbase-top10, confidence: legacy_unverified}
+  - {key: social_blackpink, category: social_followers, label: "BLACKPINK 소셜 팔로워", short_label: "BLACKPINK", value: 269, unit: "백만 명", as_of: "2026", source: ibtimes-fanbase-top10, confidence: legacy_unverified}
+  - {key: social_twice, category: social_followers, label: "TWICE 소셜 팔로워", short_label: "TWICE", value: 105, unit: "백만 명", as_of: "2026", source: ibtimes-fanbase-top10, confidence: legacy_unverified}
+  - {key: social_skz, category: social_followers, label: "Stray Kids 소셜 팔로워", short_label: "Stray Kids", value: 86, unit: "백만 명", as_of: "2026", source: ibtimes-fanbase-top10, confidence: legacy_unverified}
+  - {key: social_txt, category: social_followers, label: "TXT 소셜 팔로워", short_label: "TXT", value: 75, unit: "백만 명", as_of: "2026", source: ibtimes-fanbase-top10, confidence: legacy_unverified}
+  - {key: social_exo, category: social_followers, label: "EXO 소셜 팔로워", short_label: "EXO", value: 61, unit: "백만 명", as_of: "2026", source: ibtimes-fanbase-top10, confidence: legacy_unverified}
+  - {key: social_enhypen, category: social_followers, label: "ENHYPEN 소셜 팔로워", short_label: "ENHYPEN", value: 60, unit: "백만 명", as_of: "2026", source: ibtimes-fanbase-top10, confidence: legacy_unverified}
+  - {key: social_seventeen, category: social_followers, label: "SEVENTEEN 소셜 팔로워", short_label: "SEVENTEEN", value: 59, unit: "백만 명", as_of: "2026", source: ibtimes-fanbase-top10, confidence: legacy_unverified}
+
+  # ── Spotify 월간 청취자 Top7 (Soundcharts, 2026-09) ──
+  - {key: spotify_jennie, category: spotify_listeners, label: "JENNIE Spotify 월간 청취자", short_label: "JENNIE", value: 49, unit: "백만 명", as_of: "2026-09", source: soundcharts-spotify-listeners, confidence: legacy_unverified}
+  - {key: spotify_bts, category: spotify_listeners, label: "BTS Spotify 월간 청취자", short_label: "BTS", value: 34, unit: "백만 명", as_of: "2026-09", source: soundcharts-spotify-listeners, confidence: legacy_unverified}
+  - {key: spotify_rose, category: spotify_listeners, label: "ROSÉ Spotify 월간 청취자", short_label: "ROSÉ", value: 26, unit: "백만 명", as_of: "2026-09", source: soundcharts-spotify-listeners, confidence: legacy_unverified}
+  - {key: spotify_illit, category: spotify_listeners, label: "ILLIT Spotify 월간 청취자", short_label: "ILLIT", value: 21, unit: "백만 명", as_of: "2026-09", source: soundcharts-spotify-listeners, confidence: legacy_unverified}
+  - {key: spotify_lesserafim, category: spotify_listeners, label: "LE SSERAFIM Spotify 월간 청취자", short_label: "LE SSERAFIM", value: 20, unit: "백만 명", as_of: "2026-09", source: soundcharts-spotify-listeners, confidence: legacy_unverified}
+  - {key: spotify_blackpink, category: spotify_listeners, label: "BLACKPINK Spotify 월간 청취자", short_label: "BLACKPINK", value: 20, unit: "백만 명", as_of: "2026-09", source: soundcharts-spotify-listeners, confidence: legacy_unverified}
+  - {key: spotify_jungkook, category: spotify_listeners, label: "Jung Kook Spotify 월간 청취자", short_label: "Jung Kook", value: 15, unit: "백만 명", as_of: "2026-09", source: soundcharts-spotify-listeners, confidence: legacy_unverified}
+
+  # ── 유튜브 구독자 Top10 (2026-01) ──
+  - {key: youtube_blackpink, category: youtube_subscribers, label: "BLACKPINK 유튜브 구독자", short_label: "BLACKPINK", value: 99.7, unit: "백만 명", as_of: "2026-01", source: dkblog-youtube-subscribers, confidence: legacy_unverified}
+  - {key: youtube_bts, category: youtube_subscribers, label: "BTS 유튜브 구독자", short_label: "BTS", value: 82.1, unit: "백만 명", as_of: "2026-01", source: dkblog-youtube-subscribers, confidence: legacy_unverified}
+  - {key: youtube_skz, category: youtube_subscribers, label: "Stray Kids 유튜브 구독자", short_label: "Stray Kids", value: 22.9, unit: "백만 명", as_of: "2026-01", source: dkblog-youtube-subscribers, confidence: legacy_unverified}
+  - {key: youtube_twice, category: youtube_subscribers, label: "TWICE 유튜브 구독자", short_label: "TWICE", value: 19.0, unit: "백만 명", as_of: "2026-01", source: dkblog-youtube-subscribers, confidence: legacy_unverified}
+  - {key: youtube_bigbang, category: youtube_subscribers, label: "BIGBANG 유튜브 구독자", short_label: "BIGBANG", value: 16.7, unit: "백만 명", as_of: "2026-01", source: dkblog-youtube-subscribers, confidence: legacy_unverified}
+  - {key: youtube_seventeen, category: youtube_subscribers, label: "SEVENTEEN 유튜브 구독자", short_label: "SEVENTEEN", value: 16.5, unit: "백만 명", as_of: "2026-01", source: dkblog-youtube-subscribers, confidence: legacy_unverified}
+  - {key: youtube_txt, category: youtube_subscribers, label: "TXT 유튜브 구독자", short_label: "TXT", value: 13.2, unit: "백만 명", as_of: "2026-01", source: dkblog-youtube-subscribers, confidence: legacy_unverified}
+  - {key: youtube_enhypen, category: youtube_subscribers, label: "ENHYPEN 유튜브 구독자", short_label: "ENHYPEN", value: 13.2, unit: "백만 명", as_of: "2026-01", source: dkblog-youtube-subscribers, confidence: legacy_unverified}
+  - {key: youtube_babymonster, category: youtube_subscribers, label: "BABYMONSTER 유튜브 구독자", short_label: "BABYMONSTER", value: 11.1, unit: "백만 명", as_of: "2026-01", source: dkblog-youtube-subscribers, confidence: legacy_unverified}
+  - {key: youtube_exo, category: youtube_subscribers, label: "EXO 유튜브 구독자", short_label: "EXO", value: 9.85, unit: "백만 명", as_of: "2026-01", source: dkblog-youtube-subscribers, confidence: legacy_unverified}

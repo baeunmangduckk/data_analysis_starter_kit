@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T23:25:42.099505+09:00",
+  "generatedAt": "2026-09-28T23:28:05.478395+09:00",
   "sources": [
     {
       "id": "opendart-fnltt",
@@ -19,7 +19,9 @@
       "url": "https://developers.google.com/youtube/v3",
       "year": 2026,
       "note": "analyst가 youtube_targets.yaml에 등록한 영상의 조회수·댓글. pipeline/collectors/youtube.py가 수집",
-      "usedBy": []
+      "usedBy": [
+        "fans"
+      ]
     },
     {
       "id": "insight-report-docx",
@@ -208,7 +210,9 @@
       "url": "https://www.ibtimes.com/top-10-k-pop-groups-biggest-fanbases-top-2-account-620-million-followers-3709675",
       "year": 2026,
       "note": "Soundcharts 소셜 팔로워 합산 기준 팬덤 규모",
-      "usedBy": []
+      "usedBy": [
+        "fans"
+      ]
     },
     {
       "id": "soundcharts-spotify-listeners",
@@ -217,7 +221,9 @@
       "url": "https://soundcharts.com/en/artists/spotify-monthly-listeners/genre/k-pop",
       "year": 2026,
       "note": "Spotify 월간 청취자 수 기준 아티스트 순위(실시간 집계)",
-      "usedBy": []
+      "usedBy": [
+        "fans"
+      ]
     },
     {
       "id": "dkblog-youtube-subscribers",
@@ -226,7 +232,9 @@
       "url": "https://blog.delivered.co.kr/k-pop/top-10-k-pop-groups-with-most-youtube-subscribers-updated-2026/",
       "year": 2026,
       "note": "유튜브 구독자 수 기준 그룹 순위(2026년 1월)",
-      "usedBy": []
+      "usedBy": [
+        "fans"
+      ]
     },
     {
       "id": "asiae-album-bubble",

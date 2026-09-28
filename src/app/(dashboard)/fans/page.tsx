@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { PlaceholderPage } from "@/components/dashboard/placeholder-page";
+import { PageView } from "@/components/dashboard/page-view";
 
 export const metadata: Metadata = { title: "팬 반응" };
 
 export default function FansPage() {
-  return <PlaceholderPage slug="fans" />;
+  return <PageView slug="fans" />;
 }

@@ -16,8 +16,6 @@ from __future__ import annotations
 
 import json
 import random
-import re
-from collections import Counter
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -26,6 +24,7 @@ import polars as pl
 from pipeline.common import CURATED_DIR, RAW_DIR, load_yaml, now
 from pipeline.curated_schema import load_concentration_series
 from pipeline.derived.concentration import compute_shares, parse_album_records
+from pipeline.derived.sentiment import top_words
 from pipeline.derived.finance import (
   OPERATING_PROFIT,
   REVENUE,
@@ -34,6 +33,7 @@ from pipeline.derived.finance import (
   load_dart_financials,
   summarize_totals,
 )
+from pipeline.loaders import load_youtube_comments
 from pipeline.models import (
   CamelModel,
   DistributionCategory,
@@ -45,26 +45,18 @@ from pipeline.models import (
   KpiMetric,
   MetricsData,
   PageData,
-  SentimentLabel,
   TimeseriesData,
   TimeseriesSeries,
   TrendDirection,
   WordCloudData,
-  WordCloudItem,
 )
 from pipeline.pages import ai_virtual as ai_virtual_page
 from pipeline.pages import concentration as concentration_page
+from pipeline.pages import fans as fans_page
 from pipeline.pages import finance as finance_page
 from pipeline.pages import global_expansion as global_page
 from pipeline.pages import market as market_page
 from pipeline.pages.sources import build_sources, load_sources, validate_refs
-from pipeline.sentiment_words import (
-  NEGATIVE_WORDS,
-  NEGATIVE_WORDS_EN,
-  POSITIVE_WORDS,
-  POSITIVE_WORDS_EN,
-  STOPWORDS,
-)
 
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "public" / "data"
 
@@ -232,31 +224,6 @@ def load_circlechart_distribution() -> DistributionData | None:
   )
 
 
-def load_youtube_comments() -> pl.DataFrame:
-  """가장 최근 YouTube 원본 스냅샷에서 댓글 텍스트만 뽑아, build_wordcloud()가
-  기대하는 "comment 컬럼이 있는 표" 계약과 동일한 단일 컬럼 DataFrame으로
-  평탄화한다. 수집기(npm run collect:youtube)를 아직 실행하지 않았다면
-  빈 DataFrame을 돌려줘 main()이 generate_sample_events()로 폴백하게 한다."""
-  youtube_dir = RAW_DIR / "youtube"
-  snapshot_dirs = (
-    sorted(p for p in youtube_dir.iterdir() if p.is_dir()) if youtube_dir.exists() else []
-  )
-  if not snapshot_dirs:
-    return pl.DataFrame({"comment": []})
-
-  comments_path = snapshot_dirs[-1] / "comments.json"
-  if not comments_path.exists():
-    return pl.DataFrame({"comment": []})
-
-  payload = json.loads(comments_path.read_text(encoding="utf-8"))
-  texts: list[str] = []
-  for threads in payload.values():
-    for thread in threads:
-      snippet = thread["snippet"]["topLevelComment"]["snippet"]
-      texts.append(snippet["textDisplay"])
-  return pl.DataFrame({"comment": texts})
-
-
 def build_metrics(events: pl.DataFrame) -> MetricsData:
   """카테고리별 최근 7일 합계와 그 직전 7일 합계를 비교해 KPI 카드를 만든다."""
   last_date = events["date"].max()
@@ -371,29 +338,9 @@ def build_insights(
 
 
 def build_wordcloud(events: pl.DataFrame) -> WordCloudData:
-  """comment 텍스트의 단어 빈도를 세고, 긍정/부정 단어 사전으로 감성을 분류한다."""
-  tokens: list[str] = []
-  for comment in events["comment"].to_list():
-    # 영단어/한글 덩어리만 추출해 구두점·이모지를 제거하고, 1글자와 불용어는 뺀다.
-    for token in re.findall(r"[a-z']+|[가-힣]+", comment.lower()):
-      if len(token) > 1 and token not in STOPWORDS:
-        tokens.append(token)
-
-  counts = Counter(tokens)
-  words: list[WordCloudItem] = []
-  for text, weight in counts.most_common(30):
-    # 부정 단어를 먼저 검사한다 — "불친절"처럼 부정 표현이 긍정 단어("친절")를
-    # 부분 문자열로 포함하는 경우가 있어, 순서를 바꾸면 오분류가 발생한다.
-    # 영어는 부분 문자열 오분류를 피하려고 완전 일치로만 판정한다.
-    if text in NEGATIVE_WORDS_EN or any(word in text for word in NEGATIVE_WORDS):
-      sentiment: SentimentLabel = "negative"
-    elif text in POSITIVE_WORDS_EN or any(word in text for word in POSITIVE_WORDS):
-      sentiment = "positive"
-    else:
-      sentiment = "neutral"
-    words.append(WordCloudItem(text=text, weight=float(weight), sentiment=sentiment))
-
-  return WordCloudData(generated_at=now(), words=words)
+  """comment 텍스트의 단어 빈도를 세고, 긍정/부정 단어 사전으로 감성을 분류한다.
+  토큰화와 분류 규칙은 pipeline/derived/sentiment.py에 있다."""
+  return WordCloudData(generated_at=now(), words=top_words(events["comment"].to_list()))
 
 
 def build_pages() -> dict[str, PageData]:
@@ -403,6 +350,7 @@ def build_pages() -> dict[str, PageData]:
     "market": market_page.build(),
     "concentration": concentration_page.build(),
     "finance": finance_page.build(),
+    "fans": fans_page.build(),
     "global": global_page.build(),
     "ai-virtual": ai_virtual_page.build(),
   }

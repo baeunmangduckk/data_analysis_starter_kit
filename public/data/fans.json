@@ -1,0 +1,432 @@
+{
+  "generatedAt": "2026-09-28T23:28:05.454346+09:00",
+  "title": "팬 반응",
+  "summary": "영상 댓글 반응과 아티스트 팬덤 규모",
+  "sections": [
+    {
+      "type": "notice",
+      "tone": "warning",
+      "message": "표본 안내: 등록 영상 1개(\"What K-pop Is Really Selling\"), 수집한 댓글 500개 기준입니다 (수집일 2026-09-28). 영상을 더 등록하려면 pipeline/curated/youtube_targets.yaml에 video_id를 추가하고 npm run collect:youtube -- --force를 실행하세요."
+    },
+    {
+      "type": "stats",
+      "title": "등록 영상 반응 (YouTube Data API)",
+      "stats": [
+        {
+          "id": "fans_views",
+          "label": "조회수",
+          "value": 1648729.0,
+          "unit": "회",
+          "delta": null,
+          "trend": null,
+          "note": null,
+          "sourceId": "youtube-data-api",
+          "asOf": "2026-09-28",
+          "goodDirection": "up",
+          "confidence": "verified"
+        },
+        {
+          "id": "fans_likes",
+          "label": "좋아요",
+          "value": 57646.0,
+          "unit": "개",
+          "delta": null,
+          "trend": null,
+          "note": null,
+          "sourceId": "youtube-data-api",
+          "asOf": "2026-09-28",
+          "goodDirection": "up",
+          "confidence": "verified"
+        },
+        {
+          "id": "fans_like_rate",
+          "label": "좋아요 비율",
+          "value": 3.5,
+          "unit": "%",
+          "delta": null,
+          "trend": null,
+          "note": "좋아요 ÷ 조회수",
+          "sourceId": "youtube-data-api",
+          "asOf": "2026-09-28",
+          "goodDirection": "up",
+          "confidence": "verified"
+        },
+        {
+          "id": "fans_comments",
+          "label": "전체 댓글 수",
+          "value": 6006.0,
+          "unit": "개",
+          "delta": null,
+          "trend": null,
+          "note": null,
+          "sourceId": "youtube-data-api",
+          "asOf": "2026-09-28",
+          "goodDirection": "up",
+          "confidence": "verified"
+        }
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "댓글 감성 분포",
+      "caption": "수집한 댓글 500개를 긍정·부정 단어 사전으로 분류한 결과입니다 (사전 기반 단순 분류라 중립 비중이 큽니다)",
+      "kind": "barH",
+      "xKey": "sentiment",
+      "series": [
+        {
+          "key": "count",
+          "label": "댓글 수"
+        }
+      ],
+      "points": [
+        {
+          "sentiment": "긍정",
+          "count": 82.0
+        },
+        {
+          "sentiment": "부정",
+          "count": 31.0
+        },
+        {
+          "sentiment": "중립",
+          "count": 387.0
+        }
+      ],
+      "unit": "개",
+      "sourceIds": [
+        "youtube-data-api"
+      ]
+    },
+    {
+      "type": "wordcloud",
+      "title": "댓글 상위 단어",
+      "words": [
+        {
+          "text": "kpop",
+          "weight": 159.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "music",
+          "weight": 147.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "pop",
+          "weight": 115.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "industry",
+          "weight": 97.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "fans",
+          "weight": 81.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "idols",
+          "weight": 77.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "idol",
+          "weight": 57.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "love",
+          "weight": 46.0,
+          "sentiment": "positive"
+        },
+        {
+          "text": "money",
+          "weight": 45.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "korean",
+          "weight": 42.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "good",
+          "weight": 38.0,
+          "sentiment": "positive"
+        },
+        {
+          "text": "life",
+          "weight": 36.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "korea",
+          "weight": 35.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "fan",
+          "weight": 33.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "video",
+          "weight": 28.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "young",
+          "weight": 27.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "time",
+          "weight": 26.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "look",
+          "weight": 24.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "group",
+          "weight": 24.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "work",
+          "weight": 23.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "listen",
+          "weight": 22.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "buy",
+          "weight": 22.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "don",
+          "weight": 22.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "kids",
+          "weight": 22.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "that's",
+          "weight": 21.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "artists",
+          "weight": 21.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "feel",
+          "weight": 21.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "etc",
+          "weight": 21.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "selling",
+          "weight": 21.0,
+          "sentiment": "neutral"
+        },
+        {
+          "text": "world",
+          "weight": 21.0,
+          "sentiment": "neutral"
+        }
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "소셜 팔로워 합산 Top 8",
+      "caption": "Soundcharts 소셜 팔로워 합산 기준, 단위 백만 명",
+      "kind": "barH",
+      "xKey": "group",
+      "series": [
+        {
+          "key": "value",
+          "label": "팔로워"
+        }
+      ],
+      "points": [
+        {
+          "group": "BTS",
+          "value": 352.0
+        },
+        {
+          "group": "BLACKPINK",
+          "value": 269.0
+        },
+        {
+          "group": "TWICE",
+          "value": 105.0
+        },
+        {
+          "group": "Stray Kids",
+          "value": 86.0
+        },
+        {
+          "group": "TXT",
+          "value": 75.0
+        },
+        {
+          "group": "EXO",
+          "value": 61.0
+        },
+        {
+          "group": "ENHYPEN",
+          "value": 60.0
+        },
+        {
+          "group": "SEVENTEEN",
+          "value": 59.0
+        }
+      ],
+      "unit": "백만 명",
+      "sourceIds": [
+        "ibtimes-fanbase-top10"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "Spotify 월간 청취자 Top 7",
+      "caption": "2026-09 기준, 단위 백만 명",
+      "kind": "barH",
+      "xKey": "group",
+      "series": [
+        {
+          "key": "value",
+          "label": "월간 청취자"
+        }
+      ],
+      "points": [
+        {
+          "group": "JENNIE",
+          "value": 49.0
+        },
+        {
+          "group": "BTS",
+          "value": 34.0
+        },
+        {
+          "group": "ROSÉ",
+          "value": 26.0
+        },
+        {
+          "group": "ILLIT",
+          "value": 21.0
+        },
+        {
+          "group": "LE SSERAFIM",
+          "value": 20.0
+        },
+        {
+          "group": "BLACKPINK",
+          "value": 20.0
+        },
+        {
+          "group": "Jung Kook",
+          "value": 15.0
+        }
+      ],
+      "unit": "백만 명",
+      "sourceIds": [
+        "soundcharts-spotify-listeners"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "유튜브 구독자 Top 10",
+      "caption": "2026-01 기준, 단위 백만 명",
+      "kind": "barH",
+      "xKey": "group",
+      "series": [
+        {
+          "key": "value",
+          "label": "구독자"
+        }
+      ],
+      "points": [
+        {
+          "group": "BLACKPINK",
+          "value": 99.7
+        },
+        {
+          "group": "BTS",
+          "value": 82.1
+        },
+        {
+          "group": "Stray Kids",
+          "value": 22.9
+        },
+        {
+          "group": "TWICE",
+          "value": 19.0
+        },
+        {
+          "group": "BIGBANG",
+          "value": 16.7
+        },
+        {
+          "group": "SEVENTEEN",
+          "value": 16.5
+        },
+        {
+          "group": "TXT",
+          "value": 13.2
+        },
+        {
+          "group": "ENHYPEN",
+          "value": 13.2
+        },
+        {
+          "group": "BABYMONSTER",
+          "value": 11.1
+        },
+        {
+          "group": "EXO",
+          "value": 9.85
+        }
+      ],
+      "unit": "백만 명",
+      "sourceIds": [
+        "dkblog-youtube-subscribers"
+      ]
+    },
+    {
+      "type": "insights",
+      "title": "핵심 포인트",
+      "insights": [
+        {
+          "id": "fans_sentiment_share",
+          "severity": "info",
+          "text": "수집 댓글 중 긍정 16.4%, 부정 6.2%, 중립 77.4%입니다 (표본 500개).",
+          "relatedMetricId": null
+        },
+        {
+          "id": "fans_youtube_top",
+          "severity": "info",
+          "text": "유튜브 구독자 1위 BLACKPINK(99.7백만 명)와 2위 BTS(82.1백만 명)가 3위 이하와 큰 격차를 보입니다.",
+          "relatedMetricId": null
+        }
+      ]
+    }
+  ]
+}
