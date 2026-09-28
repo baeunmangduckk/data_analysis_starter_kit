@@ -1,0 +1,254 @@
+# 출처 레지스트리 — 페이지 JSON의 모든 sourceId가 가리키는 유일한 목록이다.
+#
+# - id: 화면 라벨이 아니라 코드 키(slug)다. 한 번 정하면 바꾸지 않는다.
+# - 다른 curated YAML의 `source:` 필드는 이 id 중 하나여야 하며, 목록에 없는 id를
+#   쓰면 `npm run etl`이 전체 중단된다 (출처 없는 수치를 화면에 내보내지 않기 위함).
+# - legacy_id: 레거시 대시보드(real_kpop_future) sources.json의 숫자 id. 값을 옮길 때
+#   대조하기 위한 참고용이며 JSON 계약에는 노출하지 않는다.
+
+sources:
+  # ── 이 저장소의 실데이터 수집기 ─────────────────────────────
+  - id: opendart-fnltt
+    org: "금융감독원 전자공시시스템(OpenDART)"
+    title: "상장 엔터사 사업보고서 단일회사 주요계정 (하이브·SM·YG·JYP)"
+    url: "https://opendart.fss.or.kr"
+    year: 2026
+    note: "연결재무제표(CFS) 기준 매출액·영업이익. pipeline/collectors/dart.py가 수집"
+  - id: youtube-data-api
+    org: "YouTube Data API v3"
+    title: "videos.list / commentThreads.list"
+    url: "https://developers.google.com/youtube/v3"
+    year: 2026
+    note: "analyst가 youtube_targets.yaml에 등록한 영상의 조회수·댓글. pipeline/collectors/youtube.py가 수집"
+  - id: insight-report-docx
+    org: "K-POP 대시보드 기획 문서"
+    title: "K-POP 대시보드 핵심 인사이트 보고서"
+    url: null
+    year: 2026
+    note: "docs/K-POP_대시보드_핵심_인사이트_보고서.docx에서 인용한 수치"
+
+  # ── 레거시 대시보드에서 이관한 출처 ─────────────────────────
+  - id: ifpi-gmr-2026
+    legacy_id: 1
+    org: "IFPI"
+    title: "Global Music Report 2026"
+    url: "https://www.ifpi.org/global-music-report-2026-global-recorded-music-revenues-grow-6-4-as-record-companies-drive-innovation/"
+    year: 2026
+    note: "글로벌 음반 산업 매출 및 국가 순위"
+  - id: luminate-yearend-2025
+    legacy_id: 2
+    org: "Luminate"
+    title: "2025 Year-End Music Report"
+    url: "https://luminatedata.com/reports/yearend-music-industry-report-2025"
+    year: 2026
+    note: "미국 스트리밍/음반 판매, Export Power Score"
+  - id: kocca-content-2025q4
+    legacy_id: 3
+    org: "한국콘텐츠진흥원(KOCCA)"
+    title: "2025년 4분기 및 연간 콘텐츠산업 동향분석보고서"
+    url: "https://biz.heraldcorp.com/article/10728969"
+    year: 2026
+    note: "콘텐츠산업 매출·수출, 음악산업 성장률"
+  - id: kita-kpop-album-exports
+    legacy_id: 4
+    org: "한국무역협회(KITA)/관세청"
+    title: "K팝 음반 수출 통계"
+    url: "https://www.kita.net/cmmrcInfo/cmmrcNews/cmmrcNews/cmmrcNewsDetail.do?pageIndex=1&nIndex=72197&sSiteid=1"
+    year: 2024
+    note: "연도별 음반·DVD 수출액(관세청 통계 기반)"
+  - id: kosis-content-regional-exports
+    legacy_id: 5
+    org: "KOSIS"
+    title: "콘텐츠산업 지역별 수출액 현황"
+    url: "https://kosis.kr/statHtml/statHtml.do?orgId=113&tblId=DT_113_STBL_1024780"
+    year: 2025
+    note: "방송콘텐츠 지역별 수출 통계(음악 직접 통계 부재로 프록시 활용)"
+  - id: allied-kpop-events
+    legacy_id: 6
+    org: "Allied Market Research"
+    title: "K-pop Events Market Size, Share, Growth (Forecast to 2030)"
+    url: "https://www.alliedmarketresearch.com/k-pop-events-market-A47369"
+    year: 2025
+    note: "글로벌 K팝 이벤트(공연) 시장 전망"
+  - id: mrfr-kpop-events
+    legacy_id: 7
+    org: "Market Research Future"
+    title: "K-Pop Event Market Size, Share & Growth Report"
+    url: "https://www.marketresearchfuture.com/reports/k-pop-event-market-33681"
+    year: 2025
+    note: null
+  - id: maximize-kpop-events
+    legacy_id: 8
+    org: "Maximize Market Research"
+    title: "K-pop Events Market Size, Share, Trends and Forecast (2026-2032)"
+    url: "https://www.maximizemarketresearch.com/market-report/k-pop-events-market/186929/"
+    year: 2026
+    note: null
+  - id: kpopmap-luminate-2025
+    legacy_id: 9
+    org: "Kpopmap"
+    title: "K-Pop Artists Shine in U.S. Market: Luminate's 2025 Report"
+    url: "https://www.kpopmap.com/k-pop-artists-shine-in-u-s-market-luminates-2025-report/"
+    year: 2026
+    note: "미국 실물 CD 판매 상위권 K팝 강세"
+  - id: straightnews-hybe-2025
+    legacy_id: 10
+    org: "스트레이트뉴스"
+    title: "하이브, 매출 2조6500억 사상 최대…공연 69% 성장 '빅4' 진입"
+    url: "https://www.straightnews.co.kr/news/articleView.html?idxno=295024"
+    year: 2026
+    note: "하이브 2025년 연결 기준 실적(매출·공연·영업이익)"
+  - id: ceonews-big4-comparison
+    legacy_id: 11
+    org: "CEONEWS"
+    title: "[기획특집] K-POP의 본산, 4대 엔터테인먼트 비교 분석"
+    url: "https://www.ceomagazine.co.kr/news/articleView.html?idxno=34246"
+    year: 2025
+    note: "4대 기획사 시가총액(2025-10-23 기준) 및 2024년 매출"
+  - id: respawn-earnings-gap
+    legacy_id: 12
+    org: "Outlook Respawn"
+    title: "K-pop's Massive Earnings Gap is Crushing Small Labels!"
+    url: "https://respawn.outlookindia.com/pop-culture/pop-culture-news/kpop-industry-earnings-gap-hybe-mid-tier-agencies-2026"
+    year: 2026
+    note: "2026년 1분기 상장 기획사별 매출 비교(하이브·YG·FNC·큐브·RBW·TN엔터)"
+  - id: efnews-kakao-sm-ent-revenue
+    legacy_id: 13
+    org: "파이낸셜신문"
+    title: "SM 품은 카카오, 작년 '엔터' 매출 1.2조원 '국내 1위'…하이브·JYP 순"
+    url: "https://www.efnews.co.kr/news/articleView.html?idxno=131288"
+    year: 2025
+    note: "4대 기획사 개별(별도) 재무제표 기준 매출·성장률"
+  - id: newsen-production-cost-gap
+    legacy_id: 14
+    org: "뉴스엔(다음)"
+    title: "제작비 격차 29배 시장의 반전…K팝, 중소기획사 지원으로 생태계 확장 시동"
+    url: "https://v.daum.net/v/20260620062722742"
+    year: 2026
+    note: "대기업·중소기업 음악 제작비·해외공연 격차, 문체부 중소기획사 지원 정책"
+  - id: tf-kpop-polarization
+    legacy_id: 15
+    org: "더팩트"
+    title: "[K팝 양극화②] 넘을 수 없는 벽…돈을 벌어도 돈이 안 된다"
+    url: "https://news.tf.co.kr/read/entertain/2325951.htm"
+    year: 2026
+    note: "대형·중소 기획사 앨범 제작비·마케팅비·판매량 격차 사례"
+  - id: respawn-disband-study
+    legacy_id: 16
+    org: "Outlook Respawn"
+    title: "Why 45% of K-Pop Groups Disband Within 3 Years"
+    url: "https://respawn.outlookindia.com/pop-culture/pop-culture-news/k-pop-groups-disband-within-3-years-study"
+    year: 2026
+    note: "김정섭(성신여대) 아이돌 그룹 생존율·판매량 연구(1996~2025, 1,182개 그룹)"
+  - id: ibtimes-fanbase-top10
+    legacy_id: 17
+    org: "International Business Times"
+    title: "Top 10 K-Pop Groups With The Biggest Fanbases: Top 2 Account For 620 Million Followers"
+    url: "https://www.ibtimes.com/top-10-k-pop-groups-biggest-fanbases-top-2-account-620-million-followers-3709675"
+    year: 2026
+    note: "Soundcharts 소셜 팔로워 합산 기준 팬덤 규모"
+  - id: soundcharts-spotify-listeners
+    legacy_id: 18
+    org: "Soundcharts"
+    title: "Top K-pop Artists by Spotify Monthly Listeners"
+    url: "https://soundcharts.com/en/artists/spotify-monthly-listeners/genre/k-pop"
+    year: 2026
+    note: "Spotify 월간 청취자 수 기준 아티스트 순위(실시간 집계)"
+  - id: dkblog-youtube-subscribers
+    legacy_id: 19
+    org: "DK Blog(delivered.co.kr)"
+    title: "Top 10 K-Pop Groups With Most YouTube Subscribers (Updated 2026)"
+    url: "https://blog.delivered.co.kr/k-pop/top-10-k-pop-groups-with-most-youtube-subscribers-updated-2026/"
+    year: 2026
+    note: "유튜브 구독자 수 기준 그룹 순위(2026년 1월)"
+  - id: asiae-album-bubble
+    legacy_id: 20
+    org: "Asia Business Daily"
+    title: "[2026 K-pop] K-pop After the 100 Million Album Bubble"
+    url: "https://www.asiae.co.kr/en/article/2026010216254445333"
+    year: 2026
+    note: "실물앨범 시장 첫 역성장(버블 붕괴 신호)"
+  - id: keia-sustainability
+    legacy_id: 21
+    org: "Korea Economic Institute of America"
+    title: "Limitations on K-Pop's Commitment to Sustainability"
+    url: "https://keia.org/analysis/limitations-on-k-pops-commitment-to-sustainability/"
+    year: 2025
+    note: "산업 지속가능성 구조적 한계 분석"
+  - id: hankyung-japan-exports
+    legacy_id: 22
+    org: "한국경제"
+    title: "K팝 음반·DVD, 일본 수출 3년새 61% 줄어"
+    url: "https://www.hankyung.com/article/2026061453661"
+    year: 2026
+    note: "일본向 수출 편중 리스크"
+  - id: circlechart-top100
+    legacy_id: 23
+    org: "써클차트(Circle Chart)"
+    title: "연간 앨범 판매량 Top100 (2011~2025)"
+    url: "https://circlechart.kr"
+    year: 2026
+    note: "연도별 앨범 판매량 원자료(rank/artist/sales) — 집중도 지표는 이 원자료를 직접 집계해 산출 (유통사 컬럼은 소속사가 아니므로 미사용)"
+  - id: respawn-weverse-latam
+    legacy_id: 24
+    org: "Outlook Respawn"
+    title: "Weverse Hits 12M MAU Fueled by BTS Return, Latin America Sees Best Growth"
+    url: "https://respawn.outlookindia.com/pop-culture/pop-culture-news/bts-return-lifts-weverses-active-users-to-12m"
+    year: 2026
+    note: "Weverse 지역별 성장 발표 — 중남미 이용자 +22%, 디지털 리테일 판매 +715%(2025)"
+  - id: mbw-weverse-mau
+    legacy_id: 25
+    org: "Music Business Worldwide"
+    title: "HYBE says Weverse hit 12m monthly users last year"
+    url: "https://www.musicbusinessworldwide.com/hybe-says-weverse-hit-12m-monthly-users-last-year-and-that-its-turning-casual-fans-into-superfans/"
+    year: 2026
+    note: "Weverse 2025년 월간활성이용자(MAU) 1,200만 기록"
+  - id: respawn-weverse-bubble
+    legacy_id: 26
+    org: "Outlook Respawn"
+    title: "Weverse vs. Bubble: The Battle for K-Pop Fans"
+    url: "https://respawn.outlookindia.com/pop-culture/pop-culture-guides/weverse-vs-bubble-the-battle-for-k-pop-fans"
+    year: 2025
+    note: "Weverse/DearU Bubble 2025년 3분기 매출 비교"
+  - id: kofice-hallyu-survey-2025
+    legacy_id: 27
+    org: "한국국제문화교류진흥원(KOFICE)"
+    title: "2025 해외한류실태조사 주요 결과"
+    url: "https://kofice.or.kr/www/bbs/view.do?bbsSn=53378&scBbsMngSn=5&mnucd=103"
+    year: 2025
+    note: "동남아시아·중동/아프리카·중남미가 한류심리지수 최고 권역으로 확인(2024년 기준 조사)"
+  - id: snsinsider-virtual-idol
+    legacy_id: 28
+    org: "SNS Insider"
+    title: "Global Virtual Idol and VTubers Market"
+    url: "https://www.snsinsider.com/press-release/global-virtual-idol-and-vtubers-market"
+    year: 2026
+    note: "버추얼 아이돌·버튜버 시장 2025년 22.7억달러 → 2035년 107.5억달러 전망(CAGR 16.82%)"
+  - id: kcultureguide-virtual-idols
+    legacy_id: 29
+    org: "K Culture Guide"
+    title: "2026 Virtual Idols: Are AI Groups Replacing K-Pop Legends?"
+    url: "https://www.kcultureguide.com/2026/03/2026-virtual-idols-ai-kpop-replacing-legends.html"
+    year: 2026
+    note: "AI 그룹이 K-pop 산업 전체 매출에서 차지하는 비중 1.1%(2026년 기준)"
+  - id: wiki-plave
+    legacy_id: 30
+    org: "Wikipedia"
+    title: "Plave"
+    url: "https://en.wikipedia.org/wiki/Plave"
+    year: 2026
+    note: "PLAVE 데뷔(2023-03-12)·유튜브 구독자·빌보드 성과"
+  - id: wiki-mave
+    legacy_id: 31
+    org: "Wikipedia"
+    title: "Mave:"
+    url: "https://en.wikipedia.org/wiki/Mave:"
+    year: 2026
+    note: "MAVE: 데뷔(2023-01-25)·제작사·차트 성과"
+  - id: wiki-naevis
+    legacy_id: 32
+    org: "Wikipedia"
+    title: "Naevis"
+    url: "https://en.wikipedia.org/wiki/Naevis"
+    year: 2026
+    note: "naevis 데뷔(2024-09-10)·소속사(SM엔터테인먼트)·차트 성과"

@@ -26,6 +26,7 @@ import polars as pl
 from pipeline.common import CURATED_DIR, RAW_DIR, load_yaml, now
 from pipeline.derived.concentration import compute_shares, parse_album_records
 from pipeline.models import (
+  CamelModel,
   DistributionCategory,
   DistributionData,
   GoodDirection,
@@ -34,6 +35,7 @@ from pipeline.models import (
   InsightsData,
   KpiMetric,
   MetricsData,
+  PageData,
   SentimentLabel,
   TimeseriesData,
   TimeseriesSeries,
@@ -41,6 +43,7 @@ from pipeline.models import (
   WordCloudData,
   WordCloudItem,
 )
+from pipeline.pages.sources import build_sources, load_sources, validate_refs
 from pipeline.sentiment_words import (
   NEGATIVE_WORDS,
   NEGATIVE_WORDS_EN,
@@ -418,6 +421,12 @@ def build_wordcloud(events: pl.DataFrame) -> WordCloudData:
   return WordCloudData(generated_at=now(), words=words)
 
 
+def build_pages() -> dict[str, PageData]:
+  """slug → PageData. 페이지를 추가하면 pipeline/pages/<slug>.py의 build()를 여기에 등록한다.
+  slug는 라우트 폴더명이자 public/data/<slug>.json 파일명이다."""
+  return {}
+
+
 def main() -> None:
   OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -458,18 +467,30 @@ def main() -> None:
     print("YouTube 원본 스냅샷이 없습니다 (npm run collect:youtube 먼저 실행).")
     wordcloud = build_wordcloud(sample())
 
-  outputs: dict[str, MetricsData | TimeseriesData | DistributionData | InsightsData | WordCloudData] = {
+  # 페이지 JSON과 출처 레지스트리. 인용한 sourceId가 sources.yaml에 없으면 여기서 중단된다.
+  pages = build_pages()
+  registry = load_sources()
+  validate_refs(pages, registry)
+
+  outputs: dict[str, CamelModel] = {
     "metrics.json": metrics,
     "timeseries.json": timeseries,
     "distribution.json": distribution,
     "insights.json": insights,
     "wordcloud.json": wordcloud,
+    "sources.json": build_sources(pages, registry),
   }
+  outputs.update({f"{slug}.json": page for slug, page in pages.items()})
 
-  for filename, model in outputs.items():
+  # 모든 모델의 직렬화를 끝낸 뒤에 한꺼번에 저장한다 — 중간에 실패해도 기존 JSON이
+  # 반쪽만 갱신된 상태로 남지 않는다.
+  rendered = {
+    filename: json.dumps(model.model_dump(mode="json", by_alias=True), ensure_ascii=False, indent=2)
+    for filename, model in outputs.items()
+  }
+  for filename, text in rendered.items():
     path = OUTPUT_DIR / filename
-    payload = model.model_dump(mode="json", by_alias=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    path.write_text(text, encoding="utf-8")
     print(f"저장 완료: {path}")
 
 
