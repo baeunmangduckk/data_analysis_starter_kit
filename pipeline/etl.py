@@ -1,15 +1,16 @@
 """분석가가 직접 수정하는 대시보드 집계 파이프라인 — Stage B(변환).
 
-실행: .venv/Scripts/python.exe pipeline/etl.py (또는 npm run etl)
-public/data/*.json 5개를 생성한다. 분석가는 build_* 함수들의 집계
-로직만 수정하면 된다 — 나머지(검증/저장)는 건드리지 않아도 된다.
+실행: npm run etl  (내부적으로 python -m pipeline.etl 모듈 방식으로 실행)
+public/data/*.json을 생성한다: 홈용 metrics.json·insights.json, 주제별 페이지 JSON
+(pipeline/pages/*.py의 build()가 만든 PageData), 출처 목록 sources.json.
+홈의 KPI·인사이트는 이 파일의 load_*/build_* 함수를, 각 페이지의 화면 구성은
+pipeline/pages/<slug>.py의 build()를 수정하면 된다 — 나머지(검증/저장)는 건드리지 않아도 된다.
 
 이 파일은 pipeline/raw/**(pipeline/collectors/*가 저장한 원본 스냅샷)와
 pipeline/curated/**(분석가가 출처와 함께 직접 입력한 통계)만 읽으며,
 네트워크나 API 키를 절대 건드리지 않는다 — 그래야 `npm run etl`이 언제나
-빠르고 오프라인이며 결정적으로 동작한다. 원본 스냅샷/큐레이션 데이터가
-아직 없는 항목은 generate_sample_events()로 폴백해, 최초 clone 직후
-수집기를 한 번도 안 돌렸어도 `npm run etl`이 죽지 않게 한다.
+빠르고 오프라인이며 결정적으로 동작한다. 홈 KPI의 큐레이션 데이터가 비어 있으면
+generate_sample_events()로 폴백해, 최초 clone 직후에도 죽지 않게 한다.
 """
 
 from __future__ import annotations
@@ -22,9 +23,6 @@ from pathlib import Path
 import polars as pl
 
 from pipeline.common import CURATED_DIR, RAW_DIR, load_yaml, now
-from pipeline.curated_schema import load_concentration_series
-from pipeline.derived.concentration import compute_shares, parse_album_records
-from pipeline.derived.sentiment import top_words
 from pipeline.derived.finance import (
   OPERATING_PROFIT,
   REVENUE,
@@ -33,11 +31,8 @@ from pipeline.derived.finance import (
   load_dart_financials,
   summarize_totals,
 )
-from pipeline.loaders import load_youtube_comments
 from pipeline.models import (
   CamelModel,
-  DistributionCategory,
-  DistributionData,
   GoodDirection,
   Insight,
   InsightSeverity,
@@ -45,10 +40,7 @@ from pipeline.models import (
   KpiMetric,
   MetricsData,
   PageData,
-  TimeseriesData,
-  TimeseriesSeries,
   TrendDirection,
-  WordCloudData,
 )
 from pipeline.pages import ai_virtual as ai_virtual_page
 from pipeline.pages import concentration as concentration_page
@@ -173,23 +165,6 @@ def load_dart_metrics() -> list[KpiMetric]:
   return metrics
 
 
-def load_gini_timeseries() -> pl.DataFrame:
-  """pipeline/curated/sales_concentration.yaml을 build_timeseries()가 바로 pivot할 수
-  있는 date/category/value long-format으로 변환한다 (홈 추이 차트용)."""
-  series = load_concentration_series()
-  if series is None:
-    return pl.DataFrame({"date": [], "category": [], "value": []})
-
-  rows = []
-  for point in series.years:
-    day = date(point.year, 12, 31)
-    # Gini(0~1)는 Top10 점유율(%)과 한 축에 그리면 바닥에 붙어 안 보이므로 ×100으로
-    # 환산해 같은 스케일에 놓는다 (축을 둘로 나누는 이중축은 쓰지 않는다).
-    rows.append({"date": day, "category": "Gini계수(×100)", "value": round(point.gini * 100, 2)})
-    rows.append({"date": day, "category": "Top10_점유율", "value": point.top10_share_pct})
-  return pl.DataFrame(rows)
-
-
 def load_manual_insights() -> list[Insight]:
   """docx 등 기획 문서에서 옮긴, 숫자만으로는 자동 생성되지 않는 서사적 인사이트."""
   data = load_yaml(CURATED_DIR / "manual_insights.yaml")
@@ -197,31 +172,6 @@ def load_manual_insights() -> list[Insight]:
     Insight(id=row["id"], severity=row["severity"], text=row["text"])
     for row in data.get("insights", [])
   ]
-
-
-def load_circlechart_distribution() -> DistributionData | None:
-  """가장 최근 circlechart 원본 스냅샷에서 판매 집중도 분포를 계산한다.
-  수집기(npm run collect:circlechart)를 아직 실행하지 않았다면 None을
-  돌려줘 main()이 generate_sample_events()로 폴백하게 한다."""
-  circlechart_dir = RAW_DIR / "circlechart"
-  snapshots = sorted(circlechart_dir.glob("album_*.json")) if circlechart_dir.exists() else []
-  if not snapshots:
-    return None
-
-  latest = snapshots[-1]
-  payload = json.loads(latest.read_text(encoding="utf-8"))
-  albums = parse_album_records(payload["List"])
-  shares = compute_shares(albums)
-  categories = [
-    DistributionCategory(category=row["category"], label=row["label"], value=row["value"])
-    for row in shares.to_dicts()
-  ]
-  year = latest.stem.replace("album_", "")
-  return DistributionData(
-    generated_at=now(),
-    title=f"{year}년 앨범 판매 집중도 (Circle Chart Top100)",
-    categories=categories,
-  )
 
 
 def build_metrics(events: pl.DataFrame) -> MetricsData:
@@ -258,38 +208,6 @@ def build_metrics(events: pl.DataFrame) -> MetricsData:
     )
 
   return MetricsData(generated_at=now(), metrics=metrics)
-
-
-def build_timeseries(events: pl.DataFrame) -> TimeseriesData:
-  """날짜 x 카테고리 합계를 recharts가 바로 쓸 수 있는 wide format으로 변환한다."""
-  daily = events.group_by(["date", "category"]).agg(pl.col("value").sum().alias("value"))
-  wide = daily.pivot(on="category", index="date", values="value").sort("date").fill_null(0)
-
-  category_columns = sorted(c for c in wide.columns if c != "date")
-  series = [TimeseriesSeries(key=c.replace(" ", "_"), label=c) for c in category_columns]
-
-  points = []
-  for row in wide.to_dicts():
-    point: dict[str, str | float] = {"date": row["date"].isoformat()}
-    for column in category_columns:
-      point[column.replace(" ", "_")] = float(row[column])
-    points.append(point)
-
-  return TimeseriesData(generated_at=now(), series=series, points=points)
-
-
-def build_distribution(events: pl.DataFrame) -> DistributionData:
-  """전체 기간 카테고리별 합계 비중을 계산한다."""
-  totals = events.group_by("category").agg(pl.col("value").sum().alias("value")).sort("category")
-  categories = [
-    DistributionCategory(
-      category=row["category"].replace(" ", "_"),
-      label=row["category"],
-      value=float(row["value"]),
-    )
-    for row in totals.to_dicts()
-  ]
-  return DistributionData(generated_at=now(), title="카테고리별 비중", categories=categories)
 
 
 def _format_delta(delta: float) -> str:
@@ -337,12 +255,6 @@ def build_insights(
   return InsightsData(generated_at=now(), insights=insights)
 
 
-def build_wordcloud(events: pl.DataFrame) -> WordCloudData:
-  """comment 텍스트의 단어 빈도를 세고, 긍정/부정 단어 사전으로 감성을 분류한다.
-  토큰화와 분류 규칙은 pipeline/derived/sentiment.py에 있다."""
-  return WordCloudData(generated_at=now(), words=top_words(events["comment"].to_list()))
-
-
 def build_pages() -> dict[str, PageData]:
   """slug → PageData. 페이지를 추가하면 pipeline/pages/<slug>.py의 build()를 여기에 등록한다.
   slug는 라우트 폴더명이자 public/data/<slug>.json 파일명이다."""
@@ -377,24 +289,9 @@ def main() -> None:
     metrics = MetricsData(generated_at=metrics.generated_at, metrics=[*metrics.metrics, *dart_metrics])
     favorable_trend.update({metric.id: "up" for metric in dart_metrics})
 
-  gini_events = load_gini_timeseries()
-  timeseries = build_timeseries(gini_events if gini_events.height > 0 else sample())
-
-  distribution = load_circlechart_distribution()
-  if distribution is None:
-    print("circlechart 원본 스냅샷이 없습니다 (npm run collect:circlechart 먼저 실행).")
-    distribution = build_distribution(sample())
-
   base_insights = build_insights(metrics, favorable_trend)
   manual_insights = load_manual_insights()
   insights = InsightsData(generated_at=now(), insights=[*base_insights.insights, *manual_insights])
-
-  comments = load_youtube_comments()
-  if comments.height > 0:
-    wordcloud = build_wordcloud(comments)
-  else:
-    print("YouTube 원본 스냅샷이 없습니다 (npm run collect:youtube 먼저 실행).")
-    wordcloud = build_wordcloud(sample())
 
   # 페이지 JSON과 출처 레지스트리. 인용한 sourceId가 sources.yaml에 없으면 여기서 중단된다.
   pages = build_pages()
@@ -403,10 +300,7 @@ def main() -> None:
 
   outputs: dict[str, CamelModel] = {
     "metrics.json": metrics,
-    "timeseries.json": timeseries,
-    "distribution.json": distribution,
     "insights.json": insights,
-    "wordcloud.json": wordcloud,
     "sources.json": build_sources(pages, registry),
   }
   outputs.update({f"{slug}.json": page for slug, page in pages.items()})

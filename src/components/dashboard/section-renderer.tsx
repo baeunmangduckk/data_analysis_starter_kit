@@ -36,7 +36,7 @@ function renderSection(section: Section) {
             <CardTitle>{section.title}</CardTitle>
           </CardHeader>
           <CardContent>
-            <SentimentWordCloud data={{ generatedAt: "", words: section.words }} />
+            <SentimentWordCloud words={section.words} />
           </CardContent>
         </Card>
       );

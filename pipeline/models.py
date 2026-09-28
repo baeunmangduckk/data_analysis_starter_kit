@@ -1,7 +1,7 @@
 """대시보드 JSON 데이터 계약(schema)을 정의하는 Pydantic 모델 모음.
 
 pipeline/etl.py가 만든 결과를 이 모델로 검증한 뒤 public/data/*.json으로 저장한다.
-각 모델은 src/types/dashboard.ts의 TypeScript 인터페이스와 1:1로 대응한다.
+홈용 모델은 src/types/dashboard.ts, 페이지 섹션 모델은 src/types/page.ts와 1:1로 대응한다.
 """
 
 from __future__ import annotations
@@ -51,7 +51,7 @@ class MetricsData(CamelModel):
 
 
 # ---------------------------------------------------------------------------
-# timeseries.json — 추이 그래프
+# 시계열 계열 정의 — 페이지 chart 섹션과 공용 검증
 # ---------------------------------------------------------------------------
 class TimeseriesSeries(CamelModel):
   key: str
@@ -73,34 +73,6 @@ def validate_points_match_series(
       )
 
 
-class TimeseriesData(CamelModel):
-  generated_at: datetime = Field(alias="generatedAt")
-  series: list[TimeseriesSeries]
-  # 날짜 + 시리즈별 값이 동적으로 섞이는 구조라 고정 필드 대신 dict로 받고,
-  # 아래 검증기에서 series에 정의된 key와 실제로 일치하는지 확인한다.
-  points: list[dict[str, str | float]]
-
-  @model_validator(mode="after")
-  def _validate_points_match_series(self) -> "TimeseriesData":
-    validate_points_match_series(self.series, self.points, "date")
-    return self
-
-
-# ---------------------------------------------------------------------------
-# distribution.json — 비중 그래프
-# ---------------------------------------------------------------------------
-class DistributionCategory(CamelModel):
-  category: str
-  label: str
-  value: float
-
-
-class DistributionData(CamelModel):
-  generated_at: datetime = Field(alias="generatedAt")
-  title: str
-  categories: list[DistributionCategory]
-
-
 # ---------------------------------------------------------------------------
 # insights.json — 정성적 인사이트
 # ---------------------------------------------------------------------------
@@ -117,17 +89,12 @@ class InsightsData(CamelModel):
 
 
 # ---------------------------------------------------------------------------
-# wordcloud.json — 워드클라우드 + 감성분석
+# 워드클라우드 + 감성분석 (페이지 wordcloud 섹션이 사용)
 # ---------------------------------------------------------------------------
 class WordCloudItem(CamelModel):
   text: str
   weight: float
   sentiment: SentimentLabel
-
-
-class WordCloudData(CamelModel):
-  generated_at: datetime = Field(alias="generatedAt")
-  words: list[WordCloudItem]
 
 
 # ---------------------------------------------------------------------------
