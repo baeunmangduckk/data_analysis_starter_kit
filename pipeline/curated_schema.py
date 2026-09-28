@@ -79,6 +79,70 @@ class ConcentrationSeries(CuratedModel):
   years: list[ConcentrationYear]
 
 
+class YearValue(CuratedModel):
+  """연도별 단일 수치. value가 None이면 그 해는 결측(예: 2024년 통계 없음)이다."""
+
+  year: int
+  value: float | None = None
+  yoy_pct: float | None = None
+
+
+class YearSeries(CuratedModel):
+  """한 출처에서 온 연도별 시계열 (파일 단위로 source/as_of/unit을 공유한다)."""
+
+  source: str
+  as_of: str
+  unit: str | None = None
+  confidence: Confidence | None = None
+  rows: list[YearValue]
+
+
+class RegionExport(CuratedModel):
+  region: str
+  year: int
+  value: float
+
+
+class RegionExportSeries(CuratedModel):
+  source: str
+  as_of: str
+  unit: str | None = None
+  confidence: Confidence | None = None
+  rows: list[RegionExport]
+
+
+class ConcertForecast(CuratedModel):
+  """조사기관별 시장 전망 (기준 연도 → 전망 연도)."""
+
+  label: str
+  base_year: int
+  base_value: float
+  target_year: int
+  target_value: float
+  cagr_pct: float
+  unit: str
+  as_of: str
+  source: str
+  confidence: Confidence | None = None
+
+
+class CaseMetricRow(CuratedModel):
+  label: str
+  value: str
+
+
+class CaseStudy(CuratedModel):
+  key: str
+  title: str
+  subtitle: str | None = None
+  body: str
+  badge: str | None = None
+  metrics: list[CaseMetricRow] = []
+  source: str
+  as_of: str
+  confidence: Confidence | None = None
+
+
 def _validate_rows(filename: str, model: type[CuratedModel], rows: list[dict]) -> list:
   validated = []
   for index, row in enumerate(rows):
@@ -110,3 +174,20 @@ def load_concentration_series(filename: str = "sales_concentration.yaml") -> Con
     raise CuratedDataError(f"{filename}이 잘못되었습니다:\n{error}") from error
   series.years.sort(key=lambda row: row.year)
   return series
+
+
+def load_rows(filename: str, key: str, model: type[CuratedModel]) -> list:
+  """`<key>:` 아래의 행 목록을 model로 검증해 돌려준다. 파일이나 키가 없으면 빈 목록."""
+  data = load_yaml(CURATED_DIR / filename)
+  return _validate_rows(filename, model, data.get(key, []))
+
+
+def load_document(filename: str, key: str, model: type[CuratedModel]):
+  """`<key>:` 아래의 파일 단위 객체(source/as_of를 공유하는 시계열 등)를 검증해 돌려준다. 없으면 None."""
+  data = load_yaml(CURATED_DIR / filename).get(key)
+  if data is None:
+    return None
+  try:
+    return model.model_validate(data)
+  except ValidationError as error:
+    raise CuratedDataError(f"{filename}의 {key}가 잘못되었습니다:\n{error}") from error

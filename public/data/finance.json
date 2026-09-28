@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T23:20:20.284863+09:00",
+  "generatedAt": "2026-09-28T23:25:42.074007+09:00",
   "title": "기획사 재무",
   "summary": "2025년 사업보고서 기준 상장 4사 연결 실적 (하이브·SM·YG·JYP)",
   "sections": [
@@ -276,6 +276,84 @@
       ],
       "sourceIds": [
         "opendart-fnltt"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "상장 4사 시가총액",
+      "caption": "2025-10-23 기준, 단위 억 원",
+      "kind": "barH",
+      "xKey": "group",
+      "series": [
+        {
+          "key": "value",
+          "label": "시가총액"
+        }
+      ],
+      "points": [
+        {
+          "group": "하이브",
+          "value": 120166.0
+        },
+        {
+          "group": "SM",
+          "value": 27744.0
+        },
+        {
+          "group": "JYP",
+          "value": 27360.0
+        },
+        {
+          "group": "YG",
+          "value": 17121.0
+        }
+      ],
+      "unit": "억 원",
+      "sourceIds": [
+        "ceonews-big4-comparison"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "2026년 1분기 상장 기획사 매출",
+      "caption": "대형과 중소 기획사의 격차, 단위 억 원. 레거시 단위 표기를 보정한 추정치입니다",
+      "kind": "barH",
+      "xKey": "group",
+      "series": [
+        {
+          "key": "value",
+          "label": "1분기 매출"
+        }
+      ],
+      "points": [
+        {
+          "group": "하이브",
+          "value": 6983.0
+        },
+        {
+          "group": "YG",
+          "value": 1471.0
+        },
+        {
+          "group": "FNC",
+          "value": 272.0
+        },
+        {
+          "group": "큐브",
+          "value": 151.0
+        },
+        {
+          "group": "RBW",
+          "value": 96.0
+        },
+        {
+          "group": "TN엔터",
+          "value": 84.0
+        }
+      ],
+      "unit": "억 원",
+      "sourceIds": [
+        "respawn-earnings-gap"
       ]
     },
     {

@@ -19,6 +19,7 @@ from pipeline.derived.finance import (
   with_operating_margin,
   yoy_pct,
 )
+from pipeline.curated_schema import load_indicators
 from pipeline.models import (
   ChartSection,
   Insight,
@@ -31,6 +32,8 @@ from pipeline.models import (
   TableColumn,
   TableSection,
 )
+
+from pipeline.pages.blocks import group_chart
 
 SOURCE_ID = "opendart-fnltt"
 TITLE = "기획사 재무"
@@ -240,6 +243,24 @@ def build() -> PageData:
       source_ids=[SOURCE_ID],
     )
   )
+
+  # 4) 큐레이션 지표(시가총액·1분기 매출) — DART가 다루지 않는 시장 평가와 최신 분기 격차
+  extras = load_indicators("agency_metrics.yaml")
+  market_cap = [row for row in extras if row.category == "market_cap"]
+  q1_revenue = [row for row in extras if row.category == "q1_revenue"]
+  if market_cap:
+    sections.append(
+      group_chart(market_cap, title="상장 4사 시가총액", caption="2025-10-23 기준, 단위 억 원", series_label="시가총액")
+    )
+  if q1_revenue:
+    sections.append(
+      group_chart(
+        q1_revenue,
+        title="2026년 1분기 상장 기획사 매출",
+        caption="대형과 중소 기획사의 격차, 단위 억 원. 레거시 단위 표기를 보정한 추정치입니다",
+        series_label="1분기 매출",
+      )
+    )
 
   insights = _build_insights(agencies, lookup, year)
   if insights:

@@ -1,0 +1,51 @@
+# AI·버추얼 아이돌 페이지(ai-virtual.json) — 레거시 ai-tech-trends.json(ai_tech_indicators 6,
+# trend_case_studies 4)을 이관했다.
+#
+# 단위: 화면 단위로 환산 (버추얼 시장 2.27 USD Billion = 22.7억 달러 — 기획 문서 표기와 동일).
+# 사례 카드의 수치는 레거시에서 값이 정확히 1.0으로 적힌 PLAVE 유튜브 구독자, naevis 데뷔 싱글
+# 조회수를 자리표시자로 판단해 옮기지 않았다 (설명문에 근거가 있는 수치만 남김).
+
+indicators:
+  # ── 버추얼 아이돌 시장 ──
+  - {key: virtual_idol_market_2025, category: virtual_idol, label: "글로벌 버추얼 아이돌·버튜버 시장 규모", value: 22.7, unit: "억 달러", as_of: "2025", source: snsinsider-virtual-idol, note: "초기(emerging) 단계", confidence: legacy_unverified}
+  - {key: virtual_idol_market_2035, category: virtual_idol, label: "버추얼 아이돌·버튜버 시장 2035 전망", value: 107.5, unit: "억 달러", as_of: "2035 (전망)", source: snsinsider-virtual-idol, note: "CAGR 16.82% 전망", confidence: legacy_unverified}
+  - {key: ai_group_revenue_share, category: virtual_idol, label: "K-pop 산업 내 AI 그룹 매출 비중", value: 1.1, unit: "%", as_of: "2026", source: kcultureguide-virtual-idols, note: "태동(nascent) 단계", confidence: legacy_unverified}
+
+  # ── 팬덤 플랫폼 ──
+  - {key: weverse_mau, category: fandom_platform, label: "Weverse 월간활성이용자(MAU)", value: 12, unit: "백만 명", as_of: "2025", source: mbw-weverse-mau, note: "성장(growth) 단계", confidence: legacy_unverified}
+  - {key: weverse_goods_growth, category: fandom_platform, label: "Weverse 상품(굿즈) 매출 성장률", value: 70, unit: "%", as_of: "2025", source: respawn-weverse-bubble, note: "성장(growth) 단계", confidence: legacy_unverified}
+  - {key: dearu_bubble_q3, category: fandom_platform, label: "DearU Bubble 분기 매출 (2025 Q3)", value: 17.4, unit: "백만 달러", as_of: "2025-Q3", source: respawn-weverse-bubble, note: "성숙(mature) 단계", confidence: legacy_unverified}
+
+# 시장 규모 전망 경로는 파이프라인이 2025년 값과 CAGR로 계산한다 (pages/ai_virtual.py).
+virtual_market_forecast:
+  base_year: 2025
+  target_year: 2035
+  cagr_pct: 16.82
+
+cases:
+  - key: plave
+    title: "PLAVE"
+    subtitle: "Vlast 소속 5인조 버추얼 아이돌 · 2023-03-12 데뷔"
+    body: "2025년 'Dash'로 K/DA 이후 최초로 Billboard Global 200에 진입한 가상 아티스트. 3rd 미니앨범 'Caligo Pt.1'(2025-02)이 발매 첫 주 100만 장 이상 판매되며 2025년 첫 밀리언셀러 그룹이 됐습니다."
+    badge: "버추얼"
+    metrics:
+      - {label: "첫 주 앨범 판매", value: "100만 장 이상"}
+    source: wiki-plave
+    as_of: "2025"
+    confidence: legacy_unverified
+  - key: mave
+    title: "MAVE:"
+    subtitle: "넷마블 자회사 메타버스 엔터테인먼트 · 2023-01-25 데뷔"
+    body: "카카오엔터테인먼트가 투자·배급에 참여했고 생성형 AI를 활용한 고예산 데뷔로 화제가 됐습니다. 데뷔 싱글은 'Pandora's Box'."
+    badge: "AI 그룹"
+    source: wiki-mave
+    as_of: "2023"
+    confidence: legacy_unverified
+  - key: naevis
+    title: "naevis"
+    subtitle: "SM엔터테인먼트 · aespa 세계관 기반 버추얼 아티스트 · 2024-09-10 데뷔"
+    body: "데뷔곡 'Done' 발매 후 활동이 뜸하고 팬 반응은 엇갈립니다."
+    badge: "버추얼"
+    source: wiki-naevis
+    as_of: "2024"
+    confidence: legacy_unverified

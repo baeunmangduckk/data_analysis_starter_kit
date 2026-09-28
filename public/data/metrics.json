@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-28T23:20:20.205205+09:00",
+  "generatedAt": "2026-09-28T23:25:41.999548+09:00",
   "metrics": [
     {
       "id": "global_music_revenue",
       "label": "글로벌 음반산업 매출",
-      "value": 31.7,
+      "value": 317.0,
       "unit": "억 달러",
-      "delta": 1.9100000000000001,
+      "delta": 19.1,
       "trend": "up",
       "note": null,
       "sourceId": null,
@@ -45,7 +45,7 @@
       "label": "판매량 집중도 (Gini)",
       "value": 0.4007,
       "unit": null,
-      "delta": -0.007299999999999973,
+      "delta": -0.0073,
       "trend": "down",
       "note": null,
       "sourceId": null,

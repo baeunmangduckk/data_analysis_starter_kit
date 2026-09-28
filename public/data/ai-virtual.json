@@ -1,0 +1,210 @@
+{
+  "generatedAt": "2026-09-28T23:25:42.089531+09:00",
+  "title": "AI·버추얼 아이돌",
+  "summary": "팬덤 플랫폼은 성숙 단계, 버추얼 아이돌은 아직 초기 단계",
+  "sections": [
+    {
+      "type": "stats",
+      "title": "버추얼 아이돌 시장",
+      "stats": [
+        {
+          "id": "virtual_idol_market_2025",
+          "label": "글로벌 버추얼 아이돌·버튜버 시장 규모",
+          "value": 22.7,
+          "unit": "억 달러",
+          "delta": null,
+          "trend": null,
+          "note": "초기(emerging) 단계",
+          "sourceId": "snsinsider-virtual-idol",
+          "asOf": "2025",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "virtual_idol_market_2035",
+          "label": "버추얼 아이돌·버튜버 시장 2035 전망",
+          "value": 107.5,
+          "unit": "억 달러",
+          "delta": null,
+          "trend": null,
+          "note": "CAGR 16.82% 전망",
+          "sourceId": "snsinsider-virtual-idol",
+          "asOf": "2035 (전망)",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "ai_group_revenue_share",
+          "label": "K-pop 산업 내 AI 그룹 매출 비중",
+          "value": 1.1,
+          "unit": "%",
+          "delta": null,
+          "trend": null,
+          "note": "태동(nascent) 단계",
+          "sourceId": "kcultureguide-virtual-idols",
+          "asOf": "2026",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        }
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "버추얼 아이돌·버튜버 시장 규모 전망 경로",
+      "caption": "2025년 규모와 CAGR 16.82%를 복리로 적용한 추정 경로 (단위 억 달러). 연도별 실측값이 아닙니다",
+      "kind": "line",
+      "xKey": "year",
+      "series": [
+        {
+          "key": "value",
+          "label": "시장 규모(추정 경로)"
+        }
+      ],
+      "points": [
+        {
+          "year": "2025",
+          "value": 22.7
+        },
+        {
+          "year": "2026",
+          "value": 26.5
+        },
+        {
+          "year": "2027",
+          "value": 31.0
+        },
+        {
+          "year": "2028",
+          "value": 36.2
+        },
+        {
+          "year": "2029",
+          "value": 42.3
+        },
+        {
+          "year": "2030",
+          "value": 49.4
+        },
+        {
+          "year": "2031",
+          "value": 57.7
+        },
+        {
+          "year": "2032",
+          "value": 67.4
+        },
+        {
+          "year": "2033",
+          "value": 78.7
+        },
+        {
+          "year": "2034",
+          "value": 92.0
+        },
+        {
+          "year": "2035",
+          "value": 107.4
+        }
+      ],
+      "unit": "억 달러",
+      "sourceIds": [
+        "snsinsider-virtual-idol"
+      ]
+    },
+    {
+      "type": "stats",
+      "title": "팬덤 플랫폼 (성숙·성장 단계)",
+      "stats": [
+        {
+          "id": "weverse_mau",
+          "label": "Weverse 월간활성이용자(MAU)",
+          "value": 12.0,
+          "unit": "백만 명",
+          "delta": null,
+          "trend": null,
+          "note": "성장(growth) 단계",
+          "sourceId": "mbw-weverse-mau",
+          "asOf": "2025",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "weverse_goods_growth",
+          "label": "Weverse 상품(굿즈) 매출 성장률",
+          "value": 70.0,
+          "unit": "%",
+          "delta": null,
+          "trend": null,
+          "note": "성장(growth) 단계",
+          "sourceId": "respawn-weverse-bubble",
+          "asOf": "2025",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "dearu_bubble_q3",
+          "label": "DearU Bubble 분기 매출 (2025 Q3)",
+          "value": 17.4,
+          "unit": "백만 달러",
+          "delta": null,
+          "trend": null,
+          "note": "성숙(mature) 단계",
+          "sourceId": "respawn-weverse-bubble",
+          "asOf": "2025-Q3",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        }
+      ]
+    },
+    {
+      "type": "cases",
+      "title": "버추얼·AI 그룹 사례",
+      "cards": [
+        {
+          "id": "plave",
+          "title": "PLAVE",
+          "subtitle": "Vlast 소속 5인조 버추얼 아이돌 · 2023-03-12 데뷔",
+          "body": "2025년 'Dash'로 K/DA 이후 최초로 Billboard Global 200에 진입한 가상 아티스트. 3rd 미니앨범 'Caligo Pt.1'(2025-02)이 발매 첫 주 100만 장 이상 판매되며 2025년 첫 밀리언셀러 그룹이 됐습니다.",
+          "badge": "버추얼",
+          "metrics": [
+            {
+              "label": "첫 주 앨범 판매",
+              "value": "100만 장 이상"
+            }
+          ],
+          "sourceId": "wiki-plave"
+        },
+        {
+          "id": "mave",
+          "title": "MAVE:",
+          "subtitle": "넷마블 자회사 메타버스 엔터테인먼트 · 2023-01-25 데뷔",
+          "body": "카카오엔터테인먼트가 투자·배급에 참여했고 생성형 AI를 활용한 고예산 데뷔로 화제가 됐습니다. 데뷔 싱글은 'Pandora's Box'.",
+          "badge": "AI 그룹",
+          "metrics": [],
+          "sourceId": "wiki-mave"
+        },
+        {
+          "id": "naevis",
+          "title": "naevis",
+          "subtitle": "SM엔터테인먼트 · aespa 세계관 기반 버추얼 아티스트 · 2024-09-10 데뷔",
+          "body": "데뷔곡 'Done' 발매 후 활동이 뜸하고 팬 반응은 엇갈립니다.",
+          "badge": "버추얼",
+          "metrics": [],
+          "sourceId": "wiki-naevis"
+        }
+      ]
+    },
+    {
+      "type": "insights",
+      "title": "핵심 포인트",
+      "insights": [
+        {
+          "id": "ai_group_share",
+          "severity": "info",
+          "text": "K-pop 산업 전체 매출에서 AI 그룹이 차지하는 비중은 1.1%로 아직 초기 단계지만, 시장 규모는 연 16.82% 성장이 전망됩니다.",
+          "relatedMetricId": null
+        }
+      ]
+    }
+  ]
+}

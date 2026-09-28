@@ -1,0 +1,24 @@
+# 기획사 재무 페이지에 덧붙이는 큐레이션 지표 — 레거시 agency_metrics 중 DART로 자동 집계되지 않는
+# 시가총액과 2026년 1분기 매출만 이관했다 (연간 매출·영업이익은 DART 실데이터가 대체).
+#
+# 단위 보정 주의:
+#  - 시가총액: 레거시 KRW Billion(=10억 원) → 억 원으로 환산 (12016.6 → 120,166억 원)
+#  - 2026년 1분기 매출: 레거시는 하이브 69.83 "KRW Billion"으로 적었으나, 하이브 연 매출이
+#    2조 6,499억 원(DART)인 것과 비교하면 규모가 10배 작다. 원문 규모를 확인하지 못해
+#    69.83을 "100억 원" 단위로 보고 억 원으로 환산(6,983억 원)했다. 그래서 estimated이며,
+#    원문(respawn-earnings-gap) 재확인 전까지 화면에 "추정치" 배지가 표시된다.
+
+indicators:
+  # ── 시가총액 (2025-10-23 기준) ──
+  - {key: market_cap_hybe, category: market_cap, label: "하이브 시가총액", short_label: "하이브", value: 120166, unit: "억 원", as_of: "2025-10-23", source: ceonews-big4-comparison, confidence: legacy_unverified}
+  - {key: market_cap_sm, category: market_cap, label: "SM엔터테인먼트 시가총액", short_label: "SM", value: 27744, unit: "억 원", as_of: "2025-10-23", source: ceonews-big4-comparison, confidence: legacy_unverified}
+  - {key: market_cap_jyp, category: market_cap, label: "JYP엔터테인먼트 시가총액", short_label: "JYP", value: 27360, unit: "억 원", as_of: "2025-10-23", source: ceonews-big4-comparison, note: "매출 3위이나 시총은 SM에 근접", confidence: legacy_unverified}
+  - {key: market_cap_yg, category: market_cap, label: "YG엔터테인먼트 시가총액", short_label: "YG", value: 17121, unit: "억 원", as_of: "2025-10-23", source: ceonews-big4-comparison, confidence: legacy_unverified}
+
+  # ── 2026년 1분기 상장 기획사 매출 (대형 vs 중소 격차) ──
+  - {key: q1_revenue_hybe, category: q1_revenue, label: "하이브 2026 1분기 매출", short_label: "하이브", value: 6983, unit: "억 원", as_of: "2026-Q1", source: respawn-earnings-gap, note: "전년 대비 +39.0%, 4대 기획사 중 압도적 1위", confidence: estimated}
+  - {key: q1_revenue_yg, category: q1_revenue, label: "YG엔터테인먼트 2026 1분기 매출", short_label: "YG", value: 1471, unit: "억 원", as_of: "2026-Q1", source: respawn-earnings-gap, note: "전년 대비 +47.0%", confidence: estimated}
+  - {key: q1_revenue_fnc, category: q1_revenue, label: "FNC엔터테인먼트 2026 1분기 매출", short_label: "FNC", value: 272, unit: "억 원", as_of: "2026-Q1", source: respawn-earnings-gap, note: "증가율(+140%)은 가장 높으나 절대 규모는 하이브의 약 4%", confidence: estimated}
+  - {key: q1_revenue_cube, category: q1_revenue, label: "큐브엔터테인먼트 2026 1분기 매출", short_label: "큐브", value: 151, unit: "억 원", as_of: "2026-Q1", source: respawn-earnings-gap, note: "전년 대비 -63.0%, 핵심 아티스트 활동 공백기 영향", confidence: estimated}
+  - {key: q1_revenue_rbw, category: q1_revenue, label: "RBW 2026 1분기 매출", short_label: "RBW", value: 96, unit: "억 원", as_of: "2026-Q1", source: respawn-earnings-gap, note: "전년 대비 -10.0%", confidence: estimated}
+  - {key: q1_revenue_tn, category: q1_revenue, label: "TN엔터테인먼트 2026 1분기 매출", short_label: "TN엔터", value: 84, unit: "억 원", as_of: "2026-Q1", source: respawn-earnings-gap, note: "전년 대비 -36.0%, 하이브 분기 매출의 약 1/83 수준", confidence: estimated}

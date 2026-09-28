@@ -19,6 +19,7 @@ from pipeline.curated_schema import (
   load_indicators,
   load_risks,
 )
+from pipeline.pages.blocks import group_chart, indicator_stat, trend_of
 from pipeline.models import (
   CaseCard,
   CaseMetric,
@@ -37,14 +38,6 @@ TITLE = "판매 집중도·양극화"
 POLARIZATION_FILE = "polarization.yaml"
 
 RISK_LABEL = {"high": "위험", "medium": "주의", "low": "낮음", "positive": "긍정"}
-
-
-def _trend(delta: float) -> str:
-  return "up" if delta > 0 else "down" if delta < 0 else "flat"
-
-
-def _unique(items: list[str]) -> list[str]:
-  return list(dict.fromkeys(items))
 
 
 def _year_chart(
@@ -72,36 +65,6 @@ def _year_chart(
     points=points,
     unit=unit,
     source_ids=[series.source],
-  )
-
-
-def _group_chart(
-  rows: list[Indicator], *, title: str, caption: str, series_label: str, kind: str = "barH"
-) -> ChartSection:
-  """지표 몇 개를 "구분(short_label) → 값" 한 시리즈 막대 차트로 만든다."""
-  unit = rows[0].unit
-  return ChartSection(
-    title=title,
-    caption=caption,
-    kind=kind,
-    x_key="group",
-    series=[{"key": "value", "label": series_label}],
-    points=[{"group": row.short_label or row.label, "value": row.value} for row in rows],
-    unit=unit,
-    source_ids=_unique([row.source for row in rows]),
-  )
-
-
-def _indicator_stat(row: Indicator) -> KpiMetric:
-  return KpiMetric(
-    id=row.key,
-    label=row.label,
-    value=row.value or 0.0,
-    unit=row.unit,
-    note=row.note,
-    source_id=row.source,
-    as_of=row.as_of,
-    confidence=row.confidence,
   )
 
 
@@ -244,10 +207,10 @@ def build() -> PageData:
 
   # ── 양극화: 대기업 vs 중소기업 ──
   polarization_stats = [
-    _indicator_stat(row)
+    indicator_stat(row)
     for key in ("gov_support", "survival_summary")
     for row in by_category.get(key, [])
-  ] + [_indicator_stat(row) for row in by_category.get("album_cost", [])]
+  ] + [indicator_stat(row) for row in by_category.get("album_cost", [])]
   if polarization_stats:
     sections.append(StatsSection(title="양극화·지원 지표", stats=polarization_stats))
 
@@ -259,12 +222,12 @@ def build() -> PageData:
   for category, title, caption, series_label in group_charts:
     rows = by_category.get(category, [])
     if rows:
-      sections.append(_group_chart(rows, title=title, caption=caption, series_label=series_label))
+      sections.append(group_chart(rows, title=title, caption=caption, series_label=series_label))
 
   survival = by_category.get("survival", [])
   if survival:
     sections.append(
-      _group_chart(survival, title="데뷔 후 그룹 생존율", caption="1996~2025년 데뷔 그룹 기준, 데뷔 N년 뒤에도 활동 중인 비율(%)", series_label="생존율", kind="column")
+      group_chart(survival, title="데뷔 후 그룹 생존율", caption="1996~2025년 데뷔 그룹 기준, 데뷔 N년 뒤에도 활동 중인 비율(%)", series_label="생존율", kind="column")
     )
 
   if risks:
@@ -295,7 +258,7 @@ def _concentration_stat(
     value=value,
     unit=unit,
     delta=round(delta, 4),
-    trend=_trend(delta),
+    trend=trend_of(delta),
     note=note,
     source_id=series.source,
     as_of=str(series.years[-1].year),

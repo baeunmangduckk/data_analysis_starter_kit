@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-09-28T23:25:42.079993+09:00",
+  "title": "글로벌 확장",
+  "summary": "중화권 편중에서 북미·신흥시장으로 무게중심이 옮겨가는 중",
+  "sections": [
+    {
+      "type": "notice",
+      "tone": "info",
+      "message": "지역별 수치는 KOSIS 방송콘텐츠 수출 통계를 음악 수출의 프록시로 쓴 것이며, 데이터가 적어 소규모로 제공합니다. KOFICE 원자료를 확보하면 확장할 예정입니다."
+    },
+    {
+      "type": "stats",
+      "title": "신흥시장: 중남미 Weverse 성장",
+      "stats": [
+        {
+          "id": "weverse_latam_mau_growth",
+          "label": "중남미 Weverse 이용자 수 성장률",
+          "value": 22.0,
+          "unit": "% (YoY)",
+          "delta": null,
+          "trend": null,
+          "note": "2025년 Weverse 전체 지역 중 가장 높은 이용자 성장률",
+          "sourceId": "respawn-weverse-latam",
+          "asOf": "2025",
+          "goodDirection": "up",
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "weverse_latam_retail_growth",
+          "label": "중남미 Weverse 디지털 리테일 판매 성장률",
+          "value": 715.0,
+          "unit": "% (YoY)",
+          "delta": null,
+          "trend": null,
+          "note": "굿즈·디지털 상품 판매 급증 — 팬덤 플랫폼 기반 신흥시장 수익화가 빠르게 진행 중",
+          "sourceId": "respawn-weverse-latam",
+          "asOf": "2025",
+          "goodDirection": "up",
+          "confidence": "legacy_unverified"
+        }
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "지역별 방송콘텐츠 수출액 재편",
+      "caption": "단위 백만 달러. 음악 직접 통계가 없어 방송콘텐츠 수출액을 프록시로 사용",
+      "kind": "column",
+      "xKey": "region",
+      "series": [
+        {
+          "key": "2014",
+          "label": "2014년"
+        },
+        {
+          "key": "2023",
+          "label": "2023년"
+        }
+      ],
+      "points": [
+        {
+          "region": "북미",
+          "2014": 40.0,
+          "2023": 171.53
+        },
+        {
+          "region": "중화권",
+          "2014": 109.63,
+          "2023": 26.22
+        }
+      ],
+      "unit": "백만 달러",
+      "sourceIds": [
+        "kosis-content-regional-exports"
+      ]
+    },
+    {
+      "type": "cases",
+      "title": "유망 권역",
+      "cards": [
+        {
+          "id": "hallyu_index_regions",
+          "title": "한류심리지수 최상위 권역",
+          "subtitle": "동남아시아 · 중동/아프리카 · 중남미",
+          "body": "2025 해외한류실태조사(문체부·KOFICE, 2024년 기준)에서 이 3개 권역이 한류심리지수(콘텐츠 확산 선호도)가 가장 높게 나타나 향후 성장 지속이 기대됩니다. 정량적 지역별 수출액은 KOFICE 원자료 확보 후 갱신이 필요합니다.",
+          "badge": "정성",
+          "metrics": [],
+          "sourceId": "kofice-hallyu-survey-2025"
+        }
+      ]
+    },
+    {
+      "type": "insights",
+      "title": "핵심 포인트",
+      "insights": [
+        {
+          "id": "global_북미_change",
+          "severity": "positive",
+          "text": "북미 수출액은 2014년 40.0에서 2023년 171.5(백만 달러)로 +328.8% 변했습니다.",
+          "relatedMetricId": null
+        },
+        {
+          "id": "global_중화권_change",
+          "severity": "warning",
+          "text": "중화권 수출액은 2014년 109.6에서 2023년 26.2(백만 달러)로 -76.1% 변했습니다.",
+          "relatedMetricId": null
+        }
+      ]
+    }
+  ]
+}

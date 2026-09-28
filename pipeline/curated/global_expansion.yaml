@@ -1,0 +1,47 @@
+# 글로벌 확장 페이지(global.json) — 레거시 global-expansion.json(regional_exports 4,
+# global_expansion_forecast 3)을 이관했다. 원자료가 4행뿐이라 소규모 페이지다.
+#
+# 주의: KOSIS에는 음악 직접 통계가 없어 "방송콘텐츠" 지역별 수출액을 프록시로 쓴다.
+# KOFICE 원자료를 확보하면 이 파일을 넓혀 갱신한다.
+
+regional_exports:
+  source: kosis-content-regional-exports
+  as_of: "2014, 2023"
+  unit: "백만 달러"
+  confidence: legacy_unverified
+  rows:
+    - {region: "북미", year: 2014, value: 40.0}
+    - {region: "중화권", year: 2014, value: 109.63}
+    - {region: "북미", year: 2023, value: 171.53}
+    - {region: "중화권", year: 2023, value: 26.22}
+
+# Weverse 지역별 성장 (HYBE 발표, 2026-02-13) — 수치형은 stats, 정성 내용은 cases로 그린다.
+indicators:
+  - key: weverse_latam_mau_growth
+    category: weverse_growth
+    label: "중남미 Weverse 이용자 수 성장률"
+    value: 22
+    unit: "% (YoY)"
+    as_of: "2025"
+    source: respawn-weverse-latam
+    note: "2025년 Weverse 전체 지역 중 가장 높은 이용자 성장률"
+    confidence: legacy_unverified
+  - key: weverse_latam_retail_growth
+    category: weverse_growth
+    label: "중남미 Weverse 디지털 리테일 판매 성장률"
+    value: 715
+    unit: "% (YoY)"
+    as_of: "2025"
+    source: respawn-weverse-latam
+    note: "굿즈·디지털 상품 판매 급증 — 팬덤 플랫폼 기반 신흥시장 수익화가 빠르게 진행 중"
+    confidence: legacy_unverified
+
+cases:
+  - key: hallyu_index_regions
+    title: "한류심리지수 최상위 권역"
+    subtitle: "동남아시아 · 중동/아프리카 · 중남미"
+    body: "2025 해외한류실태조사(문체부·KOFICE, 2024년 기준)에서 이 3개 권역이 한류심리지수(콘텐츠 확산 선호도)가 가장 높게 나타나 향후 성장 지속이 기대됩니다. 정량적 지역별 수출액은 KOFICE 원자료 확보 후 갱신이 필요합니다."
+    badge: "정성"
+    source: kofice-hallyu-survey-2025
+    as_of: "2024"
+    confidence: legacy_unverified

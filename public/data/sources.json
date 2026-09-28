@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T23:20:20.296389+09:00",
+  "generatedAt": "2026-09-28T23:25:42.099505+09:00",
   "sources": [
     {
       "id": "opendart-fnltt",
@@ -37,7 +37,9 @@
       "url": "https://www.ifpi.org/global-music-report-2026-global-recorded-music-revenues-grow-6-4-as-record-companies-drive-innovation/",
       "year": 2026,
       "note": "글로벌 음반 산업 매출 및 국가 순위",
-      "usedBy": []
+      "usedBy": [
+        "market"
+      ]
     },
     {
       "id": "luminate-yearend-2025",
@@ -46,7 +48,9 @@
       "url": "https://luminatedata.com/reports/yearend-music-industry-report-2025",
       "year": 2026,
       "note": "미국 스트리밍/음반 판매, Export Power Score",
-      "usedBy": []
+      "usedBy": [
+        "market"
+      ]
     },
     {
       "id": "kocca-content-2025q4",
@@ -55,7 +59,9 @@
       "url": "https://biz.heraldcorp.com/article/10728969",
       "year": 2026,
       "note": "콘텐츠산업 매출·수출, 음악산업 성장률",
-      "usedBy": []
+      "usedBy": [
+        "market"
+      ]
     },
     {
       "id": "kita-kpop-album-exports",
@@ -64,7 +70,9 @@
       "url": "https://www.kita.net/cmmrcInfo/cmmrcNews/cmmrcNews/cmmrcNewsDetail.do?pageIndex=1&nIndex=72197&sSiteid=1",
       "year": 2024,
       "note": "연도별 음반·DVD 수출액(관세청 통계 기반)",
-      "usedBy": []
+      "usedBy": [
+        "market"
+      ]
     },
     {
       "id": "kosis-content-regional-exports",
@@ -74,7 +82,8 @@
       "year": 2025,
       "note": "방송콘텐츠 지역별 수출 통계(음악 직접 통계 부재로 프록시 활용)",
       "usedBy": [
-        "concentration"
+        "concentration",
+        "global"
       ]
     },
     {
@@ -84,7 +93,9 @@
       "url": "https://www.alliedmarketresearch.com/k-pop-events-market-A47369",
       "year": 2025,
       "note": "글로벌 K팝 이벤트(공연) 시장 전망",
-      "usedBy": []
+      "usedBy": [
+        "market"
+      ]
     },
     {
       "id": "mrfr-kpop-events",
@@ -93,7 +104,9 @@
       "url": "https://www.marketresearchfuture.com/reports/k-pop-event-market-33681",
       "year": 2025,
       "note": null,
-      "usedBy": []
+      "usedBy": [
+        "market"
+      ]
     },
     {
       "id": "maximize-kpop-events",
@@ -102,7 +115,9 @@
       "url": "https://www.maximizemarketresearch.com/market-report/k-pop-events-market/186929/",
       "year": 2026,
       "note": null,
-      "usedBy": []
+      "usedBy": [
+        "market"
+      ]
     },
     {
       "id": "kpopmap-luminate-2025",
@@ -129,7 +144,9 @@
       "url": "https://www.ceomagazine.co.kr/news/articleView.html?idxno=34246",
       "year": 2025,
       "note": "4대 기획사 시가총액(2025-10-23 기준) 및 2024년 매출",
-      "usedBy": []
+      "usedBy": [
+        "finance"
+      ]
     },
     {
       "id": "respawn-earnings-gap",
@@ -138,7 +155,9 @@
       "url": "https://respawn.outlookindia.com/pop-culture/pop-culture-news/kpop-industry-earnings-gap-hybe-mid-tier-agencies-2026",
       "year": 2026,
       "note": "2026년 1분기 상장 기획사별 매출 비교(하이브·YG·FNC·큐브·RBW·TN엔터)",
-      "usedBy": []
+      "usedBy": [
+        "finance"
+      ]
     },
     {
       "id": "efnews-kakao-sm-ent-revenue",
@@ -260,7 +279,9 @@
       "url": "https://respawn.outlookindia.com/pop-culture/pop-culture-news/bts-return-lifts-weverses-active-users-to-12m",
       "year": 2026,
       "note": "Weverse 지역별 성장 발표 — 중남미 이용자 +22%, 디지털 리테일 판매 +715%(2025)",
-      "usedBy": []
+      "usedBy": [
+        "global"
+      ]
     },
     {
       "id": "mbw-weverse-mau",
@@ -269,7 +290,9 @@
       "url": "https://www.musicbusinessworldwide.com/hybe-says-weverse-hit-12m-monthly-users-last-year-and-that-its-turning-casual-fans-into-superfans/",
       "year": 2026,
       "note": "Weverse 2025년 월간활성이용자(MAU) 1,200만 기록",
-      "usedBy": []
+      "usedBy": [
+        "ai-virtual"
+      ]
     },
     {
       "id": "respawn-weverse-bubble",
@@ -278,7 +301,9 @@
       "url": "https://respawn.outlookindia.com/pop-culture/pop-culture-guides/weverse-vs-bubble-the-battle-for-k-pop-fans",
       "year": 2025,
       "note": "Weverse/DearU Bubble 2025년 3분기 매출 비교",
-      "usedBy": []
+      "usedBy": [
+        "ai-virtual"
+      ]
     },
     {
       "id": "kofice-hallyu-survey-2025",
@@ -287,7 +312,9 @@
       "url": "https://kofice.or.kr/www/bbs/view.do?bbsSn=53378&scBbsMngSn=5&mnucd=103",
       "year": 2025,
       "note": "동남아시아·중동/아프리카·중남미가 한류심리지수 최고 권역으로 확인(2024년 기준 조사)",
-      "usedBy": []
+      "usedBy": [
+        "global"
+      ]
     },
     {
       "id": "snsinsider-virtual-idol",
@@ -296,7 +323,9 @@
       "url": "https://www.snsinsider.com/press-release/global-virtual-idol-and-vtubers-market",
       "year": 2026,
       "note": "버추얼 아이돌·버튜버 시장 2025년 22.7억달러 → 2035년 107.5억달러 전망(CAGR 16.82%)",
-      "usedBy": []
+      "usedBy": [
+        "ai-virtual"
+      ]
     },
     {
       "id": "kcultureguide-virtual-idols",
@@ -305,7 +334,9 @@
       "url": "https://www.kcultureguide.com/2026/03/2026-virtual-idols-ai-kpop-replacing-legends.html",
       "year": 2026,
       "note": "AI 그룹이 K-pop 산업 전체 매출에서 차지하는 비중 1.1%(2026년 기준)",
-      "usedBy": []
+      "usedBy": [
+        "ai-virtual"
+      ]
     },
     {
       "id": "wiki-plave",
@@ -314,7 +345,9 @@
       "url": "https://en.wikipedia.org/wiki/Plave",
       "year": 2026,
       "note": "PLAVE 데뷔(2023-03-12)·유튜브 구독자·빌보드 성과",
-      "usedBy": []
+      "usedBy": [
+        "ai-virtual"
+      ]
     },
     {
       "id": "wiki-mave",
@@ -323,7 +356,9 @@
       "url": "https://en.wikipedia.org/wiki/Mave:",
       "year": 2026,
       "note": "MAVE: 데뷔(2023-01-25)·제작사·차트 성과",
-      "usedBy": []
+      "usedBy": [
+        "ai-virtual"
+      ]
     },
     {
       "id": "wiki-naevis",
@@ -332,7 +367,9 @@
       "url": "https://en.wikipedia.org/wiki/Naevis",
       "year": 2026,
       "note": "naevis 데뷔(2024-09-10)·소속사(SM엔터테인먼트)·차트 성과",
-      "usedBy": []
+      "usedBy": [
+        "ai-virtual"
+      ]
     }
   ]
 }

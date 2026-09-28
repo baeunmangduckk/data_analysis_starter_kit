@@ -11,8 +11,8 @@
 metrics:
   - id: global_music_revenue
     label: "글로벌 음반산업 매출"
-    value: 31.7
-    prev_value: 29.79 # 31.7 / 1.064 (YoY +6.4%) 역산 — 정확한 2024년 원본 수치로 교체 권장
+    value: 317 # IFPI 원문 31.7 USD Billion = 317억 달러 (이전에는 31.7 "억 달러"로 10배 작게 적혀 있었다)
+    prev_value: 297.9 # 317 / 1.064 (YoY +6.4%) 역산 — 정확한 2024년 원본 수치로 교체 권장
     unit: "억 달러"
     as_of: "2025"
     source_name: "IFPI Global Music Report"

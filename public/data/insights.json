@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-28T23:20:20.232410+09:00",
+  "generatedAt": "2026-09-28T23:25:42.018620+09:00",
   "insights": [
     {
       "id": "insight_global_music_revenue",
       "severity": "positive",
-      "text": "글로벌 음반산업 매출 지표가 직전 시점 대비 증가했습니다 (+1.9 억 달러).",
+      "text": "글로벌 음반산업 매출 지표가 직전 시점 대비 증가했습니다 (+19.1 억 달러).",
       "relatedMetricId": "global_music_revenue"
     },
     {

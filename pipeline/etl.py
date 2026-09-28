@@ -52,8 +52,11 @@ from pipeline.models import (
   WordCloudData,
   WordCloudItem,
 )
+from pipeline.pages import ai_virtual as ai_virtual_page
 from pipeline.pages import concentration as concentration_page
 from pipeline.pages import finance as finance_page
+from pipeline.pages import global_expansion as global_page
+from pipeline.pages import market as market_page
 from pipeline.pages.sources import build_sources, load_sources, validate_refs
 from pipeline.sentiment_words import (
   NEGATIVE_WORDS,
@@ -120,7 +123,7 @@ def load_curated_metrics() -> tuple[MetricsData, dict[str, TrendDirection]]:
     delta: float | None = None
     trend: TrendDirection | None = None
     if prev_value is not None:
-      delta = value - float(prev_value)
+      delta = round(value - float(prev_value), 4)
       trend = "up" if delta > 0 else "down" if delta < 0 else "flat"
 
     good_direction: GoodDirection = "down" if row.get("higher_is_better") is False else "up"
@@ -397,8 +400,11 @@ def build_pages() -> dict[str, PageData]:
   """slug → PageData. 페이지를 추가하면 pipeline/pages/<slug>.py의 build()를 여기에 등록한다.
   slug는 라우트 폴더명이자 public/data/<slug>.json 파일명이다."""
   return {
+    "market": market_page.build(),
     "concentration": concentration_page.build(),
     "finance": finance_page.build(),
+    "global": global_page.build(),
+    "ai-virtual": ai_virtual_page.build(),
   }
 
 

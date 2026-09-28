@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { PlaceholderPage } from "@/components/dashboard/placeholder-page";
+import { PageView } from "@/components/dashboard/page-view";
 
 export const metadata: Metadata = { title: "글로벌 확장" };
 
 export default function GlobalPage() {
-  return <PlaceholderPage slug="global" />;
+  return <PageView slug="global" />;
 }

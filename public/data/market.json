@@ -1,0 +1,274 @@
+{
+  "generatedAt": "2026-09-28T23:25:42.043642+09:00",
+  "title": "시장 전망",
+  "summary": "사상 최고 실적과 앨범 수출 성장 둔화가 동시에 나타나는 시장",
+  "sections": [
+    {
+      "type": "stats",
+      "title": "시장 핵심 지표",
+      "stats": [
+        {
+          "id": "global_recorded_music_revenue",
+          "label": "글로벌 음반산업 매출",
+          "value": 317.0,
+          "unit": "억 달러",
+          "delta": null,
+          "trend": null,
+          "note": "전년 대비 +6.4%, 11년 연속 성장 · 사상 최고치 (IFPI 원문 31.7 USD Billion)",
+          "sourceId": "ifpi-gmr-2026",
+          "asOf": "2025",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "korea_global_market_rank",
+          "label": "한국 글로벌 음악시장 순위",
+          "value": 7.0,
+          "unit": "위",
+          "delta": null,
+          "trend": null,
+          "note": "IFPI 집계 기준 세계 7위",
+          "sourceId": "ifpi-gmr-2026",
+          "asOf": "2025",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "korea_export_power_rank",
+          "label": "한국 음악 수출력(Export Power Score) 순위",
+          "value": 4.0,
+          "unit": "위",
+          "delta": null,
+          "trend": null,
+          "note": "미국·영국·캐나다에 이어 4위",
+          "sourceId": "luminate-yearend-2025",
+          "asOf": "2025",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "korea_streaming_rank",
+          "label": "한국 온디맨드 스트리밍 볼륨 순위",
+          "value": 4.0,
+          "unit": "위",
+          "delta": null,
+          "trend": null,
+          "note": "미국·영국·캐나다에 이어 4위",
+          "sourceId": "luminate-yearend-2025",
+          "asOf": "2025",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "content_export_total",
+          "label": "콘텐츠산업 총 수출액",
+          "value": 149.6,
+          "unit": "억 달러",
+          "delta": null,
+          "trend": null,
+          "note": "원문 14.96 USD Billion",
+          "sourceId": "kocca-content-2025q4",
+          "asOf": "2025",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "music_export_share",
+          "label": "음악산업 수출 비중(콘텐츠 수출 대비)",
+          "value": 16.0,
+          "unit": "%",
+          "delta": null,
+          "trend": null,
+          "note": null,
+          "sourceId": "kocca-content-2025q4",
+          "asOf": "2025",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "domestic_content_revenue",
+          "label": "국내 콘텐츠산업 매출",
+          "value": 161.48,
+          "unit": "조 원",
+          "delta": null,
+          "trend": null,
+          "note": "전년 대비 +2.6%",
+          "sourceId": "kocca-content-2025q4",
+          "asOf": "2025",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        },
+        {
+          "id": "music_domestic_growth",
+          "label": "국내 음악산업 매출 성장률",
+          "value": 15.8,
+          "unit": "%",
+          "delta": null,
+          "trend": null,
+          "note": "콘텐츠 세부업종 중 최고 성장률",
+          "sourceId": "kocca-content-2025q4",
+          "asOf": "2025",
+          "goodDirection": null,
+          "confidence": "legacy_unverified"
+        }
+      ]
+    },
+    {
+      "type": "notice",
+      "tone": "warning",
+      "message": "2024년 수출액은 원자료에 없어 차트에서 끊김으로 표시됩니다."
+    },
+    {
+      "type": "chart",
+      "title": "K팝 음반·DVD 수출액 추이",
+      "caption": "관세청 통계 기반, 단위 백만 달러. 원자료에 없는 연도는 끊김으로 표시",
+      "kind": "line",
+      "xKey": "year",
+      "series": [
+        {
+          "key": "value",
+          "label": "수출액"
+        }
+      ],
+      "points": [
+        {
+          "year": "2019",
+          "value": 74.59
+        },
+        {
+          "year": "2020",
+          "value": 136.2
+        },
+        {
+          "year": "2021",
+          "value": 220.85
+        },
+        {
+          "year": "2022",
+          "value": 231.38
+        },
+        {
+          "year": "2023",
+          "value": 235.0
+        },
+        {
+          "year": "2024",
+          "value": null
+        },
+        {
+          "year": "2025",
+          "value": 226.0
+        }
+      ],
+      "unit": "백만 달러",
+      "sourceIds": [
+        "kita-kpop-album-exports"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "음반·DVD 수출 증가율",
+      "caption": "전년 대비 %. 증가 폭이 빠르게 둔화되는 흐름",
+      "kind": "column",
+      "xKey": "year",
+      "series": [
+        {
+          "key": "yoy",
+          "label": "전년 대비 증가율"
+        }
+      ],
+      "points": [
+        {
+          "year": "2019",
+          "yoy": null
+        },
+        {
+          "year": "2020",
+          "yoy": 82.6
+        },
+        {
+          "year": "2021",
+          "yoy": 62.2
+        },
+        {
+          "year": "2022",
+          "yoy": 4.8
+        },
+        {
+          "year": "2023",
+          "yoy": 1.6
+        },
+        {
+          "year": "2024",
+          "yoy": null
+        },
+        {
+          "year": "2025",
+          "yoy": null
+        }
+      ],
+      "unit": "%",
+      "sourceIds": [
+        "kita-kpop-album-exports"
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "K팝 이벤트(공연) 시장 전망",
+      "caption": "조사기관별 기준 연도 규모와 전망 연도 규모, 단위 억 달러. Allied Market Research 2024→2030 (CAGR 8.2%) · Market Research Future 2025→2032 (CAGR 7.5%) · Maximize Market Research 2025→2035 (CAGR 7.63%)",
+      "kind": "column",
+      "xKey": "org",
+      "series": [
+        {
+          "key": "base",
+          "label": "기준 연도 규모"
+        },
+        {
+          "key": "target",
+          "label": "전망 연도 규모"
+        }
+      ],
+      "points": [
+        {
+          "org": "Allied Market Research",
+          "base": 142.8,
+          "target": 229.1
+        },
+        {
+          "org": "Market Research Future",
+          "base": 142.7,
+          "target": 236.8
+        },
+        {
+          "org": "Maximize Market Research",
+          "base": 83.61,
+          "target": 174.4
+        }
+      ],
+      "unit": "억 달러",
+      "sourceIds": [
+        "allied-kpop-events",
+        "mrfr-kpop-events",
+        "maximize-kpop-events"
+      ]
+    },
+    {
+      "type": "insights",
+      "title": "핵심 포인트",
+      "insights": [
+        {
+          "id": "market_export_slowdown",
+          "severity": "warning",
+          "text": "음반·DVD 수출 증가율이 2020년 +82.6%에서 2023년 +1.6%로 급격히 둔화됐습니다 (앨범 수출 성장의 정체 신호).",
+          "relatedMetricId": null
+        },
+        {
+          "id": "market_concert_cagr",
+          "severity": "info",
+          "text": "조사기관 3곳 모두 K팝 공연 시장이 연평균 7.5~8.2% 성장할 것으로 전망합니다.",
+          "relatedMetricId": null
+        }
+      ]
+    }
+  ]
+}

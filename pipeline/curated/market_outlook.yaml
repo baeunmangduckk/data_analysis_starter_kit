@@ -1,0 +1,127 @@
+# 시장 전망 페이지(market.json) 큐레이션 데이터 — 레거시 real_kpop_future의
+# market-outlook.json(kpi_overview 8, album_exports 6, concert_market_forecast 3)을 이관했다.
+#
+# 단위 규칙: 화면 단위인 "억 달러"/"조 원"으로 환산해 적었다. 레거시는 USD Billion/KRW Trillion을
+# 그대로 써서 옮길 때 자릿수가 틀리기 쉽다 (예: 31.7 USD Billion = 317억 달러).
+# confidence: 레거시 웹 리서치 값을 원문 재확인 없이 옮긴 것은 legacy_unverified.
+
+kpis:
+  - key: global_recorded_music_revenue
+    category: kpi
+    label: "글로벌 음반산업 매출"
+    value: 317
+    unit: "억 달러"
+    as_of: "2025"
+    source: ifpi-gmr-2026
+    note: "전년 대비 +6.4%, 11년 연속 성장 · 사상 최고치 (IFPI 원문 31.7 USD Billion)"
+    confidence: legacy_unverified
+  - key: korea_global_market_rank
+    category: kpi
+    label: "한국 글로벌 음악시장 순위"
+    value: 7
+    unit: "위"
+    as_of: "2025"
+    source: ifpi-gmr-2026
+    note: "IFPI 집계 기준 세계 7위"
+    confidence: legacy_unverified
+  - key: korea_export_power_rank
+    category: kpi
+    label: "한국 음악 수출력(Export Power Score) 순위"
+    value: 4
+    unit: "위"
+    as_of: "2025"
+    source: luminate-yearend-2025
+    note: "미국·영국·캐나다에 이어 4위"
+    confidence: legacy_unverified
+  - key: korea_streaming_rank
+    category: kpi
+    label: "한국 온디맨드 스트리밍 볼륨 순위"
+    value: 4
+    unit: "위"
+    as_of: "2025"
+    source: luminate-yearend-2025
+    note: "미국·영국·캐나다에 이어 4위"
+    confidence: legacy_unverified
+  - key: content_export_total
+    category: kpi
+    label: "콘텐츠산업 총 수출액"
+    value: 149.6
+    unit: "억 달러"
+    as_of: "2025"
+    source: kocca-content-2025q4
+    note: "원문 14.96 USD Billion"
+    confidence: legacy_unverified
+  - key: music_export_share
+    category: kpi
+    label: "음악산업 수출 비중(콘텐츠 수출 대비)"
+    value: 16.0
+    unit: "%"
+    as_of: "2025"
+    source: kocca-content-2025q4
+    confidence: legacy_unverified
+  - key: domestic_content_revenue
+    category: kpi
+    label: "국내 콘텐츠산업 매출"
+    value: 161.48
+    unit: "조 원"
+    as_of: "2025"
+    source: kocca-content-2025q4
+    note: "전년 대비 +2.6%"
+    confidence: legacy_unverified
+  - key: music_domestic_growth
+    category: kpi
+    label: "국내 음악산업 매출 성장률"
+    value: 15.8
+    unit: "%"
+    as_of: "2025"
+    source: kocca-content-2025q4
+    note: "콘텐츠 세부업종 중 최고 성장률"
+    confidence: legacy_unverified
+
+# K팝 음반·DVD 수출액 (관세청 통계 기반, 백만 달러). 2024년 값은 원자료에 없어 누락이며
+# 화면에서는 선/막대가 끊긴다. 2025년은 증감률이 없다.
+album_exports:
+  source: kita-kpop-album-exports
+  as_of: "2019~2025"
+  unit: "백만 달러"
+  confidence: legacy_unverified
+  rows:
+    - {year: 2019, value: 74.59}
+    - {year: 2020, value: 136.2, yoy_pct: 82.6}
+    - {year: 2021, value: 220.85, yoy_pct: 62.2}
+    - {year: 2022, value: 231.38, yoy_pct: 4.8}
+    - {year: 2023, value: 235.0, yoy_pct: 1.6}
+    - {year: 2025, value: 226.0}
+
+# 조사기관별 K팝 이벤트(공연) 시장 전망. 억 달러 (원문 14.28 USD Billion = 142.8억 달러).
+concert_forecasts:
+  - label: "Allied Market Research"
+    base_year: 2024
+    base_value: 142.8
+    target_year: 2030
+    target_value: 229.1
+    cagr_pct: 8.2
+    unit: "억 달러"
+    as_of: "2025"
+    source: allied-kpop-events
+    confidence: legacy_unverified
+  - label: "Market Research Future"
+    base_year: 2025
+    base_value: 142.7
+    target_year: 2032
+    target_value: 236.8
+    cagr_pct: 7.5
+    unit: "억 달러"
+    as_of: "2025"
+    source: mrfr-kpop-events
+    confidence: legacy_unverified
+  - label: "Maximize Market Research"
+    base_year: 2025
+    base_value: 83.61
+    target_year: 2035
+    target_value: 174.4
+    cagr_pct: 7.63
+    unit: "억 달러"
+    as_of: "2026"
+    source: maximize-kpop-events
+    confidence: legacy_unverified

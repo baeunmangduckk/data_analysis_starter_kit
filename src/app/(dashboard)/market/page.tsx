@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { PlaceholderPage } from "@/components/dashboard/placeholder-page";
+import { PageView } from "@/components/dashboard/page-view";
 
 export const metadata: Metadata = { title: "시장 전망" };
 
 export default function MarketPage() {
-  return <PlaceholderPage slug="market" />;
+  return <PageView slug="market" />;
 }
