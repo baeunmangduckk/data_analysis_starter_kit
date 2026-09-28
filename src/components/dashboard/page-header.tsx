@@ -1,6 +1,6 @@
 interface PageHeaderProps {
   title: string;
-  summary?: string;
+  summary?: string | null;
   generatedAt?: string;
 }
 

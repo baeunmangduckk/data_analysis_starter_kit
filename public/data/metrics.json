@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T22:45:54.465894+09:00",
+  "generatedAt": "2026-09-28T23:11:40.202511+09:00",
   "metrics": [
     {
       "id": "global_music_revenue",
@@ -7,7 +7,12 @@
       "value": 31.7,
       "unit": "억 달러",
       "delta": 1.9100000000000001,
-      "trend": "up"
+      "trend": "up",
+      "note": null,
+      "sourceId": null,
+      "asOf": null,
+      "goodDirection": "up",
+      "confidence": null
     },
     {
       "id": "latam_weverse_retail_growth",
@@ -15,7 +20,12 @@
       "value": 715.0,
       "unit": "% (YoY)",
       "delta": 715.0,
-      "trend": "up"
+      "trend": "up",
+      "note": null,
+      "sourceId": null,
+      "asOf": null,
+      "goodDirection": "up",
+      "confidence": null
     },
     {
       "id": "virtual_idol_market",
@@ -23,7 +33,12 @@
       "value": 22.7,
       "unit": "억 달러",
       "delta": null,
-      "trend": null
+      "trend": null,
+      "note": null,
+      "sourceId": null,
+      "asOf": null,
+      "goodDirection": "up",
+      "confidence": null
     },
     {
       "id": "sales_concentration_gini",
@@ -31,7 +46,12 @@
       "value": 0.4007,
       "unit": null,
       "delta": -0.007299999999999973,
-      "trend": "down"
+      "trend": "down",
+      "note": null,
+      "sourceId": null,
+      "asOf": null,
+      "goodDirection": "down",
+      "confidence": null
     },
     {
       "id": "dart_revenue",
@@ -39,7 +59,12 @@
       "value": 51920.6,
       "unit": "억 원",
       "delta": 9799.5,
-      "trend": "up"
+      "trend": "up",
+      "note": null,
+      "sourceId": null,
+      "asOf": null,
+      "goodDirection": "up",
+      "confidence": null
     },
     {
       "id": "dart_operating_profit",
@@ -47,7 +72,12 @@
       "value": 4589.4,
       "unit": "억 원",
       "delta": 798.9,
-      "trend": "up"
+      "trend": "up",
+      "note": null,
+      "sourceId": null,
+      "asOf": null,
+      "goodDirection": "up",
+      "confidence": null
     }
   ]
 }

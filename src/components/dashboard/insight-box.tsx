@@ -4,6 +4,7 @@ import type { Insight, InsightSeverity } from "@/types/dashboard";
 
 interface InsightBoxProps {
   insights: Insight[];
+  title?: string;
 }
 
 const SEVERITY_VARIANT: Record<InsightSeverity, "secondary" | "positive" | "warning" | "negative"> = {
@@ -20,11 +21,11 @@ const SEVERITY_LABEL: Record<InsightSeverity, string> = {
   critical: "위험",
 };
 
-export function InsightBox({ insights }: InsightBoxProps) {
+export function InsightBox({ insights, title = "인사이트" }: InsightBoxProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>인사이트</CardTitle>
+        <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         {insights.map((insight) => (

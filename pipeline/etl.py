@@ -18,17 +18,17 @@ import json
 import random
 import re
 from collections import Counter
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from pathlib import Path
 
 import polars as pl
-import yaml
 
-from pipeline.config import CURATED_DIR, RAW_DIR
+from pipeline.common import CURATED_DIR, RAW_DIR, load_yaml, now
 from pipeline.derived.concentration import compute_shares, parse_album_records
 from pipeline.models import (
   DistributionCategory,
   DistributionData,
+  GoodDirection,
   Insight,
   InsightSeverity,
   InsightsData,
@@ -50,16 +50,6 @@ from pipeline.sentiment_words import (
 )
 
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "public" / "data"
-
-
-def _now() -> datetime:
-  return datetime.now().astimezone()
-
-
-def _load_yaml(path: Path) -> dict:
-  if not path.exists():
-    return {}
-  return yaml.safe_load(path.read_text(encoding="utf-8")) or {}
 
 
 def generate_sample_events() -> pl.DataFrame:
@@ -106,7 +96,7 @@ def load_curated_metrics() -> tuple[MetricsData, dict[str, TrendDirection]]:
   좋은지"를 build_insights()에 알려주는 힌트다. 지니계수처럼 감소가
   긍정적인 지표는 YAML에 `higher_is_better: false`로 표시한다.
   """
-  data = _load_yaml(CURATED_DIR / "kpi_snapshots.yaml")
+  data = load_yaml(CURATED_DIR / "kpi_snapshots.yaml")
   metrics: list[KpiMetric] = []
   favorable_trend: dict[str, TrendDirection] = {}
 
@@ -119,6 +109,7 @@ def load_curated_metrics() -> tuple[MetricsData, dict[str, TrendDirection]]:
       delta = value - float(prev_value)
       trend = "up" if delta > 0 else "down" if delta < 0 else "flat"
 
+    good_direction: GoodDirection = "down" if row.get("higher_is_better") is False else "up"
     metrics.append(
       KpiMetric(
         id=row["id"],
@@ -127,11 +118,12 @@ def load_curated_metrics() -> tuple[MetricsData, dict[str, TrendDirection]]:
         unit=row.get("unit") or None,
         delta=delta,
         trend=trend,
+        good_direction=good_direction,
       )
     )
-    favorable_trend[row["id"]] = "down" if row.get("higher_is_better") is False else "up"
+    favorable_trend[row["id"]] = good_direction
 
-  return MetricsData(generated_at=_now(), metrics=metrics), favorable_trend
+  return MetricsData(generated_at=now(), metrics=metrics), favorable_trend
 
 
 DART_AGENCIES = ["hybe", "sm", "yg", "jyp"]
@@ -200,6 +192,7 @@ def load_dart_metrics() -> list[KpiMetric]:
         unit="억 원",
         delta=round(delta, 1),
         trend="up" if delta > 0 else "down" if delta < 0 else "flat",
+        good_direction="up",
       )
     )
   return metrics
@@ -208,7 +201,7 @@ def load_dart_metrics() -> list[KpiMetric]:
 def load_gini_timeseries() -> pl.DataFrame:
   """pipeline/curated/gini_series.yaml을 build_timeseries()가 바로 pivot할 수
   있는 date/category/value long-format으로 변환한다."""
-  data = _load_yaml(CURATED_DIR / "gini_series.yaml")
+  data = load_yaml(CURATED_DIR / "gini_series.yaml")
   rows = []
   for point in data.get("points", []):
     year = int(point["year"])
@@ -229,7 +222,7 @@ def load_gini_timeseries() -> pl.DataFrame:
 
 def load_manual_insights() -> list[Insight]:
   """docx 등 기획 문서에서 옮긴, 숫자만으로는 자동 생성되지 않는 서사적 인사이트."""
-  data = _load_yaml(CURATED_DIR / "manual_insights.yaml")
+  data = load_yaml(CURATED_DIR / "manual_insights.yaml")
   return [
     Insight(id=row["id"], severity=row["severity"], text=row["text"])
     for row in data.get("insights", [])
@@ -255,7 +248,7 @@ def load_circlechart_distribution() -> DistributionData | None:
   ]
   year = latest.stem.replace("album_", "")
   return DistributionData(
-    generated_at=_now(),
+    generated_at=now(),
     title=f"{year}년 앨범 판매 집중도 (Circle Chart Top100)",
     categories=categories,
   )
@@ -319,7 +312,7 @@ def build_metrics(events: pl.DataFrame) -> MetricsData:
       )
     )
 
-  return MetricsData(generated_at=_now(), metrics=metrics)
+  return MetricsData(generated_at=now(), metrics=metrics)
 
 
 def build_timeseries(events: pl.DataFrame) -> TimeseriesData:
@@ -337,7 +330,7 @@ def build_timeseries(events: pl.DataFrame) -> TimeseriesData:
       point[column.replace(" ", "_")] = float(row[column])
     points.append(point)
 
-  return TimeseriesData(generated_at=_now(), series=series, points=points)
+  return TimeseriesData(generated_at=now(), series=series, points=points)
 
 
 def build_distribution(events: pl.DataFrame) -> DistributionData:
@@ -351,7 +344,7 @@ def build_distribution(events: pl.DataFrame) -> DistributionData:
     )
     for row in totals.to_dicts()
   ]
-  return DistributionData(generated_at=_now(), title="카테고리별 비중", categories=categories)
+  return DistributionData(generated_at=now(), title="카테고리별 비중", categories=categories)
 
 
 def _format_delta(delta: float) -> str:
@@ -396,7 +389,7 @@ def build_insights(
       Insight(id="insight_default", severity="info", text="변동 없는 안정적인 지표 흐름입니다.")
     )
 
-  return InsightsData(generated_at=_now(), insights=insights)
+  return InsightsData(generated_at=now(), insights=insights)
 
 
 def build_wordcloud(events: pl.DataFrame) -> WordCloudData:
@@ -422,7 +415,7 @@ def build_wordcloud(events: pl.DataFrame) -> WordCloudData:
       sentiment = "neutral"
     words.append(WordCloudItem(text=text, weight=float(weight), sentiment=sentiment))
 
-  return WordCloudData(generated_at=_now(), words=words)
+  return WordCloudData(generated_at=now(), words=words)
 
 
 def main() -> None:
@@ -456,7 +449,7 @@ def main() -> None:
 
   base_insights = build_insights(metrics, favorable_trend)
   manual_insights = load_manual_insights()
-  insights = InsightsData(generated_at=_now(), insights=[*base_insights.insights, *manual_insights])
+  insights = InsightsData(generated_at=now(), insights=[*base_insights.insights, *manual_insights])
 
   comments = load_youtube_comments()
   if comments.height > 0:

@@ -5,6 +5,9 @@ export type TrendDirection = "up" | "down" | "flat";
 export type InsightSeverity = "info" | "positive" | "warning" | "critical";
 export type SentimentLabel = "positive" | "negative" | "neutral";
 
+export type GoodDirection = "up" | "down";
+export type Confidence = "verified" | "estimated" | "legacy_unverified";
+
 export interface KpiMetric {
   id: string;
   label: string;
@@ -12,6 +15,12 @@ export interface KpiMetric {
   unit?: string | null;
   delta?: number | null;
   trend?: TrendDirection | null;
+  // 아래는 페이지 stats 섹션에서 쓰는 선택 필드 (홈 metrics.json은 생략 가능)
+  note?: string | null;
+  sourceId?: string | null;
+  asOf?: string | null;
+  goodDirection?: GoodDirection | null;
+  confidence?: Confidence | null;
 }
 
 export interface MetricsData {

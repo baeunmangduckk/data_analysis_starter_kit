@@ -9,14 +9,10 @@ pipeline/etl.py(Stage B, 변환)는 이 모듈을 가져오지 않는다 — API
 from __future__ import annotations
 
 import os
-from pathlib import Path
 
 from dotenv import load_dotenv
 
-ROOT_DIR = Path(__file__).resolve().parent.parent
-PIPELINE_DIR = Path(__file__).resolve().parent
-RAW_DIR = PIPELINE_DIR / "raw"
-CURATED_DIR = PIPELINE_DIR / "curated"
+from pipeline.common import CURATED_DIR, PIPELINE_DIR, RAW_DIR, ROOT_DIR  # noqa: F401 — 수집기가 여기서 가져다 쓴다
 
 load_dotenv(ROOT_DIR / ".env")
 
