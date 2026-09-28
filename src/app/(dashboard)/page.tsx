@@ -3,9 +3,9 @@ import path from "node:path";
 import { DistributionChart } from "@/components/dashboard/distribution-chart";
 import { InsightBox } from "@/components/dashboard/insight-box";
 import { KpiGrid } from "@/components/dashboard/kpi-grid";
+import { PageHeader } from "@/components/dashboard/page-header";
 import { SentimentWordCloud } from "@/components/dashboard/sentiment-word-cloud";
 import { TrendChart } from "@/components/dashboard/trend-chart";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type {
   DistributionData,
@@ -34,16 +34,12 @@ export default async function DashboardPage() {
   ]);
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 p-6">
-      <header className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-semibold">데이터 분석 대시보드</h1>
-          <p className="text-sm text-muted-foreground">
-            마지막 갱신: {new Date(metrics.generatedAt).toLocaleString("ko-KR")}
-          </p>
-        </div>
-        <ThemeToggle />
-      </header>
+    <>
+      <PageHeader
+        title="K-Pop 산업 대시보드"
+        summary="핵심 지표와 인사이트 요약"
+        generatedAt={metrics.generatedAt}
+      />
 
       <KpiGrid metrics={metrics.metrics} />
 
@@ -77,6 +73,6 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </>
   );
 }
